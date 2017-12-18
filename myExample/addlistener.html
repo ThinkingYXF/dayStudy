@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		div{
+			width: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div id="first"></div>
+	<div id="second"></div>
+	<div id="third"></div>
+
+	<label for="name">
+		Name: <input type="text" name="name">
+	</label>
+	<script>
+		window.onload = function(){
+			var first = document.getElementById('first');
+			var second = document.getElementById('second');
+			var third = document.getElementById('third');
+			third.addEventListener('click',function(){
+				this.innerHTML = 'clicked';
+			});
+
+			//屏蔽鼠标右键
+			// document.addEventListener('contextmenu',function(){
+			// 	console.log('right click');
+			// 	window.event.returnValue = false;
+			// 	return false;
+			// });
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            multiple-select
+        </title>
+        <link rel="stylesheet" href="../js/resources/vendor/multiple-select-1.2.1/multiple-select.css">
+        <link rel="stylesheet" href="../js/plugins/select2/select2.min.css">
+        <!-- <link rel="stylesheet" href=""> -->
+    </head>
+    <body>
+        <div class="form-group">
+            <label>Multiple</label>
+            <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                <option>Alabama</option>
+                <option>Alaska</option>
+                <option>California</option>
+                <option>Delaware</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Washington</option>
+            </select>
+        </div>
+        <a href="#" title="你好">大家肯定不会</a>
+        <script src="../js/lib/jquery-1.11.1.js"></script>
+        <script src="../js/resources/vendor/multiple-select-1.2.1/multiple-select.js"></script>
+        <script src="../js/plugins/select2/select2.full.min.js"></script>
+        <!-- <link rel="stylesheet" href="../js/plugins/select2/select2.full.min.js"> -->
+        <script>
+            $(document).ready(function(){
+                $(".select2").select2({
+                    tags: true,
+                    allowClear: true
+                });
+
+                var arr = [1,2,3,4];
+                for(var i = 0; i < arr.length; i++){
+                    if(arr[i] > 2){
+                        console.log('aa');
+                        break;
+                    }
+                    else{
+                        console.log('bb');
+                    }
+                }
+                $.each(arr,function(i,v){
+                    if(v > 2){
+                        console.log('aa');
+                        return false;
+                    }
+                    else{
+                        console.log('bb');
+                    }
+                });
+            });
+        </script> 
+    </body>
+</html>

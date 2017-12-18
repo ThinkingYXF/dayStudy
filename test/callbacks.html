@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>callback</title>
+</head>
+<body>
+    
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            var callbacks = $.Callbacks();
+            var getName = function(name){
+                console.log(name);
+            }
+            var getAge = function(age){
+                console.log(age);
+            }
+            callbacks.add(getName);
+            callbacks.fire('yang');
+            callbacks.add(getAge);
+            callbacks.fire(20);
+
+            console.log(callbacks.has(getName));
+
+            callbacks.lock();                   //锁定当前回调列表
+            callbacks.fire('qjd');              //不执行
+            console.log(callbacks.locked());    //返回true
+
+            callbacks.remove(getName);          //删除回调列表中的 getName
+            console.log(callbacks.has(getName));//返回false
+        });
+    </script>
+</body>
+</html>

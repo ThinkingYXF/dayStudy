@@ -1,0 +1,10 @@
+
+.input-group {
+    margin-bottom: 15px;
+}
+#ui-datepicker-div {
+    top:50px !important;
+}
+thead tr th:nth-child(1){
+    width: 15px !important;
+}

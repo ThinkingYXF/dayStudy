@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chinese,English,Number and _</title>
+    </head>
+    <body>
+        <h2>只能输入中文，英文，数字和下划线</h2>
+        <input type="text" class="reg">
+        <button type="button" class="btn">按钮</button>
+        <h2>输入m或M（或不包括m） 加 数字</h2>
+        <input type="text" class="reg_input">
+        <button class="check">检查</button>
+        <h4 class="result"></h4>
+        <script src="../js/lib/jquery-1.7.2.js"></script>
+        <script>
+            $(document).ready(function(){
+                var reg = /^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,10}$/;
+                $('.btn').click(function(){
+                    var value = $('.reg').val();
+                    if(reg.test(value)){
+                        $('h1').html('true');
+                    }else{
+                        $('h1').html('false');
+                    }
+                });
+
+                var myWay = function(){
+                    var name = 'yang';
+                    var age = 24;
+                    var height = '170cm';
+                    var weight = '60kg';
+
+                    return {
+                        birth:function(){
+                            return new Date().getFullYear()-age;
+                        },
+                        hello:function(){
+                            return 'Hello,my name is '+name
+                        }
+                    }
+                }();
+
+                console.log(myWay.hello());
+
+                if(1 > 2)
+                    console.log('1')
+                var register = new RegExp(/^\d+$/);
+                console.log(register.test('asd1'));
+
+                var myReg = /^[mM]?\d+$/;
+                $('.check').click(function(){
+                    var val = $('.reg_input').val();
+                    if(myReg.test(val))
+                        $('.result').text('成功');
+                    else
+                        $('.result').text('失败');
+                });
+
+                //正则表达式  
+                /*
+                @ []  匹配括号中的任何字符
+                @ {}  匹配
+                */
+            });
+        </script>
+    </body>
+</html>

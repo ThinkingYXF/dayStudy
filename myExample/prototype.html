@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		// window.onload = function(){
+
+			var Person = function(name,age){
+				this.name = name;
+				this.age = age;
+			}
+			var person1 = new Person('Yang', 24);
+			var person2 = Object.create(person1);
+
+
+
+			function People(){
+				this.name = 'yang';
+				this.age = 24;
+			}
+			function Yang(){
+				People.call(this);
+				this.height = '170cm';
+			}
+			Yang.prototype = Object.create(People.prototype);
+			Yang.prototype.constructor = Yang;
+			var yang = new Yang();
+		// }
+	</script>
+</body>
+</html>

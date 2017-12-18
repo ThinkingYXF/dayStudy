@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>monitor</title>
+</head>
+<body>
+    <button class="btn">按钮</button>
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            //js 监听
+            var aa = 0;
+            setTimeout(function(){
+                aa = 1;
+            },3000);
+
+            var bb = function(){
+                console.log('ok');
+            }
+            if(aa == 1){
+                bb();
+            }else{
+                var timer = setInterval(function(){
+                    if(aa == 1){
+                        bb();
+                        clearInterval(timer);
+                    }
+                },100);
+            }
+
+            $('.btn').click(function(){
+                console.log('qqqq');
+            });
+        });
+    </script>
+</body>
+</html>

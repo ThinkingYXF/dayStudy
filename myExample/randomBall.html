@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>random ball</title>
+	<style>
+		#wrapper{
+			width: 500px;
+			height: 300px;
+			background: #ddd;
+			border: 1px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<canvas id="canvas"></canvas>
+	</div>
+	<button id="btn">刷新</button>
+	<script>
+		window.onload = function(){
+			var width = document.getElementById('wrapper').clientWidth;
+			var height = document.getElementById('wrapper').clientHeight;
+			var canvas = document.getElementById('canvas');
+			canvas.width = width;
+			canvas.height = height;
+			var ctx = canvas.getContext('2d');
+			function randomNum(number){
+				return parseInt(Math.random()*number);
+			}
+
+			function draw(){
+				ctx.clearRect(0, 0, 500, 300);
+				for(var i = 0;i < 50; i++){
+					ctx.beginPath();
+					ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+					ctx.arc(randomNum(500),randomNum(300), randomNum(50), 0, 2*Math.PI);
+					ctx.fill();
+				}
+			}
+			document.getElementById('btn').onclick = draw;
+		}
+	</script>
+</body>
+</html>

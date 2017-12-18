@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>table responsive</title>
+<style>
+    .table_container{
+      min-width: 0.1%;
+      overflow: auto;
+    }
+    table{
+        min-width: 960px;
+        width: 100%;
+    }
+    table tbody {
+        display: block;
+        height: 150px;
+        overflow: auto;
+        width: 100%;
+    }
+    thead tr{
+        display: block;
+        position: relative;
+    }
+    table thead th, table tbody tr td{
+      padding: 8px 10px; 
+    }
+    table thead, tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+    table thead {
+        width: calc( 100% - 1em )
+    }
+    /* table thead th, tbody td{
+        width: 4%;
+    } */
+    table thead th{ background:#ccc;}
+</style>
+</head>
+
+<body>
+  <div class="table_container">
+      <table width="100%" border="1" cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>出生年月</th>
+            <th>手机号码</th>
+            <th>单位</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>张三</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>阿里巴巴</td>
+          </tr>
+          <tr>
+            <td>张三封</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>阿里巴巴与四十大盗</td>
+          </tr>
+          <tr>
+            <td>张小三</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>腾讯科技</td>
+          </tr>
+          <tr>
+            <td>张三</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>浏阳河就业</td>
+          </tr>
+          <tr>
+            <td>张三疯子</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>阿里巴巴</td>
+          </tr>
+          <tr>
+            <td>张三</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>阿里巴巴</td>
+          </tr>
+          <tr>
+            <td>张大三</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>阿里巴巴</td>
+          </tr>
+          <tr>
+            <td>张三五</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>阿里巴巴</td>
+          </tr>
+          <tr>
+            <td>张刘三</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>阿里巴巴</td>
+          </tr>
+          <tr>
+            <td>张三</td>
+            <td>18</td>
+            <td>1990-9-9</td>
+            <td>13682299090</td>
+            <td>阿里巴巴</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+<script src="../js/lib/jquery-1.11.1.js"></script>
+<script>
+    $(document).ready(function(){
+      function tableResize(){
+        var tableWidth = $('body').width();
+        var length = $('table thead th').length;
+        var tdLength = tableWidth/length-25;
+        $('table thead th, table tbody tr td').css('width',tdLength+'px');
+      }
+      tableResize();
+      window.onresize = function(){
+        tableResize();
+      }
+    });
+</script>
+</body>
+</html>

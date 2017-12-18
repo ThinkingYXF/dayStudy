@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>attr and prop</title>
+</head>
+<body>
+    <a href="https://www.baidu.com" target="_blank">百度链接</a>
+    <input type="checkbox" checked class="check1">选中
+    <input type="checkbox" class="check2">未选中
+    <div>这是一个div<p></p></div>
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 标签中自己自带的属性建议使用prop  自定义的属性建议使用attr
+            var href = $('a').prop('href');
+            var href1 = $('a').attr('href');
+            console.log(href,href1);
+            var checked1 = $('.check1').attr('checked');
+            var checked11 = $('.check1').prop('checked');
+            var checked2 = $('.check2').attr('checked');
+            var checked22 = $('.check2').prop('checked');
+            console.log(checked1,checked11,checked2,checked22);
+            $('div').attr('name','zhao');
+            // $('div').prop('age',12);
+            $('div p').html('attr获得的name：'+$('div').attr('name')+'；prop获得的name：'+$('div').prop('name'));
+        });
+    </script>
+</body>
+</html>

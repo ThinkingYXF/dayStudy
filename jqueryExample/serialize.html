@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>serialize</title>
+    <style>
+        body{
+            height: 100%;
+            position: fixed;
+            width: 100%;
+        }
+        .div1{
+            height: 500px;
+            /* background: #ccc; */
+        }
+    </style>
+</head>
+<body>
+    <div class="form_div">
+        <form action="" id="form_data">
+            <input type="text" name="name">
+            <input type="number" name="age">
+            <input type="checkbox" name="sex" value="man">
+            <input type="checkbox" name="sex" value="woman">
+            <select name="address" id="">
+                <option value="-1">请选择</option>
+                <option value="1">河北</option>
+                <option value="2">北京</option>
+                <option value="3">天津</option>
+            </select>
+            <button type="button" class="btn">检查</button>
+            <button type="submit">提交</button>
+        </form>
+    </div>
+
+    <div class="map">
+        <input type="text" value="qeqa">
+        <input type="text" value="dhqr">
+        <input type="text" value="jkhqj">
+        <button class="map_btn">按钮</button>
+    </div>
+    <div class="div1">
+
+    </div>
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.btn').click(function(){
+                var params = $('#form_data').serialize();           //返回表格内容字符串
+                console.log(params);
+                var paramsJson = $('#form_data').serializeArray();  //返回序列化json数据
+                console.log(paramsJson);
+            });
+
+
+            $('#form_data').submit(function(){
+                var name = $('input[name="name"]').val();
+                var age = $('input[name="age"]').val();
+                var sex = $('input[name="sex"]').val();
+                var address = $('select[name="address"]').val();
+                if(!name || !age || !sex || address < 0){
+                    alert('请填写完整信息');
+                    return false;
+                }
+            });
+
+            //map 方法
+            $('.map_btn').click(function(){
+                var map = $('.map input').map(function(){
+                    return $(this).val();
+                }).get().join('\n');
+                console.log(map);
+            });
+        });
+    </script>
+</body>
+</html>

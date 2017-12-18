@@ -1,0 +1,31 @@
+textarea {
+    float: left;
+}
+.search {
+    margin-top: 50px;
+    margin-left: 20px;
+}
+.embed-responsive-16by9 {
+    padding-bottom: 0;
+}
+.upload_file {
+    opacity: 0;
+    display: block;
+    position: relative;
+    z-index: 99;
+    margin-left: -5px;
+    width: 20%;
+}
+.upload-btn {
+    z-index: 100;
+    position: absolute;
+    left: 0px;
+    top: 0;
+    width: 100%;
+}
+.btn {
+    padding: 3px 12px;
+}
+.add-parts-form {
+    width: 100%;
+}

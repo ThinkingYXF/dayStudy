@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <input type="file" class="upload_file">
+
+        <script src="../js/lib/jquery-1.7.2.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.upload_file').on('change',function(e){
+                    var reader = new FileReader();
+                    var file = e.target.files[0];
+                    reader.onload = function(e){
+                        var img = '<img src="'+e.target.result+'">';
+                        $('body').append(img);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            });
+        </script>
+    </body>
+</html>

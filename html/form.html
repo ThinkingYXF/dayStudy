@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>form action</title>
+        <link rel="shortcut icon" href="../images/360-icon.png">
+        <style>
+            .div1 p{
+                float: left;
+            }
+            .div1::after{
+                content: '';
+                display: block;
+                height: 0;
+                visibility: hidden;
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        <h2></h2>
+        <form action="/work/study/html/a.js" method="post" class="myForm">
+            <input type="text" class="name">
+            <input type="nu mber" class="age" min="1" step="1">
+            <input type="password" class="password">
+            <button class="btn">提交</button>
+        </form>
+        <div class="div1">
+            <p>这是第一行</p>
+            <p>这是第二行</p>
+        </div>
+        <script src="../js/lib/jquery-1.7.2.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.myForm').submit(function(){
+                    var name = $('.name').val();
+                    var age = $('.age').val();
+                    var password = $('.password').val();
+                    if(!name || !age || !password){
+                        console.log('失败');
+                        return false;
+                    }
+                });
+                var button = $('.btn');
+                $.ajax({
+                    url: '../json/data.json',
+                    method: 'GET',
+                    context: button               //传入某个dom元素
+                }).success(function(){
+                    var that = this;              //this指向传入的dom元素
+                    setTimeout(function(){
+                        $(that).text('按钮');
+                    },1000);
+                }).done(function(){
+                    console.log('1');              //先执行 success 在执行 done  （写在前面的回调函数先执行）
+                });
+            });
+        </script>
+    </body>
+</html>

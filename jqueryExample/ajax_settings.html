@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ajax settings</title>
+    </head>
+    <body>
+        <p>this is a paragraph</p>
+        <script src="../js/lib/jquery-1.11.1.js"></script>
+        <script>
+            $(document).ready(function(){
+                var paragraph = $('p');
+                $.ajax({
+                    url: '../json/data.json',
+                    method: 'GET',
+                    context: paragraph,
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }).success(function(json){
+                    console.log(json,this);             //this 为jQuery对象（p标签）
+                    this.text('changed paragraph');
+                });
+            });
+        </script>
+    </body>
+</html>

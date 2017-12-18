@@ -1,0 +1,59 @@
+.dataTables_length ,.dataTables_paginate{
+    display: none;
+}
+/*.merchant-name {
+    width: 300px;
+}
+.send-name {
+    width: 50px;
+}*/
+.handle {
+    width: 150px;
+}
+.icheckbox_flat-blue, .iradio_flat-blue {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    background: url(blue.png) no-repeat;
+    border: none;
+    cursor: pointer;
+}
+.icheckbox_flat-blue {
+    background-position: 0 0;
+}
+.check {
+    width: 1px;
+}
+.read {
+    width: 1px;
+}
+.merchant-name {
+    width: 160px;
+}
+.assessory {
+    width: 1px;
+}
+.create-time {
+    width: 80px;
+}
+.user-name {
+    width: 80px;
+}
+.user,.merchant,.message-title {
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+}
+.message-title {
+    width: 389px;
+}
+.user {
+    width: 80px;
+}
+.merchant {
+    width: 160px;
+}

@@ -1,0 +1,63 @@
+.single-search {
+	margin-top:20px;
+}
+.single-search .control-label{
+	text-align:right !important;
+}
+#rule_group, .single-search .search-btn{
+	margin:3px 0;
+}
+#rule_table_filter{
+	display:none;
+}
+.btn-primary{
+	margin-right:5px;
+}
+.form-horizontal .control-label{
+	display:block;
+	padding:10px 0;
+	text-align:left;
+}
+.form-horizontal .form-group{
+	margin:0;
+}
+.add-rule-form .conditions{
+	margin-top:15px;
+}
+.form-horizontal select, .form-horizontal input{
+	margin-top:10px;
+}
+.form-horizontal button{
+	margin-top:15px;
+}
+.more-condition, .delete-condition{
+	padding:2px;
+	font-weight:bold;
+	width: 25px;
+	height: 25px;
+	line-height: 20px;
+	font-size: 25px;
+	margin-top: 3px;
+}
+#add_rule_table{
+	white-space: nowrap;
+}
+#add_rule_table td, #add_rule_table select, #add_rule_table span, #add_rule_table input{
+	height:38px;
+	margin:0;
+	padding:0;
+}
+ #add_rule_table span{
+ 	text-align:center;
+ 	line-height:38px;
+ }
+#add_rule_table .btn{
+	margin:8px auto;
+}
+#rule_name{
+	margin-top:0;
+}
+.code-color{
+	display: block;
+	margin: 3px;
+}

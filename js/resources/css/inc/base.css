@@ -1,0 +1,252 @@
+phtml,body{
+	font-family:"Microsoft YaHei","微软雅黑","SimHei","黑体",sans-serif;
+}
+ul,li{
+	list-style-type:none;
+}
+.content{
+	padding: 0 15px;
+}
+.mask{
+	background-color:#fff;
+	z-index: 9998;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	opacity:0.4;
+	filter:alpha(opacity=40);
+	display:none;
+}
+.mask-content{
+	z-index:9999;
+	position:fixed;
+	top:50%;
+	left:50%;
+	margin:0;
+	border-radius:5px;
+	border:solid 2px #666;
+	background-color:#fff;
+	display:none;
+	box-shadow: 0 0 10px #666;
+}
+.ajax-error{
+	z-index:9999;
+	position:fixed;
+	width:300px;
+	height:auto;
+	top:0;
+	left:50%;
+	margin:0;
+	padding:0;
+	margin-left:-100px;
+	border-radius:5px;
+	border:solid 2px #666;
+	background-color:#fff;
+	display:block;
+	box-shadow: 0 0 10px #666;
+}
+.ajax-error .box{
+	margin-bottom:0;
+}
+.mask-content .title{
+	height:50px;
+	width:100%;
+	padding: 10px;
+	border-bottom:1px solid #ccc;
+}
+.notice{
+	width:300px;
+	height:auto;
+	z-index:9999;
+	position:fixed;
+	top:0;
+	left:50%;
+	margin:0;
+	margin-left:-150px;
+	border-radius:5px;
+	border:solid 2px #666;
+	background-color:#fff;
+	display:none;
+	box-shadow: 0 0 10px #666;
+}
+.delete-confirm, .confirm-box{
+	height:100px;
+	top:50%;
+	margin-top:-50px;
+}
+.delete-confirm .box-title, .confirm-box .box-title{
+	font-size:15px;
+}
+.delete-confirm .btn-confirm, .delete-confirm .btn-cancel, .confirm-box .btn-confirm, .confirm-box .btn-cancel{
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+}
+.processing{
+	font-size:50px;
+	line-height:50px;
+	display:block;
+	z-index:9999;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-left:-25px;
+	margin-top:-25px;
+	color:#3c8dbc;
+}
+.hidden{
+	display:none;
+}
+.content-header{
+	height:45px !important;
+}
+.navbar-nav li{
+	margin-right:20px;
+}
+.navbar-nav .merchant-menu{
+	display:inline-block;
+	padding:15px;
+	display:none;
+}
+.navbar-nav .login-out{
+	display:inline-block;
+	padding:12px;
+}
+.navbar-nav .login-out button{
+	background-color: #3c8dbc;
+	border: none;
+	font-size: 20px;
+}
+.navbar-nav .login-out button:focus{
+	border:none;
+	outline:none;
+}
+.navbar-nav .login-out button:active{
+	border:none;
+	font-weight:bold;
+}
+.navbar-nav .merchant-menu .title{
+	color:#fff;
+}
+.navbar-nav .merchant-menu .name{
+	font-weight:bold;
+	color:#fff;
+}
+.error{
+	border-color:#ac2925;
+	background-color:rgba(241, 38, 9, 0.38);
+}
+.error-border {
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #ce8483;
+}
+.no-blank{
+	font-weight:bold;
+	color:	#dd4b39;
+}
+form#logout {
+	display: block;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+.fa-user-md{
+	color:#dd4b39;
+}
+.fa-user-md:hover{
+	cursor:pointer;
+}
+.error-msg{
+	color:#ac2925;
+	display:block;
+}
+.glyphicon-off{
+	color:#dd4b39;
+}
+.fa-angle-right, .fa-angle-left, .fa-angle-up, .fa-angle-down, .fa-angle-double-up, .fa-angle-double-down{
+	color:#367fa9;
+	font-size:20px;
+	font-weight:bold;
+}
+.dataTables_filter{
+	display:none;
+}
+table{
+	font-size:13px;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	padding:2px 8px;
+	line-height:18px;
+}
+.btn-group-sm>.btn, .btn-sm {
+    padding: 2px 10px;
+}
+.sidebar-menu li>a:hover{
+	background-color: rgba(255,255,255,0.15);
+}
+.sidebar-menu .active{
+	background-color: rgba(255,255,255,0.15);
+}
+.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{
+	background-color:#293B4D;
+}
+.box-header .box-title{
+	font-size:15px;
+	margin:5px;
+}
+.btn{
+	padding:3px 12px;
+}
+.price {
+	margin-left:10px;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    color:#333;
+}
+.model-iframe{
+	width: 100%;
+}
+.modal-content{
+	border-radius: 5px;
+}
+.model-height{
+	height: 60px;
+}
+.model-width{
+	width: 300px;
+}
+.main-footer {
+	text-align: center;
+}
+.main-footer div.beian {
+	color: #939393;
+	font-size: 12px;
+	height: 20px;
+	line-height: 20px;
+}
+.main-footer div.beian img {
+	vertical-align: text-bottom;
+}
+.main-footer div.beian a {
+	color: #939393;
+}
+.main-header .navbar {
+	margin-left: 150px;
+}
+.main-header .logo { 
+	width: 150px;
+}
+.main-sidebar, .left-side { 
+	width: 150px;
+}
+.content-wrapper, .right-side, .main-footer {
+	margin-left: 150px;
+}
+.col-xs-12 {
+	padding: 10px;
+}
+.right-th .name {
+	width: 100px;
+}

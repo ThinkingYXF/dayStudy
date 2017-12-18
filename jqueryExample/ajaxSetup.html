@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+                contents: {
+                    mycustometype: '/mycustomtype/'
+                },
+                converters: {
+                    'text mycustometype': true,
+                    'mycustometype json': function(result){
+                        return result;
+                    }
+                }
+            });
+
+            var request = $.ajax({
+                url: '../json/data.json',
+                type: 'GET',
+                beforeSend: function(){
+                    
+                }
+            });
+            request.success(function(json){
+                console.log(json)
+            });
+        });
+    </script>
+</body>
+</html>

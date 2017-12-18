@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>函数闭包</title>
+    </head>
+    <body>
+
+        <input type="file" value="上传">
+
+
+        <script src="../js/lib/jquery-1.7.2.js"></script>
+        <script>
+            $(document).ready(function(){
+                var excelFn = function(){
+                    this.initNum = 100;
+                    this.sumNum = 200;
+                    const limitNumber = 100;       	//excel上传数据  每次post的最大数据条数
+                    const maxDataShow = 500;        //excel上传数据  回显的最大限制数据条数
+
+                    this.tableArr = [];                            //存储excel解析出来的数据
+                    this.isHasAjaxError = false;                   //excel循环上传中是否有返回错误    用于判断是否初始化表格
+                    // this.initNum = 0;                              //用于计算 excel循环上传时的  循环条件
+                    this.removeNum = 0;            //删除的行数
+                    this.successNum = 0;
+                    this.firstAjax = 0 ,errorAjaxData = 0;         //用于判断是否是第一次ajax请求       ajax循环请求出现错误 回显数据的和
+                    this.allDataLength = 0;                        //excel解析出来数据的总条数    变化的
+                    this.constDataLength = 0;                      //excel解析出来数据的总条数    不变的
+                    this.isRunExcelUpload = false;				  //是否处在excel上传过程中
+                    this.inFn = function(){
+                        var str1 = '2345';
+                        console.log(str1);
+                    }
+                }
+                var fn = new excelFn();
+                function　begin(){
+                    if(fn.initNum > 5){
+                        console.log('1',fn.initNum);
+                        fn.inFn();
+                    }
+                }
+                begin();
+                
+
+                $('input[type="file"]').change(function(e){
+                    if (!/\.xlsx?$/.test($(this).val())) {
+                        alert('warning');
+                        return false;
+                    }
+                    fn.initNum = 10;
+                    begin();
+                    document.getElementsByTagName('input')[0].value = '';
+                });
+
+                // var fn = outFn();
+
+                var arr = [1,2,3,4,5,6];
+                var length = arr.length;
+                length-=3;
+                var arr1 = arr;
+                arr1.splice(1);
+                console.log(length,arr,arr1);
+            });
+        </script>
+    </body>
+</html>

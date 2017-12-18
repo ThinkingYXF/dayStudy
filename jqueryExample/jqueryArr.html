@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquery extend</title>
+</head>
+<body>
+    
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            var people1 = {
+                name: 'zhao',
+                age: 20
+            }
+            var people2 = {
+                name: 'yang',
+                height: '170cm',
+                weight: '60kg'
+            }
+            var result = $.extend(people1, people2);    //合并people1和people2（people1和people2改变）
+            console.log(result);
+
+            var people3 = {
+                name: 'qian',
+                age: 28
+            }
+            var people4 = {
+                name: 'sun',
+                height: '168cm',
+                weight: '70kg'
+            }
+            var empty = {};
+            var result1 = $.extend(empty, people3, people4);    //people3和people4 不变
+            console.log(result1, empty);    //两个相同
+            
+
+            //$.grep  过滤数组
+            var arr = [10, 2, 3, 4, 5];
+            var re = $.grep(arr, function(n, i){
+                return n > 3;
+            });
+            console.log(re);    //10, 4, 5
+            var re1 = $.grep(arr, function(n, i){
+                return n > 3;
+            },true);
+            console.log(re1);  //2, 3
+        });
+    </script>
+</body>
+</html>

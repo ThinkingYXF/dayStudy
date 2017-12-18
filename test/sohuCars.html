@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sohuCars</title>
+</head>
+<body>
+    <h3>sohu汽车数据</h3>
+    <h5><a href="http://db.auto.sohu.com/home/" target="_blank">链接</a></h5>
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            //搜狐汽车数据  得到页面上的数据
+            $('.tree .close_child > h4').find('a').each(function(){
+                var brand = $.trim($(this).text());
+                var brandUls = $(this).parent('h4.brand_tit').siblings('.tree_con');
+                $.each(brandUls,function(){
+                    var brandIn = $(this).find('li.con_tit').find('a').text();
+                    brandIn = $.trim(brandIn);
+
+                    $(this).find('li[class!="con_tit"]').each(function(){
+                        var cars = $.trim($(this).find('a').text());
+                        var result = brand+'\t'+brandIn+'\t'+cars;
+                        console.log(result);
+                    });
+                })
+            })
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>跳出循环</title>
+    </head>
+    <body>
+
+
+        <script src="../js/lib/jquery-1.7.2.js"></script>
+        <script>
+            $(document).ready(function(){
+                var arr = [1,2,3,4,5];
+                var obj = {
+                    name: '11',
+                    age: 3,
+                    height: 170
+                }
+                for(var key in obj){
+                    for(var i = 0;i < arr.length; i++){
+                        if(obj[key] == arr[i]){
+                            break;
+                        }
+                        console.log(i);
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

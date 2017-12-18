@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        #myUl{
+            list-style: none;
+            margin: 0;
+            width: 800px;
+            overflow: hidden;
+            border-top: 1px solid #000;
+            padding: 0;
+        }
+        .cell{
+            float: left;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #000;
+            margin: -1px -1px 0 0;
+        }
+        .snakeDiv{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .snakeDiv .snakeCell{
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background: #346eec;
+            border-right: 1px solid #346eec;
+            border-bottom: 1px solid #346eec;
+            left: 0;
+        }
+        .snakeDiv .first{
+            background: #0603b4;
+        }
+    </style>
+</head>
+<body>
+    <ul id="myUl"></ul>
+    <div class="snakeDiv">
+        <div class="snakeCell first"></div>
+        <div class="snakeCell"></div>
+        <div class="snakeCell"></div>
+        <div class="snakeCell"></div>
+    </div>
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            var li = $('<li />').addClass('cell');
+            for(i = 0; i < 988; i++){
+                li.clone().appendTo($('#myUl'));
+            }
+
+            var snakeMove = function(){
+                this.x = 0;
+                this.y = 0;
+
+                this.right = function(dom){
+                    $.each(dom,function(k,v){
+                        $(this).animate({'left':'+=21'},100);
+                        var that = this;
+                        setInterval(function(){
+                            $(that).animate({'left':'+=21'},500);
+                        },0)
+                    });
+                }
+            }
+            var snake = new snakeMove();
+            snake.right($('.snakeCell'));
+        });
+    </script>
+</body>
+</html>

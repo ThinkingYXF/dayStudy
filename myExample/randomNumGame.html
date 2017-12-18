@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<h1>猜字游戏</h1>
+	<p>输入一个1-100的数字</p>
+	<label for="number">
+		number: <input type="number" min="1" max="100" id="number" name="number">
+		<input type="button" id="button" value="确定">
+	</label>
+	<div class="result">
+		<p>输入的数字记录: <span id="preNum"></span></p>
+		<p id="tip"></p>
+	</div>
+	<button id="restart">重新开始</button>
+	<script>
+		window.onload = function(){
+			document.getElementById('restart').style.display = 'none';
+			var button = document.getElementById('button'),
+				random = Math.ceil(Math.random()*100),
+				tip = document.getElementById('tip');
+			button.onclick = function(){
+				var	number = document.getElementById('number').value,
+					preNum = document.getElementById('preNum');
+				document.getElementById('number').value = '';
+				document.getElementById('number').focus();
+				if(number > 100 || number < 0){
+					tip.innerHTML = '让你输入1-100的数，怎么不听话呢----';
+					return false;
+				}
+				else if(number > random)
+					tip.innerHTML = '大了!';
+				else if(number < random)
+					tip.innerHTML = '小了!';
+				else{
+					tip.innerHTML = '恭喜你猜对了！ 没奖- . -';
+					button.setAttribute('disabled',true);
+					document.getElementById('number').setAttribute('disabled',true);
+					document.getElementById('restart').style.display = 'block';
+				}
+				preNum.innerHTML += number + ' ';
+			}
+			var restart = document.getElementById('restart');
+			restart.onclick = function(){
+				random = Math.ceil(Math.random()*100);
+				preNum.innerHTML = '';
+				document.getElementById('number').value = '';
+				tip.innerHTML = '';
+			}
+		}
+	</script>
+</body>
+</html>

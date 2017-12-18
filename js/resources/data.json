@@ -1,0 +1,424 @@
+{
+    "draw":1,
+    "recordsTotal":245,
+    "recordsFiltered":245,
+    "success": true,
+    "data": [
+        {
+            "id": 3568,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "H0126300TY002",
+            "parts": {
+                "id": 12548
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 11,
+            "price": 279.4901
+        },
+        {
+            "id": 3569,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002001",
+            "parts": {
+                "id": 12549
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 35,
+            "price": 1143.7701
+        },
+        {
+            "id": 3570,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002002",
+            "parts": {
+                "id": 12550
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 12,
+            "price": 1932.2228
+        },
+        {
+            "id": 3571,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002003",
+            "parts": {
+                "id": 12551
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 25,
+            "price": 492.3037
+        },
+        {
+            "id": 3572,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002004",
+            "parts": {
+                "id": 12552
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 5,
+            "price": 605.7663
+        },
+        {
+            "id": 3573,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002005",
+            "parts": {
+                "id": 12553
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 21,
+            "price": 2757.8267
+        },
+        {
+            "id": 3574,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002006",
+            "parts": {
+                "id": 12554
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 48,
+            "price": 3736.8103
+        },
+        {
+            "id": 3575,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002007",
+            "parts": {
+                "id": 12555
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 23,
+            "price": 2968.9568
+        },
+        {
+            "id": 3576,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002008",
+            "parts": {
+                "id": 12556
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 3,
+            "price": 1173.8856
+        },
+        {
+            "id": 3577,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002009",
+            "parts": {
+                "id": 12557
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 8,
+            "price": 4225.2173
+        },
+        {
+            "id": 3578,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002016",
+            "parts": {
+                "id": 12558
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 21,
+            "price": 578.1562
+        },
+        {
+            "id": 3579,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002017",
+            "parts": {
+                "id": 12559
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 21,
+            "price": 3205.0144
+        },
+        {
+            "id": 3580,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002018",
+            "parts": {
+                "id": 12560
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 21,
+            "price": 3839.871
+        },
+        {
+            "id": 3581,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002021",
+            "parts": {
+                "id": 12561
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 9,
+            "price": 902.4204
+        },
+        {
+            "id": 3582,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002022",
+            "parts": {
+                "id": 12562
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 26,
+            "price": 4192.15
+        },
+        {
+            "id": 3583,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002023",
+            "parts": {
+                "id": 12563
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 15,
+            "price": 2393.0686
+        },
+        {
+            "id": 3584,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002024",
+            "parts": {
+                "id": 12564
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 45,
+            "price": 3417.9563
+        },
+        {
+            "id": 3585,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002033",
+            "parts": {
+                "id": 12565
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 14,
+            "price": 193.5512
+        },
+        {
+            "id": 3586,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002034",
+            "parts": {
+                "id": 12566
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 19,
+            "price": 3162.868
+        },
+        {
+            "id": 3587,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002035",
+            "parts": {
+                "id": 12567
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 27,
+            "price": 2179.528
+        },
+        {
+            "id": 3588,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630002036",
+            "parts": {
+                "id": 12568
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 45,
+            "price": 4303.2246
+        },
+        {
+            "id": 3589,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630003002",
+            "parts": {
+                "id": 12569
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 14,
+            "price": 1651.5181
+        },
+        {
+            "id": 3590,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630003003",
+            "parts": {
+                "id": 12570
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 4,
+            "price": 1291.8219
+        },
+        {
+            "id": 3591,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630003005",
+            "parts": {
+                "id": 12571
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 11,
+            "price": 1038.9554
+        },
+        {
+            "id": 3592,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630003006",
+            "parts": {
+                "id": 12572
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 26,
+            "price": 3792.756
+        },
+        {
+            "id": 3592,
+            "name": "机滤",
+            "createdTime": 1486635290,
+            "createdBy": 1,
+            "flag": 1,
+            "code": "MAL2630003006",
+            "parts": {
+                "id": 12572
+            },
+            "merchant": {
+                "id": 1234
+            },
+            "inventory": 26,
+            "price": 3792.756
+        }
+    ]
+}

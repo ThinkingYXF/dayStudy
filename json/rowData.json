@@ -1,0 +1,11 @@
+[{
+    "name": "Stark",
+    "age": 50,
+    "sex": "man",
+    "country": "Thomas"
+},{
+    "name": "Snow",
+    "age": 35,
+    "sex": "woman",
+    "country": "Night"
+}]

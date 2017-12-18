@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>click</title>
+        <meta charset="utf-8"> 
+        <link rel="stylesheet" href="../css/global.css">
+    </head>
+    <body>
+        <input type="text"><input type="button" class="btn" value="刷新">
+
+        <button class="btn1">按钮</button>
+        <button class="btn-mask">蒙版</button>
+        <div>
+            输入框中输入的数字如果大于0，点击刷新；再点击按钮将成功，若输入框中输入的数小于等于0，点击刷新
+            再点击按钮将不会成功。
+        </div>
+        <pre>
+            <h1>点击蒙版 将出现蒙版 2s后消失。</h1>
+        </pre>
+        
+
+        <script src="../js/lib/jquery-1.11.1.js"></script>
+        <script src="../js/global.js"></script>
+        <script>
+            $(document).ready(function(){
+                var inputVal = '';
+                var num = 0;
+                $('.btn').click(function(){
+                    inputVal = $('input[type="text"]').val();
+                    console.log(inputVal);
+                    click(inputVal);
+                });
+                function click(val){
+                    if(val > 0){
+                        $('.btn1').click(function(){
+                            $('body').append('<h1>成功'+(++num)+'<h1/>');
+                        });
+                    }else
+                        $('.btn1').off('click');
+                }
+                $('.btn-mask').click(function(){
+                    $.mask();
+                    setTimeout($.hideMask,2000);
+                });
+            });
+        </script>
+    </body>
+</html>

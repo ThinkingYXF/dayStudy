@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquery extend</title>
+</head>
+<body>
+    
+
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script src="../js/addWays.js"></script>
+    <script>
+        $(document).ready(function(){
+            var num = 5;
+            console.log($.dealNumber(num));
+            var arr = [1,5,33,2,66,0];
+            console.log($.arrayMaxOrMin(arr,'max'),$.arrayMaxOrMin(arr,'min'));
+
+            /**
+             *判断一个函数方法是否定义
+            */
+            if($.dealNumber){
+                console.log('exsist');
+            }
+            if($.abc)
+                console.log('nnn');
+            else{
+                $.abc = $.dealNumber;
+                console.log($.abc(9));
+                console.log('not');
+            }
+        });
+    </script>
+</body>
+</html>

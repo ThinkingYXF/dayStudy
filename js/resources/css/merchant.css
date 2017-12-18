@@ -1,0 +1,55 @@
+.supplier-select, .supplier-select select{
+	display:inline-block;
+}
+.supplier-select label{
+	margin:15px 0;
+}
+.supplier-select select{
+	width:50% !important;
+	margin-top:8px;
+}
+@media (min-width: 992px)
+.supplier-select .select-opt-mini{
+	width:100% !important;
+}
+@media (min-width: 992px)
+.employee-phone{
+	top: 65px !important;
+}
+.employee-phone-mini{
+	position: relative;
+    left: -15px;
+    top: 15px;
+    display:none;
+}
+.employee-phone .search-btn{
+	margin-top:5px;
+}
+form.user-info{
+	margin-top:5px;
+}
+#user_table_filter{
+	display:none;
+}
+.address{
+	margin:0;
+	padding:0 2px;
+	line-height:34px;
+}
+.merchant-address{
+	width:100%;
+	display:inline-block;
+}
+.img-show{
+	display:inline-block;
+	line-height:38px;
+}
+.img-show-open{
+	border:1px solid #eee;
+}
+#warehouses_table_wrapper #warehouses_table_length{
+	display:none;
+}
+#warehouses_table_wrapper #warehouses_table_paginate{
+	display: none;
+}

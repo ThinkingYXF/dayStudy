@@ -1,0 +1,12 @@
+.table input[type="text"]{
+    width: 100%;
+}
+.error-msg {
+    color: red;
+}
+.table select {
+    width: 100% !important;
+}
+.table input[type="checkbox"]{
+    width: 100%;
+}
