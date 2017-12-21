@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.wrapper{
+			width: 300px;
+			height: 400px;
+			background: #ccc;
+			position: relative;
+			overflow-x: auto;
+		}
+		.topDiv{
+			width: 1400px;
+			height: 200px;
+			border: 1px solid #000;
+		}
+		.button-container{
+			position: absolute;
+			left: 100px;			/*left		****		*/
+			top: 0;
+		}
+	</style>
+</head>
+<body>
+	<!--按钮的容器 宽度被限制在wrapper的宽度范围内-->
+	<div class="wrapper">
+		<div class="topDiv"></div>
+		<div class="button-container">
+			<button>按钮1</button>
+			<button>按钮2</button>
+			<button>按钮3</button>
+		</div>
+	</div>
+	<script>
+	</script>
+</body>
+</html>
