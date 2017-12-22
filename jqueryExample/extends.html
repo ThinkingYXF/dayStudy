@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<input type="checkbox">
+	<input type="checkbox">
+	<input type="checkbox">
+	<input type="checkbox">
+	<button class="all">按钮1</button>
+	<button class="cancel">按钮2</button>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/global.js"></script>
+	<script>
+		$(document).ready(function(){
+			var inputs = $('input:checkbox');
+			//初始化
+			inputs.prop('checked',false);
+			$('.cancel').prop('disabled',true);
+			//设置按钮文字
+			var obj = {
+				language: 'zh-CN'
+			}
+			$.selected(obj, $('.all'),$('.cancel'));
+
+			$('.all').click(function(){
+				inputs.prop('checked',true).change();
+				$('.cancel').prop('disabled',false);
+			});
+			$('.cancel').click(function(){
+				inputs.prop('checked',false).change();
+				$('.cancel').prop('disabled',true);
+			});
+			inputs.change(function(){
+				if($(this).prop('checked')){
+					$('.cancel').prop('disabled',false);
+				}else{
+					var length = 0;
+					$.each(inputs,function(){
+						if($(this).prop('checked'))
+							length++;
+					});
+					if(length > 0)
+						$('.cancel').prop('disabled',false);
+					else if(length === 0)
+						$('.cancel').prop('disabled',true);
+				}
+			});
+		});
+	</script>
+</body>
+</html>

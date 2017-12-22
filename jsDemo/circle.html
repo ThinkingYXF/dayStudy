@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		#canvas{
+			height: 200px;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<script>
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d');
+		ctx.fillStyle = 'blue';
+		ctx.beginPath();
+		ctx.arc(130,50,30,degToRad(0),degToRad(360),false);
+		ctx.lineTo(160,106);
+		ctx.fill();
+
+		ctx.fillStyle = 'yellow';
+		ctx.beginPath();
+		ctx.arc(160,50,30,degToRad(-45),degToRad(45),true);
+		ctx.lineTo(160,50);
+		ctx.fill();
+		function degToRad(degress){
+			return degress*Math.PI/180;
+		}
+	</script>
+</body>
+</html>
