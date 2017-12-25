@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		// window.onload = function(){
+			function A(a){
+				this.varA = a;
+			}
+			A.prototype = {
+				varA: null,
+				doSomething: function(){
+
+				}
+			}
+			function B(a, b){
+				A.call(this, a);
+				this.varB = b;
+			}
+			B.prototype = Object.create(A.prototype, {
+				varB: {
+					value: null,
+					enumerable: true,
+					configurable: true,
+					writable: true
+				},
+				doSomething: {
+					value: function(){
+						A.prototype.doSomething.apply(this, arguments);
+					},
+					enumerable: true,
+					configurable: true,
+					writable: true
+				}
+			});
+			B.prototype.constructor = B;
+			var b = new B();
+			b.doSomething();
+
+			//with
+			var obj = {
+				name: 'yang',
+				age: 24
+			}
+			with(obj){
+				var str = '名字:' + name + ';年龄:' + age + '.';
+				console.log(str);
+			}
+		// }
+	</script>
+</body>
+</html>
