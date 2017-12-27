@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		window.onload = function(){
+			var buffer = new ArrayBuffer(16);
+			if(buffer.byteLength === 16)
+				console.log('yes, it is 16 bytes!');
+			else
+				console.log('no, it is the wrong size!');
+
+			var int16View = new Int16Array(buffer);
+			for(var i = 0; i < int16View.length; i++){
+				console.log(i, int16View[i]);
+			}
+			//类型数组转为ie正常数组
+			//Array.prototype.slice.call(typeArray);
+
+			document.cookie = 'name=yang';
+			document.cookie = 'age=24';
+			console.log(document.cookie);
+		}
+	</script>
+</body>
+</html>
