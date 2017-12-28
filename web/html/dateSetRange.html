@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>date set range</title>
+</head>
+<body>
+	<input type="date" class="myDate">
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script>
+		window.onload = function(){
+			var date = new Date();
+			$('.myDate').prop('min', initDate(date));
+			function initDate(date){
+				var year = date.getFullYear(),
+					month = initNumber(date.getMonth() + 1),
+					day = initNumber(date.getDate());
+				return year + '-' + month + '-' + day;
+
+				function initNumber(number){
+					return number < 10 ? ('0' + number): number;
+				}
+			}
+		}
+	</script>
+</body>
+</html>
