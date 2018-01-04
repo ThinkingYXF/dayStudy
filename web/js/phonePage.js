@@ -16,7 +16,10 @@ $(document).ready(function(){
 			data: 'product.parts.name'
 		},{
 			title: '数量',
-			data: 'quantity'
+			data: 'quantity',
+			render: function(data, type, row, meta){
+				return '<input type="number" name="quantity" value="'+data+'"/>';
+			}
 		},{
 			title: '单价',
 			data: 'price',
@@ -118,16 +121,24 @@ $(document).ready(function(){
 		var fields = {
 			'upload': []
 		};
-		$.each(rows,function(k,v){data
+		$.each(rows,function(k,v){
 			fields['upload'].push(this);
 		});
 		fields = $.expandObject(fields);
 		console.log(fields);
 
+		var params = {
+			'upload': []
+		};
 		$.each(api.$('input,select'),function(){
 			var field = $(this).serializeArray()[0];
-			//{price: '',value: ''};
+			var param = {};
+			if(field['name'] && field['value'])
+				param[field['name']] = field['value'];
+			params['upload'].push(param);
 		});
+		params = $.expandObject(params);
+		console.log(params);
 	});
 
 
