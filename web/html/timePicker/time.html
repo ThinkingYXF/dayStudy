@@ -6,16 +6,16 @@
         <link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" href="jquery-ui-timepicker-addon.css">
         <style>
-        
+
         </style>
     </head>
-    <body>     
+    <body>
         <div class="div1">
-            <input type="text" name="range_example_2_start" id="range_example_2_start" value="" /> 
+            <input type="text" name="range_example_2_start" id="range_example_2_start" value="" />
 	 		<input type="text" name="range_example_2_end" id="range_example_2_end" value="" />
         </div>
-        
-        
+
+
         <script src="../../js/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!--<script src="js/resources/vendor/AdminLTE-2.3.11/dist/js/app.min.js"></script>-->
         <script src="../../js/plugins/jQueryUI/jquery-ui.min.js"></script>
@@ -24,7 +24,7 @@
 		<script type="text/javascript" src="jquery-ui-sliderAccess.js"></script>
         <script>
             $(document).ready(function(){
-                
+
                 var startDateTextBox = $('#range_example_2_start');
                 var endDateTextBox = $('#range_example_2_end');
 
@@ -33,10 +33,10 @@
                     endDateTextBox,
                     {
                         minInterval: (1000*60*60), // 1hr
-                        // dateFormat: 'dd M yy', 
+                        // dateFormat: 'dd M yy',
                         // timeFormat: 'HH:mm',
                         start: {}, // start picker options
-                        end: {} // end picker options					
+                        end: {} // end picker options
                     }
                 );
 

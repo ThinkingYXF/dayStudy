@@ -1,0 +1,36 @@
+{
+	"data":[{
+		"product": {
+			"code": "ABC1000",
+			"name": "前挡风镜",
+			"parts": {
+				"code": "ABC1000",
+				"name": "前挡风镜"
+			}
+		},
+		"price": "99",
+		"quantity": 10
+	},{
+		"product": {
+			"code": "ABC1001",
+			"name": "后挡风镜",
+			"parts": {
+				"code": "ABC1001",
+				"name": "后挡风镜"
+			}
+		},
+		"price": "80",
+		"quantity": 5
+	},{
+		"product": {
+			"code": "ABC1002",
+			"name": "大灯",
+			"parts": {
+				"code": "ABC1002",
+				"name": "大灯"
+			}
+		},
+		"price": "50",
+		"quantity": 2
+	}]
+}

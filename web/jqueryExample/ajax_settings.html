@@ -10,17 +10,28 @@
         <script>
             $(document).ready(function(){
                 var paragraph = $('p');
+                // $.ajax({
+                //     url: '../json/data.json',
+                //     method: 'GET',
+                //     context: paragraph,
+                //     headers: {
+                //         'content-type': 'application/json'
+                //     }
+                // }).success(function(json){
+                //     console.log(json,this);             //this 为jQuery对象（p标签）
+                //     this.text('changed paragraph');
+                // });
+
                 $.ajax({
-                    url: '../json/data.json',
+                    url: 'http://localhost:8082/success',
                     method: 'GET',
-                    context: paragraph,
-                    headers: {
-                        'content-type': 'application/json'
-                    }
+                    // data: JSON.stringify({
+                    //     name: 'zhao',
+                    //     age: 24
+                    // })
                 }).success(function(json){
-                    console.log(json,this);             //this 为jQuery对象（p标签）
-                    this.text('changed paragraph');
-                });
+                    console.log(json);
+                })
             });
         </script>
     </body>

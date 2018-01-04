@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../js/plugins/datatables/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="../js/plugins/datatables/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+	<!-- <link rel="shortcut icon" href="../images/wlogo.png"> -->
+	<title>Document</title>
+	<style>
+		body{
+			margin: 0;
+			font-size: 14px;
+		}
+		header{
+			background: #3c8dbc;
+			color: white;
+			padding: 5px 15px;
+			border-radius: 5px 5px 0 0;
+		}
+		header span{
+			display: block;
+			position: absolute;
+			right: 10px;
+			top: 18px;
+			max-width: 230px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			cursor: pointer;
+		}
+		h3{
+			margin: 10px 5px;
+		}
+		section{
+			overflow: hidden;
+		}
+		form > div{
+			overflow: hidden;
+		}
+		.form-group{
+			margin-bottom: 3px;
+		}
+		table th{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.dataTables_scrollBody{
+			/* overflow-y: hidden !important; */
+		}
+		table input{
+			border: none;
+			outline: none;
+		}
+	</style>
+</head>
+<body>
+	<!-- <div class="container"> -->
+		<header>
+			<h3>微重力</h3>
+			<span>商户:中华科技连锁技术开发有限公司(M1001)</span>
+		</header>
+		<section>
+			<div class="col-md-12">
+				<form action="" class="form-group row reply-form">
+					<div class="form-group form-horizontal" style="margin-top: 10px">
+						<label for="" class="col-xs-3">总价</label>
+						<div class="col-xs-9">
+							<span class="allPrice"></span>
+						</div>
+					</div>
+					<div class="form-group form-horizontal" style="margin-top: 10px">
+						<label for="" class="col-xs-3">总数量</label>
+						<div class="col-xs-9">
+							<span class="counts"></span>
+						</div>
+					</div>
+					<div class="form-group form-horizontal">
+						<label for="name" class="col-xs-3">送达时间</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group form-horizontal">
+						<label for="name" class="col-xs-3">策略</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group form-horizontal">
+						<label for="name" class="col-xs-3">收获地址</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group form-horizontal">
+						<label for="name" class="col-xs-3">联系电话</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control">
+						</div>
+					</div>
+				</form>
+
+				<table class="table-responsive myTable"></table>
+				<button class="btn btn-sm btn-default btn-submit">提交</button>
+			</div>
+		</section>
+	<!-- </div> -->
+
+	<pre style="margin: 10px">
+页面包含:
+	1.总价
+	2.总数量
+	3.设置送达时间
+	4.设置收货地址
+	5.联系电话
+	6.策略用户选择
+	7.配件数据表格(可更改)
+	</pre>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="../js/plugins/datatables/dataTables.bootstrap.min.js"></script>
+	<!-- <script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+	<script src="../js/phonePage.js"></script>
+</body>
+</html>
