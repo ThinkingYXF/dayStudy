@@ -29,8 +29,8 @@
                         'sheet1':ws
                     };
 
-                    var wbout = XLSX.write(obj, wopts);
-                    // var wbout = XLSX.write(wb, wopts);
+                    // var wbout = XLSX.write(obj, wopts);
+                    var wbout = XLSX.write(wb, wopts);
 
                     function s2ab(s) {
                         var buf = new ArrayBuffer(s.length);
@@ -39,7 +39,7 @@
                             view[i] = s.charCodeAt(i) & 0xFF;
                         return buf;
                     }
-        
+
                     /* the saveAs call downloads a file on the local machine */
                     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), "test.xlsx");
                 });

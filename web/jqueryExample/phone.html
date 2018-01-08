@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+	<title>Document</title>
+</head>
+<body>
+	<div data-role="page" id="one">
+		<h1>这是第一页</h1>
+		<div data-role="panel" id="mypanel">
+			this is the panel!
+		</div>
+		<a href="#mypanel" class="ui-btn ">左侧</a>
+		<a href="#popupBasic" data-role="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Basic Popup</a>
+		<div data-role="popup" id="popupBasic">
+			<p>This is a tooltip like title.</p>
+		</div>
+
+		<form action="" class="ui-filterable">
+			<input type="text" id="filterBasic-input" date-type="search">
+		</form>
+		<ul data-rple="listview" data-filter="true" data-input="#filterBasic-input">
+			<li>Adadq</li>
+			<li>Dqoeq</li>
+			<li>Rqeqw</li>
+			<li>Gqewq</li>
+			<li>Clkre</li>
+		</ul>
+		<button><a href="#two">切换2</a></button>
+	</div>
+	<div data-role-"pahe" id="two">
+		<h1>这是第二页</h1>
+		<div data-role="footer">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#" data-icon="grid" class="ui-btn-active">All</a></li>
+					<li><a href="#" data-icon="star">Favs</a></li>
+					<li><a href="#" data-icon="gear">Step</a></li>
+				</ul>
+			</div>
+		</div>
+		<button><a href="#one">切换1</a></button>
+	</div>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script>
+		$(document).ready(function(){
+
+		});
+	</script>
+</body>
+</html>
