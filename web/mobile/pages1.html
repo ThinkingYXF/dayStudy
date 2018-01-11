@@ -7,6 +7,9 @@
 	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
 	<title>Document</title>
 	<style>
+		*{
+			touch-action: none;
+		}
 		iframe{
 			border: none;
 			border-bottom: 1px solid #ccc;
@@ -33,7 +36,7 @@
 	</style>
 </head>
 <body>
-	<div data-role="page" id="page0" class="paging">
+	<!-- <div data-role="page" id="page0" class="paging">
 		<iframe id="header" src="../mobile/header.html"></iframe>
 		<h1>第一页</h1>
 		<div data-role="footer">
@@ -44,11 +47,11 @@
 			</div>
 		</div>
 		<button>提交</button>
-	</div>
+	</div> -->
 	<script src="../js/lib/jquery-1.11.1.js"></script>
 	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script>
-		$(document).ready(function(){
+		// $(document).ready(function(){
 			var data = {
 				"data":[{
 					"product": {
@@ -83,27 +86,69 @@
 						},
 						"price": "50",
 						"quantity": 2
+					},{
+						"product": {
+							"code": "ABC1003",
+							"name": "车顶",
+							"parts": {
+								"code": "ABC1003",
+								"name": "车顶"
+							}
+						},
+						"price": "888",
+						"quantity": 3
+					},{
+						"product": {
+							"code": "ABC1004",
+							"name": "车窗",
+							"parts": {
+								"code": "ABC1004",
+								"name": "车窗"
+							}
+						},
+						"price": "69",
+						"quantity": 30
+					},{
+						"product": {
+							"code": "ABC1005",
+							"name": "中网",
+							"parts": {
+								"code": "ABC1005",
+								"name": "中网"
+							}
+						},
+						"price": "22",
+						"quantity": 11
 					}]
 				}
+			var totalPrice = 0,
+				totalQuantity = 0;
 			$.each(data.data,function(k){
 				var product = this;
 				var div = $('<div />').attr('data-role','page').addClass('paging').prop('id','page'+k);
-				var iframe = $('<iframe />').prop('id','header').prop('src','../mobile/header.html');
-				var content = $('<h1 />').text('配件编号:'+product.product.code);
+				var iframe = $('<iframe />').prop('id','header').prop('src','../mobile/header.html').addClass('iframeHeader');
+				var ps = '<p>配件编号:'+product.product.code+'</p><p>价格:'+product.price+'</p><p>数量:'+product.quantity+'</p>'
+				var content = $('<h3 />').html(ps);
 				var footer = $('<div />').attr('data-role','footer');
 				var selectDiv = $('<div />').addClass('ui-field-contain');
 				var select = $('<select />').prop('id','filter-menu'+k).addClass('filterable-sleect').attr('data-native-menu',false);
+				var button = $('<button />').text('提交');
+				var number = 0;
 				$.each(data.data,function(j){
-					var option = $('<option />').val(this.product.code).text(this.product.code);
+					var option = $('<option />').val(number).text(this.product.code);
+					number++;
 					if(j == k)
 						option.prop('selected',true);
 					option.appendTo(select);
 				});
 				selectDiv.append(select).appendTo(footer);
-				div.append(iframe).append(content).append(footer);
+				div.append(iframe).append(content).append(footer).append(button);
 				$('body').append(div);
+
+				totalPrice+= parseInt(this.price);
+				totalQuantity+= parseInt(this.quantity);
 			});
-			(function(){
+			// (function(){
 				var count = 0;
 				//reload page set count
 				$.each($('.paging'),function(k){
@@ -132,24 +177,53 @@
 					$('.ui-popup-container').off().click(function(){
 						isRun = true;
 					});
-					$('body').off().on('change','.filterable-select',function(){
-						if(isRun){
+					$('.ui-popup-container ul li').off().click(function(){
+						// if(isRun){
 							isRun = false;
-							var value = $(this).val();
+							var value = $(this).attr('data-option-index');
 							$.mobile.changePage('#page' + value);
 							count = parseInt(value);
-						}
+						// }
 					});
+					// $('body').off().on('change','.filterable-select',function(){
+					// 	if(isRun){
+					// 		isRun = false;
+					// 		var value = $(this).val();
+					// 		$.mobile.changePage('#page' + value);
+					// 		count = parseInt(value);
+					// 	}
+					// });
 				}
-				selectChange();
+
 				$('.paging').on('pageshow',function(){
 					selectChange();
+					setPublic();
 				});
 				$('.paging').on('pagebeforeshow',function(){
 					$('#filter-menu' + count).val(count).change();
 				});
-			})();
-		});
+			// })();
+
+			setTimeout(function(){
+				$.each($('.paging'),function(k){
+					if($(this).css('display') === 'block')
+						count = k;
+				});
+				selectChange();
+				setPublic();
+			},500);
+			function setPublic(){
+				var headerIframe = $(document.getElementsByClassName('iframeHeader')[count].contentWindow.document.body);
+				var p1 = $('<p />').text('总价:' + totalPrice);
+				var p2 = $('<p />').text('总数量:' + totalQuantity);
+				var div = $('<div >').append(p1).append(p2);
+				headerIframe.find('div h2').html(div);
+				// for(var i = 0; i < headerIframe.length; i++){
+				// 	var iframe = $(headerIframe[i].contentWindow.document.body);
+				// 	iframe.find('div h2').html(div);
+				// }
+			}
+		// });
 	</script>
 </body>
 </html>
