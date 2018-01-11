@@ -8,7 +8,7 @@
 	<title>Document</title>
 </head>
 <body>
-	<div data-role="page" id="one">
+	<div data-role="page" id="page0">
 		<h1>这是第一页</h1>
 		<div data-role="panel" id="mypanel">
 			this is the panel!
@@ -31,7 +31,7 @@
 		</ul>
 		<button><a href="#two">切换2</a></button>
 	</div>
-	<div data-role-"pahe" id="two">
+	<div data-role-"pahe" id="page1">
 		<h1>这是第二页</h1>
 		<div data-role="footer">
 			<div data-role="navbar">
@@ -48,7 +48,15 @@
 	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script>
 		$(document).ready(function(){
-
+			var count = 0;
+			$('body').bind('swipeleft',function(){
+				count++;
+				$.mobile.changePage('#page' + count);
+			});
+			$('body').bind('swiperight',function(){
+				count--;
+				$.mobile.changePage('#page' + count);
+			});
 		});
 	</script>
 </body>

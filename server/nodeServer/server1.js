@@ -14,9 +14,10 @@ var server = http.createServer(function(req,res){
 			'.html': 'text/html;charset="utf-8"',
 			'.css': 'text/css',
 			'.js': 'application/javascript',
-			'.txt': 'text/plain'
+			'.txt': 'text/plain',
+			'.java': 'java/*'
 		};
-		var fileType = '';
+		var fileType = 'text/html';
 		for(var i in fileTypes){
 			if(file.indexOf(i)!==-1){
 				fileType = fileTypes[i];

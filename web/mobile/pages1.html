@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+	<title>Document</title>
+	<style>
+		iframe{
+			border: none;
+			border-bottom: 1px solid #ccc;
+			width: 100%;
+		}
+		.ui-footer{
+			position: absolute;
+			bottom: 20vh;
+			width: 100%;
+		}
+		.ui-footer > button{
+			width: 49% !important;
+		}
+		.ui-field-contain > div{
+			text-align: center;
+		}
+		button{
+			position: absolute !important;
+			bottom: 5vh !important;
+		}
+		#filter-menu{
+			max-height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div data-role="page" id="page0" class="paging">
+		<iframe id="header" src="../mobile/header.html"></iframe>
+		<h1>第一页</h1>
+		<div data-role="footer">
+			<div class="ui-field-contain">
+				<select name="select-native" id="filter-menu0" class="filterable-select" data-native-menu="false">
+					<option value="0">第一页</option>
+				</select>
+			</div>
+		</div>
+		<button>提交</button>
+	</div>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			var data = {
+				"data":[{
+					"product": {
+						"code": "ABC1000",
+						"name": "前挡风镜",
+						"parts": {
+							"code": "ABC1000",
+							"name": "前挡风镜"
+						}
+					},
+					"price": "99",
+					"quantity": 10
+					},{
+						"product": {
+							"code": "ABC1001",
+							"name": "后挡风镜",
+							"parts": {
+								"code": "ABC1001",
+								"name": "后挡风镜"
+							}
+						},
+						"price": "80",
+						"quantity": 5
+					},{
+						"product": {
+							"code": "ABC1002",
+							"name": "大灯",
+							"parts": {
+								"code": "ABC1002",
+								"name": "大灯"
+							}
+						},
+						"price": "50",
+						"quantity": 2
+					}]
+				}
+			$.each(data.data,function(k){
+				var product = this;
+				var div = $('<div />').attr('data-role','page').addClass('paging').prop('id','page'+k);
+				var iframe = $('<iframe />').prop('id','header').prop('src','../mobile/header.html');
+				var content = $('<h1 />').text('配件编号:'+product.product.code);
+				var footer = $('<div />').attr('data-role','footer');
+				var selectDiv = $('<div />').addClass('ui-field-contain');
+				var select = $('<select />').prop('id','filter-menu'+k).addClass('filterable-sleect').attr('data-native-menu',false);
+				$.each(data.data,function(j){
+					var option = $('<option />').val(this.product.code).text(this.product.code);
+					if(j == k)
+						option.prop('selected',true);
+					option.appendTo(select);
+				});
+				selectDiv.append(select).appendTo(footer);
+				div.append(iframe).append(content).append(footer);
+				$('body').append(div);
+			});
+			(function(){
+				var count = 0;
+				//reload page set count
+				$.each($('.paging'),function(k){
+					if($(this).css('display') === 'block')
+						count = k;
+				});
+				$('.right a').prop('href','#page' + (count));
+				$('.paging').on('swiperight',function(){
+					count--;
+					if(count < 0){
+						count = 0;
+						return false;
+					}
+					$.mobile.changePage('#page' + count,{transition: 'fade'});
+				});
+				$('.paging').on('swipeleft',function(){
+					count++;
+					if(count > data.data.length-1){
+						count = data.data.length-1;
+						return false;
+					}
+					$.mobile.changePage('#page' + count,{transition: 'fade'});
+				});
+				var isRun = false;
+				function selectChange(){
+					$('.ui-popup-container').off().click(function(){
+						isRun = true;
+					});
+					$('body').off().on('change','.filterable-select',function(){
+						if(isRun){
+							isRun = false;
+							var value = $(this).val();
+							$.mobile.changePage('#page' + value);
+							count = parseInt(value);
+						}
+					});
+				}
+				selectChange();
+				$('.paging').on('pageshow',function(){
+					selectChange();
+				});
+				$('.paging').on('pagebeforeshow',function(){
+					$('#filter-menu' + count).val(count).change();
+				});
+			})();
+		});
+	</script>
+</body>
+</html>
