@@ -8,7 +8,6 @@ var server = http.createServer(function(req,res){
 	res.setHeader("Access-Control-Allow-Origin" , "*");
 	var url = req.url;
 	var file = documentRoot + url;
-	console.log(url);
 	fs.readFile(file, function(err, data){
 		var fileTypes = {
 			'.html': 'text/html;charset="utf-8"',
@@ -38,5 +37,4 @@ var server = http.createServer(function(req,res){
 		}
 	});
 }).listen(8082);
-console.log('server start success');
 
