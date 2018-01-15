@@ -2,6 +2,8 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var dir = './interface';
+//加密
+const crypto = require('crypto');
 fs.readdir(dir,function(err,files){
 	if(err){
 		console.log('读取服务器接口目录错误');
