@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p v-bind:title="time">鼠标悬停此处查看信息</p>
+    <p><span v-bind:title="time">鼠标悬停此处查看信息</span></p>
     <p v-if="isTrue">这里是v-if是否显示</p>
     <ol>
       <li v-for="(t,index) in list" :key='index'>
@@ -18,6 +18,7 @@
         v-bind:key="item.id">
       </todo-item>
     </ol>
+    <button @click="addOption">添加一项</button>
     <p>未使用v-html. {{rawHtml}}</p>
     <p>使用v-html. <span v-html="rawHtml"></span></p>
 

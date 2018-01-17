@@ -34,6 +34,11 @@ export default({
 		reverseMsg: function(){
 			this.msg = this.msg.split('').reverse().join('');
 		},
+		addOption: function(){
+			// this.groupList.push({id:this.groupList.length,text: '莎拉'});							//会跟着变
+			// this.groupList[this.groupList.length] = {id:this.groupList.length,text: '莎拉'};		//不会跟着变
+			Vue.set(this.groupList, this.groupList.length, {id:this.groupList.length,text: '莎拉'});	//会跟着变
+		},
 		getAnswer: function(){
 			if(this.question.indexOf('?') === -1){
 				this.answer = 'Question usually contain a question mark. ;-)';

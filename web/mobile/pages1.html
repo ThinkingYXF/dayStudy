@@ -220,9 +220,10 @@
 			},500);
 			function setPublic(){
 				var headerIframe = $(document.getElementsByClassName('iframeHeader')[count].contentWindow.document.body);
-				var p1 = $('<p />').text('总价:' + totalPrice);
-				var p2 = $('<p />').text('总数量:' + totalQuantity);
-				var div = $('<div >').append(p1).append(p2);
+				var merchant = $('<p />').addClass('col-xs-12').html('商户: <select><option>请选择</option><option>彩虹科技有限公司</option></select>');
+				var p1 = $('<p />').text('总价:' + totalPrice).addClass('col-xs-6');
+				var p2 = $('<p />').text('总数量:' + totalQuantity).addClass('col-xs-6');
+				var div = $('<div >').append(merchant).append(p1).append(p2);
 				headerIframe.find('div h2').html(div);
 				// for(var i = 0; i < headerIframe.length; i++){
 				// 	var iframe = $(headerIframe[i].contentWindow.document.body);
