@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.css">
+	<title>Document</title>
+	<style>
+		*{
+			touch-action: none;
+		}
+		iframe{
+			border: none;
+			border-bottom: 1px solid #ccc;
+			width: 100%;
+		}
+		.ui-footer{
+			position: absolute;
+			bottom: 15vh;
+			width: 100%;
+		}
+		.ui-footer > button{
+			width: 49% !important;
+		}
+		.ui-field-contain > div{
+			text-align: center;
+		}
+		button{
+			position: absolute !important;
+			bottom: 5vh !important;
+		}
+		#filter-menu{
+			max-height: 100px;
+		}
+		.text-nowrap{
+			overflow: hidden;
+			white-space: nowrap;
+		}
+	</style>
+</head>
+<body>
+	<!-- <div data-role="page" id="page0" class="paging">
+		<iframe id="header" src="../mobile/header.html"></iframe>
+		<h1>第一页</h1>
+		<div data-role="footer">
+			<div class="ui-field-contain">
+				<select name="select-native" id="filter-menu0" class="filterable-select" data-native-menu="false">
+					<option value="0">第一页</option>
+				</select>
+			</div>
+		</div>
+		<button>提交</button>
+	</div> -->
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script>
+		// $(document).ready(function(){
+			var data = {
+				"data":[{
+					"product": {
+						"code": "ABC1000",
+						"name": "前挡风镜",
+						"parts": {
+							"code": "ABC1000",
+							"name": "前挡风镜"
+						}
+					},
+					"price": "99",
+					"quantity": 10
+					},{
+						"product": {
+							"code": "ABC1001",
+							"name": "后挡风镜",
+							"parts": {
+								"code": "ABC1001",
+								"name": "后挡风镜"
+							}
+						},
+						"price": "80",
+						"quantity": 5
+					},{
+						"product": {
+							"code": "ABC1002",
+							"name": "大灯",
+							"parts": {
+								"code": "ABC1002",
+								"name": "大灯"
+							}
+						},
+						"price": "50",
+						"quantity": 2
+					},{
+						"product": {
+							"code": "ABC1003",
+							"name": "车顶",
+							"parts": {
+								"code": "ABC1003",
+								"name": "车顶"
+							}
+						},
+						"price": "888",
+						"quantity": 3
+					},{
+						"product": {
+							"code": "ABC1004",
+							"name": "车窗",
+							"parts": {
+								"code": "ABC1004",
+								"name": "车窗"
+							}
+						},
+						"price": "69",
+						"quantity": 30
+					},{
+						"product": {
+							"code": "ABC1005",
+							"name": "中网",
+							"parts": {
+								"code": "ABC1005",
+								"name": "中网"
+							}
+						},
+						"price": "22",
+						"quantity": 11
+					}]
+				}
+			var totalPrice = 0,
+				totalQuantity = 0;
+			$.each(data.data,function(k){
+				var product = this;
+				var div = $('<div />').attr('data-role','page').addClass('paging').prop('id','page'+k);
+				//header
+				var iframe = $('<iframe />').prop('id','header').prop('src','../mobile/header.html').addClass('iframeHeader');
+				//content
+				var columns = [{
+					title: '商品编号',
+					data: 'product.code'
+				},{
+					title: '商品名称',
+					data: 'product.name'
+				},{
+					title: '配件编号',
+					data: 'product.parts.code'
+				},{
+					title: '价格',
+					data: 'price'
+				},{
+					title: '数量',
+					data: 'quantity'
+				}];
+
+				// var ps = '<p>配件编号:'+product.product.code+'</p><p>价格:'+product.price+'</p><p>数量:'+product.quantity+'</p>'
+				// var content = $('<h3 />').html(ps);
+				var content = $('<div />').text('表格').append(table);
+				$('<table />').addClass('myTable'+k).appendTo(content);
+				//footer
+				var footer = $('<div />').attr('data-role','footer');
+				var selectDiv = $('<div />').addClass('ui-field-contain');
+				var select = $('<select />').prop('id','filter-menu'+k).addClass('filterable-sleect').attr('data-native-menu',false);
+				var button = $('<button />').text('提交');
+				var number = 0;
+				$.each(data.data,function(j){
+					var option = $('<option />').val(number).text(this.product.code);
+					number++;
+					if(j == k)
+						option.prop('selected',true);
+					option.appendTo(select);
+				});
+				selectDiv.append(select).appendTo(footer);
+				div.append(iframe).append(content).append(footer).append(button);
+				$('body').append(div);
+				var arr = [];
+				arr.push(data.data[k]);
+				var table = $('.myTable' + k).addClass('table able-bordered table-striped').css('width','100%').css('min-width','360px').DataTable({
+					columnDefs: [{
+						targets: '_all',
+						data: null,
+						defaultContent: '',
+						className: 'text-nowrap'
+					}],
+					columns: columns,
+					paging: false,
+					searching: false,
+					info: false,
+					scrollX: true,
+					scrollY: '60vh',
+					scrollCollapse: true,
+					// data: data.data,
+					data: arr,
+					initComplete: function(){
+						$(this).DataTable().columns.adjust();
+					}
+				}).on('draw.dt',function(){
+					$(this).DataTable().columns.adjust();
+				});
+
+				totalPrice+= parseInt(this.price);
+				totalQuantity+= parseInt(this.quantity);
+			});
+			// (function(){
+				var count = 0;
+				//reload page set count
+				$.each($('.paging'),function(k){
+					if($(this).css('display') === 'block')
+						count = k;
+				});
+				$('.right a').prop('href','#page' + (count));
+				$('.paging').on('swiperight',function(){
+					count--;
+					if(count < 0){
+						count = 0;
+						return false;
+					}
+					// $.mobile.changePage('#page' + count,{transition: 'fade'});
+					location.hash = '#page' + count;
+				});
+				$('.paging').on('swipeleft',function(){
+					count++;
+					if(count > data.data.length-1){
+						count = data.data.length-1;
+						return false;
+					}
+					// $.mobile.changePage('#page' + count,{transition: 'fade'});
+					location.hash = '#page' + count;
+				});
+				var isRun = false;
+				function selectChange(){
+					$('.ui-popup-container').off().click(function(){
+					// $('#filter-menu'+count+'-button').click(function(){
+						// if(isRun == false){
+							isRun = true;
+						// }
+					});
+					$('.ui-popup-container ul li').off().click(function(){
+						// if(isRun){
+							isRun = false;
+							var value = $(this).attr('data-option-index');
+							$.mobile.changePage('#page' + value);
+							// location.hash = '#page' + value;
+							count = parseInt(value);
+						// }
+					});
+					// $('body').off().on('change','.filterable-select',function(){
+					// 	if(isRun){
+					// 		isRun = false;
+					// 		var value = $(this).val();
+					// 		$.mobile.changePage('#page' + value);
+					// 		count = parseInt(value);
+					// 	}
+					// });
+				}
+
+				$('.paging').on('pageshow',function(){
+					selectChange();
+					setPublic();
+					$('table').DataTable().columns.adjust();
+				});
+				$('.paging').on('pagebeforeshow',function(){
+					$('#filter-menu' + count).val(count).change();
+				});
+			// })();
+
+			setTimeout(function(){
+				$.each($('.paging'),function(k){
+					if($(this).css('display') === 'block')
+						count = k;
+				});
+				selectChange();
+				setPublic();
+			},500);
+			function setPublic(){
+				var headerIframe = $(document.getElementsByClassName('iframeHeader')[count].contentWindow.document.body);
+				var merchant = $('<p />').addClass('col-xs-12').html('商户: <select><option>请选择</option><option>彩虹科技有限公司</option></select>');
+				var p1 = $('<p />').text('总价:' + totalPrice).addClass('col-xs-6');
+				var p2 = $('<p />').text('总数量:' + totalQuantity).addClass('col-xs-6');
+				var div = $('<div >').append(merchant).append(p1).append(p2);
+				headerIframe.find('div h2').html(div);
+				// for(var i = 0; i < headerIframe.length; i++){
+				// 	var iframe = $(headerIframe[i].contentWindow.document.body);
+				// 	iframe.find('div h2').html(div);
+				// }
+			}
+		// });
+	</script>
+</body>
+</html>

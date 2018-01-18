@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.css">
+	<title>Document</title>
+</head>
+<body>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			var data = {
+			"data":[{
+				"product": {
+					"code": "ABC1000",
+					"name": "前挡风镜",
+					"parts": {
+						"code": "ABC1000",
+						"name": "前挡风镜"
+					}
+				},
+				"price": "99",
+				"quantity": 10
+				},{
+					"product": {
+						"code": "ABC1001",
+						"name": "后挡风镜",
+						"parts": {
+							"code": "ABC1001",
+							"name": "后挡风镜"
+						}
+					},
+					"price": "80",
+					"quantity": 5
+				},{
+					"product": {
+						"code": "ABC1002",
+						"name": "大灯",
+						"parts": {
+							"code": "ABC1002",
+							"name": "大灯"
+						}
+					},
+					"price": "50",
+					"quantity": 2
+				},{
+					"product": {
+						"code": "ABC1003",
+						"name": "车顶",
+						"parts": {
+							"code": "ABC1003",
+							"name": "车顶"
+						}
+					},
+					"price": "888",
+					"quantity": 3
+				},{
+					"product": {
+						"code": "ABC1004",
+						"name": "车窗",
+						"parts": {
+							"code": "ABC1004",
+							"name": "车窗"
+						}
+					},
+					"price": "69",
+					"quantity": 30
+				},{
+					"product": {
+						"code": "ABC1005",
+						"name": "中网",
+						"parts": {
+							"code": "ABC1005",
+							"name": "中网"
+						}
+					},
+					"price": "22",
+					"quantity": 11
+				}]
+			}
+			var columns = [{
+				title: '配件编号',
+				data: 'product.code'
+			},{
+				title: '价格',
+				data: 'price'
+			},{
+				title: '数量',
+				data: 'quantity'
+			}];
+			$('<table />').prop('id','myTable').appendTo($('body'));
+			var table = $('#myTable').addClass('table able-bordered table-striped').css('width','100%').DataTable({
+				columnDefs: [{
+					targets: '_all',
+					data: null,
+					defaultContent: '',
+				}],
+				columns: columns,
+				paging: false,
+				info: false,
+				scrollX: true,
+				scrollY: '60vh',
+				scrollCollapse: true,
+				data: data.data
+			});
+
+			$('body').append(table);
+		})
+	</script>
+</body>
+</html>
