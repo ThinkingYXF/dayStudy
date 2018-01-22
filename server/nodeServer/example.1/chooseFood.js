@@ -33,9 +33,10 @@ var server = http.createServer((req, res)=>{
 }).listen(8088);
 
 server.on('request',(req, res)=>{
-	if(req.method == 'POST'){
+	if(req.method == 'POST' && req.url == '/add'){
 		var data = '';
 		req.on('data',(chunk)=>{
+			chunk = JSON.parse(chunk.toString()).food;
 			data+= chunk;
 		});
 		req.on('end',()=>{

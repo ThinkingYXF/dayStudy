@@ -61,11 +61,13 @@ window.onload = function(){
 	var add = document.getElementById('add');
 	var input = document.getElementById('like');
 	add.onclick = function(){
-		var value = input.value;
-		if(value){
+		var data = JSON.stringify({
+			food:input.value
+		});
+		if(input.value){
 			var http = new XMLHttpRequest();
-			http.open('POST','http://192.168.1.219:8088');
-			http.send(value);
+			http.open('POST','http://192.168.1.115:8088/add');
+			http.send(data);
 			http.onreadystatechange = function(json){
 				var result = json.target.response;
 				input.value = '';
