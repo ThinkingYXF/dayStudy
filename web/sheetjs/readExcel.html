@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.upload_file{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<button class="lead">导入</button>
+	<input type="file" class="upload_file">
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../sheetjs/xlsx.full.min.js"></script>
+	<script src="../js/resources/vendor/FileSaver.min.js"></script>
+	<script src="../js/global.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('.lead').click(function(){
+				$('.upload_file').trigger('click');
+			});
+			$('.upload_file').on('change',function(e){
+				$.analysisExcel(e, this, function(result){
+					console.log(result);
+				}, tranformObj);
+			});
+			var tranformObj = {
+				商品编号: 'product.code',
+				商品名称: 'product.name',
+				商品价格: 'product.price',
+				配件编号: 'product.parts.code',
+				配件名称: 'product.parts.name',
+				商品数量: 'product.qunatity',
+				配件类别: 'product.parts.tags.1000',
+				配件品牌: 'product.parts.brand.name',
+				分类: 'product.parts.tags.1008'
+			}
+		});
+	</script>
+</body>
+</html>
