@@ -6,11 +6,46 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
 	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="../js/resources/Editor-1.6.3/css/editor.bootstrap.min.css">
+	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
 	<title>Document</title>
 	<style>
 		*{
 			/* touch-action: none; */
+		}
+		header{
+			background: #3c8dbc;
+			color: white;
+			padding: 5px 15px;
+			border-radius: 5px 5px 0 0;
+		}
+		header span{
+			display: block;
+			position: absolute;
+			right: 10px;
+			top: 18px;
+			max-width: 230px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			cursor: pointer;
+		}
+		header h3{
+			margin: 10px 5px;
+		}
+		/* body{
+			margin: 0;
+		} */
+		#header h2{
+			font-size: 14px ;
+			font-weight: normal;
+			margin: 0 ;
+			background-color: #fff ;
+			line-height: 30px;
+			text-align: left ;
+		}
+		select{
+			height: 2.5rem;
+			outline: none;
 		}
 		iframe{
 			border: none;
@@ -54,15 +89,17 @@
 		</div>
 		<button>提交</button>
 	</div> -->
+	<div class="clone" style="display: none">
+		<label for=""></label>
+		<span></span>
+	</div>
 	<script src="../js/lib/jquery-1.11.1.js"></script>
 	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script src="../js/resources/Editor-1.6.3/js/dataTables.editor.min.js"></script>
 	<script>
 		// $(document).ready(function(){
 			var data = {
 				"data":[{
-					"id": 1,
 					"product": {
 						"code": "ABC1000",
 						"name": "前挡风镜",
@@ -74,7 +111,6 @@
 					"price": "99",
 					"quantity": 10
 					},{
-						"id": 2,
 						"product": {
 							"code": "ABC1001",
 							"name": "后挡风镜",
@@ -86,7 +122,6 @@
 						"price": "80",
 						"quantity": 5
 					},{
-						"id": 3,
 						"product": {
 							"code": "ABC1002",
 							"name": "大灯",
@@ -98,7 +133,6 @@
 						"price": "50",
 						"quantity": 2
 					},{
-						"id": 4,
 						"product": {
 							"code": "ABC1003",
 							"name": "车顶",
@@ -110,7 +144,6 @@
 						"price": "888",
 						"quantity": 3
 					},{
-						"id": 5,
 						"product": {
 							"code": "ABC1004",
 							"name": "车窗",
@@ -122,7 +155,6 @@
 						"price": "69",
 						"quantity": 30
 					},{
-						"id": 6,
 						"product": {
 							"code": "ABC1005",
 							"name": "中网",
@@ -138,10 +170,17 @@
 			var totalPrice = 0,
 				totalQuantity = 0;
 			$.each(data.data,function(k){
-				var product = this;
-				var div = $('<div />').attr('data-role','page').addClass('paging').prop('id','page'+k);
-				//header
-				var iframe = $('<iframe />').prop('id','header').prop('src','../mobile/header.html').addClass('iframeHeader');
+				totalPrice+= parseInt(this.price);
+				totalQuantity+= parseInt(this.quantity);
+			})
+				var div = $('<div />').attr('data-role','page').addClass('paging').prop('id','page');
+				var header = '<div data-role="header" id="header">'+
+								'<header>'+
+									'<h3>微重力</h3>'+
+									'<span>商户:中华科技有限公司(M1001)</span>'+
+								'</header>'+
+								'<h2></h2>'+
+							'</div>';
 				//content
 				var columns = [{
 					title: '商品编号',
@@ -160,29 +199,11 @@
 					data: 'quantity'
 				}];
 
-				// var ps = '<p>配件编号:'+product.product.code+'</p><p>价格:'+product.price+'</p><p>数量:'+product.quantity+'</p>'
-				// var content = $('<h3 />').html(ps);
 				var content = $('<div />').addClass('content').append(table);
-				$('<table />').addClass('myTable'+k).appendTo(content);
-				//footer
-				var footer = $('<div />').attr('data-role','footer');
-				var selectDiv = $('<div />').addClass('ui-field-contain');
-				var select = $('<select />').prop('id','filter-menu'+k).addClass('filterable-sleect').attr('data-native-menu',false);
-				var button = $('<button />').text('提交');
-				var number = 0;
-				$.each(data.data,function(j){
-					var option = $('<option />').val(number).text(this.product.code);
-					number++;
-					if(j == k)
-						option.prop('selected',true);
-					option.appendTo(select);
-				});
-				selectDiv.append(select).appendTo(footer);
-				div.append(iframe).append(content).append(footer).append(button);
+				$('<table />').addClass('myTable').appendTo(content);
+				div.append(header).append(content);
 				$('body').append(div);
-				var arr = [];
-				arr.push(data.data[k]);
-				var table = $('.myTable' + k).addClass('table able-bordered table-striped').css('width','100%').css('min-width','360px').DataTable({
+				var table = $('.myTable').addClass('table able-bordered table-striped').css('width','100%').css('min-width','360px').DataTable({
 					columnDefs: [{
 						targets: '_all',
 						data: null,
@@ -194,63 +215,19 @@
 					searching: false,
 					info: false,
 					scrollX: true,
-					scrollY: '60vh',
+					scrollY: '50vh',
 					scrollCollapse: true,
-					// data: data.data,
-					data: arr,
+					data: data.data,
+					// data: arr,
 					initComplete: function(){
 						$(this).DataTable().columns.adjust();
 					}
 				}).on('draw.dt',function(){
 					$(this).DataTable().columns.adjust();
 				});
-
-				var fields = [{
-					label: '商品编号',
-					name: 'product.code'
-				}, {
-					label: '商品名称',
-					name: 'product.name'
-				}, {
-					label: '配件编号',
-					name: 'product.parts.code'
-				}, {
-					label: '价格',
-					name: 'price'
-				},{
-					label: '数量',
-					name: 'quantity'
-				}];
-
-				var editor = new $.fn.dataTable.Editor({
-					table: '.myTable' + k,
-					idSrc: 'id',
-					fields: fields,
-					formOptions: {
-						inline: {
-							// onBlur: 'submit',
-							// onBlur: true,
-							drawType: 'none'
-						}
-					}
-				} );
-				// $('.myTable' + k).on( 'click', 'tbody td:not(:first-child)', function( e ) {
-				$('.myTable' + k).on( 'click', 'tbody td', function( e ) {
-					var rowData = table.row( $(this).parent('tr') ).data();
-					var selected = $(this).parent('tr').hasClass('selected');
-					try {
-						editor.inline( this );
-					} catch (e) {
-						console.log(e);
-					}
-				} );
-
-				totalPrice+= parseInt(this.price);
-				totalQuantity+= parseInt(this.quantity);
-			});
+			// });
 			// (function(){
 				var count = 0;
-				var selectValue = '-1';
 				//reload page set count
 				$.each($('.paging'),function(k){
 					if($(this).css('display') === 'block')
@@ -291,10 +268,9 @@
 				});
 				$('.paging').on('pagebeforeshow',function(){
 					$('#filter-menu' + count).val(count).change();
-					var headerIframe = $(document.getElementsByClassName('iframeHeader')[count].contentWindow.document.body);
-					selectValue = headerIframe.find('select').val();
 				});
 			// })();
+
 			setTimeout(function(){
 				$.each($('.paging'),function(k){
 					if($(this).css('display') === 'block')
@@ -304,15 +280,22 @@
 				setPublic();
 			},500);
 			function setPublic(){
-				var headerIframe = $(document.getElementsByClassName('iframeHeader')[count].contentWindow.document.body);
-				var merchant = $('<p />').addClass('col-xs-12').html('商户: <select><option value="-1">请选择</option><option value="1000">彩虹科技有限公司</option></select>');
-				if(!selectValue)
-					selectValue = '-1';
-				merchant.find('select').val(selectValue).change();
-				var p1 = $('<p />').text('总价:' + totalPrice).addClass('col-xs-6');
-				var p2 = $('<p />').text('总数量:' + totalQuantity).addClass('col-xs-6');
-				var div = $('<div >').append(merchant).append(p1).append(p2);
-				headerIframe.find('div h2').html(div);
+				var headerIframe = $('#header').eq(count);
+				// var merchant = $('<p />').addClass('col-xs-12').html('商户: 彩虹科技有限公司');
+				var merchant = $('.clone').clone().removeClass('clone').show().addClass('col-xs-12');
+				merchant.find('label').addClass('col-xs-3').text('商户: ');
+				merchant.find('span').text('彩虹科技有限公司');
+				var text1 = $('.clone').clone().removeClass('clone').addClass('col-xs-6').show();
+				text1.find('label').addClass('col-xs-6').text('总价: ');
+				text1.find('span').text(totalPrice);
+				var text2 = $('.clone').clone().removeClass('clone').addClass('col-xs-6').show();
+				text2.find('label').addClass('col-xs-6').text('总数量: ');
+				text2.find('span').text(totalQuantity);
+
+				// var p1 = $('<p />').text('总价: ' + totalPrice).addClass('col-xs-6');
+				// var p2 = $('<p />').text('总数量: ' + totalQuantity).addClass('col-xs-6');
+				var div = $('<div >').css('lineHeight','30px').append(merchant).append(text1).append(text2);
+				headerIframe.find('h2').html(div);
 			}
 		// });
 	</script>

@@ -66,7 +66,7 @@ window.onload = function(){
 		});
 		if(input.value){
 			var http = new XMLHttpRequest();
-			http.open('POST','http://192.168.1.115:8088/add');
+			http.open('POST','http://192.168.1.118:8088/add');
 			http.send(data);
 			http.onreadystatechange = function(json){
 				var result = json.target.response;
