@@ -56,7 +56,7 @@ server.on('request',(req, res)=>{
 		});
 		// req.end(data);
 		req.on('end',()=>{
-			var result = JSON.parse(fs.readFileSync( documentRoot + 'web/mobile/data.json'));
+			var result = JSON.parse(fs.readFileSync( documentRoot + 'server/nodeServer/data.json'));
 			for(var i=0;i<result.data.length;i++){
 				if(result.data[i].id == data.data['id']){
 					dealObj(result.data[i],data.data);
