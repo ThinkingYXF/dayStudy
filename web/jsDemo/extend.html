@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		function extend(){
+			var args = arguments;
+			if(args.length < 1)
+				return;
+			else if(args.length == 1)
+				return args[0];
+			else{
+				var resultObj = copyObj(args[0]);
+				for(var i = 1; i < args.length; i++){
+					for(var k in args[i]){
+						resultObj[k] = args[i][k];
+					}
+				}
+				return resultObj;
+			}
+		}
+		function copyObj(obj){
+			if(typeof obj != 'object')
+				return obj;
+			var newObj = {};
+			for(var k in obj){
+				newObj[k] = copyObj(obj[k]);
+			}
+			return newObj;
+		}
+		var a = {
+			name: 'zhao',
+			age: 22,
+			friends: {
+				name: 'zhao1'
+			}
+		}
+		var b = {
+			name: 'qian',
+			age: 30
+		}
+		var c = {
+			name: 'sun',
+			age: 40,
+			friends: {
+				age: 50,
+				height: '178cm',
+				weight: '60kg'
+			}
+		}
+		console.log(extend(a,b,c));
+	</script>
+</body>
+</html>

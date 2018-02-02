@@ -1,0 +1,59 @@
+header{
+	background: #3c8dbc;
+	color: white;
+	padding: 5px 15px;
+	border-radius: 5px 5px 0 0;
+}
+header span{
+	display: block;
+	position: absolute;
+	right: 10px;
+	top: 18px;
+	max-width: 230px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	cursor: pointer;
+}
+header h3{
+	margin: 10px 5px;
+}
+#header h2{
+	font-size: 14px ;
+	font-weight: normal;
+	margin: 0 ;
+	background-color: #fff ;
+	line-height: 30px;
+	text-align: left ;
+}
+select{
+	height: 2.5rem;
+	outline: none;
+}
+iframe{
+	border: none;
+	border-bottom: 1px solid #ccc;
+	width: 100%;
+}
+.ui-footer{
+	position: absolute;
+	bottom: 15vh;
+	width: 100%;
+}
+.ui-footer > button{
+	width: 49% !important;
+}
+.ui-field-contain > div{
+	text-align: center;
+}
+button{
+	position: absolute !important;
+	bottom: 5vh !important;
+}
+#filter-menu{
+	max-height: 100px;
+}
+.text-nowrap{
+	overflow: hidden;
+	white-space: nowrap;
+}

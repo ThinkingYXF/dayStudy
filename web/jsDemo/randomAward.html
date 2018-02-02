@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>random award</title>
+	<style>
+		.block{
+			width: 80px;
+			height: 80px;
+			border: 1px solid #000;
+			margin: -1px -1px 0 0;
+			float: left;
+			line-height: 80px;
+			text-align: center;
+		}
+		.wrapper{
+			width: 250px;
+			position: relative;
+		}
+		.scrollDiv{
+			position: absolute;
+			width: 81px;
+			height: 81px;
+			background: red;
+			opacity: 0.3;
+		}
+		.btn:hover{
+			background-color: darkorange;
+			cursor: pointer;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<h2>0</h2>
+	<div class="wrapper">
+		<div class="block">1</div>
+		<div class="block">2</div>
+		<div class="block">3</div>
+		<div class="block">8</div>
+		<div class="block btn">按钮</div>
+		<div class="block">4</div>
+		<div class="block">7</div>
+		<div class="block">6</div>
+		<div class="block">5</div>
+		<div class="scrollDiv"></div>
+	</div>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script>
+		window.onload = function(){
+			var btn = document.querySelector('.btn');
+			var random = 0;
+			var count = 0;
+			var count1 = 0;
+			btn.onclick = function(){
+				random = parseInt(Math.random()*8);
+				$('h2').html(random);
+				run();
+			}
+			function run(dom){
+				var runPath = [{
+					left: '0',
+					top: '0'
+				},{
+					left: '81px',
+					top: '0'
+				},{
+					left: '162px',
+					top: '0'
+				},{
+					left: '162px',
+					top: '81px'
+				},{
+					left: '162px',
+					top: '162px'
+				},{
+					left: '81px',
+					top: '162px'
+				},{
+					left: '0',
+					top: '162px'
+				},{
+					left: '0',
+					top: '81px'
+				}];
+				var timer = setInterval(function(){
+					count++;
+					$('.scrollDiv').css(runPath[count]);
+					if(count >= runPath.length-1){
+						count = -1;
+						count1++;
+					}
+					if(count1 > 2){
+						if(count == random-1){
+							clearInterval(timer);
+							count = random -1;
+							count1 = 0;
+						}
+					}
+				},100);
+			}
+		}
+	</script>
+</body>
+</html>

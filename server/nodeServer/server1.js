@@ -54,7 +54,6 @@ server.on('request',(req, res)=>{
 			json['data']['id'] = id;
 			data = json;
 		});
-		// req.end(data);
 		req.on('end',()=>{
 			var result = JSON.parse(fs.readFileSync( documentRoot + 'server/nodeServer/data.json'));
 			for(var i=0;i<result.data.length;i++){
@@ -62,19 +61,9 @@ server.on('request',(req, res)=>{
 					dealObj(result.data[i],data.data);
 				}
 			}
-			// if(!isRepeat){
-			// 	var newFood = {
-			// 		id: result.length,
-			// 		value: data,
-			// 		weight: 1
-			// 	}
-			// 	result.food.push(newFood);
-			// }
 			fs.writeFile('data.json', JSON.stringify(result), (err) => {
 				if (err) throw err;
 			});
-			// return data;
-
 			function dealObj(result,obj){
 				for(var k in obj){
 					if(typeof obj[k] != 'object')

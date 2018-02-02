@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h3>按权重选取 a,b,c,d中一个</h3>
+	<h4></h4>
 	<p id="pre"></p>
 	<button id="choose">选择</button>
 	<p id="result"></p>
@@ -51,6 +52,12 @@
 			var random = parseInt(Math.random()*weightSum);
 			var result = judgeLocation(weightObj, random);
 			document.getElementById('result').innerText = '随机数: '+ random + ' 结果:' + result;
+		}
+		for(var j = 0; j < testObj.length; j++){
+			document.querySelector('h4').innerHTML += '概率:' + probability(testObj[j].weight) + '&nbsp;';
+		}
+		function probability(num){
+			return parseFloat((num/weightSum).toFixed(2))*100 + "%"
 		}
 	</script>
 </body>
