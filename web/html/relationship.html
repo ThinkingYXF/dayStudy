@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="../js/lib/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="../js/chart.js"></script>
+    <script type="text/javascript" src="../js//china.js"></script>
+    <!-- <script src="js/d3/d3.v3.min.js" type="text/JavaScript"></script> -->
+    <script src="../js/d3.v3.js" type="text/JavaScript"></script>
+    <script type="text/javascript">
+        var color = ['#a6c84c', '#ffa022', '#46bee9','#c23531', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3',];
+        var winWidth=1500;
+        var winHeight=800;
+        //简单关系图示例代码-力导布局
+        function simpleForceGraph() {
+            var option = {
+                legend: {
+                    data: ["人物","家人","朋友"]
+                },
+                series: [{
+                    type: 'graph',
+                    layout: 'force',
+                    symbolSize: 15,
+                    animation: false,
+                    //roam: true,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'bottom'
+                        }
+                    },
+                    draggable: false,//true
+                    nodes: [],
+                    links: [],
+                    categories: [],
+                    force: {
+                        //initLayout: 'circular',
+                        gravity: 0.1,
+                        // repulsion: 20,
+                        edgeLength: 80,
+                        repulsion: 100,
+                        layoutAnimation:false,
+                    }
+                }]
+            };
+            var nodes=[
+                {category:0, name: '乔布斯', value : 10, label: '乔布斯\n（主要）'},
+                {category:1, name: '丽萨-乔布斯',value : 2},
+                {category:1, name: '保罗-乔布斯',value : 3},
+                {category:1, name: '克拉拉-乔布斯',value : 3},
+                {category:1, name: '劳伦-鲍威尔',value : 7},
+                {category:2, name: '史蒂夫-沃兹尼艾克',value : 5},
+                {category:2, name: '奥巴马',value : 8},
+                {category:2, name: '比尔-盖茨',value : 9},
+                {category:2, name: '乔纳森-艾夫',value : 4},
+                {category:2, name: '蒂姆-库克',value : 4},
+                {category:2, name: '龙-韦恩',value : 1},
+            ];
+            var links =[
+                {source : {name: '丽萨-乔布斯',index: 1}, target : {name: '乔布斯', index:1}, weight : 1, name: '女儿'},
+                {source : {name: '保罗-乔布斯',index: 2}, target : {name: '乔布斯', index:2}, weight : 2, name: '父亲'},
+                {source : {name: '克拉拉-乔布斯',index: 3}, target : {name: '乔布斯',index: 3}, weight : 1, name: '母亲'},
+                // {source : '劳伦-鲍威尔', target : '乔布斯', weight : 2},
+                // {source : '史蒂夫-沃兹尼艾克', target : '乔布斯', weight : 3, name: '合伙人'},
+                // {source : '奥巴马', target : '乔布斯', weight : 1},
+                // {source : '比尔-盖茨', target : '乔布斯', weight : 6, name: '竞争对手'},
+                // {source : '乔纳森-艾夫', target : '乔布斯', weight : 1, name: '爱将'},
+                // {source : '蒂姆-库克', target : '乔布斯', weight : 1},
+                // {source : '龙-韦恩', target : '乔布斯', weight : 1},
+                // {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
+                // {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
+                // {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
+                // {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
+                // {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
+                // {source : '比尔-盖茨', target : '奥巴马', weight : 6},
+                // {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
+                // {source : '蒂姆-库克', target : '奥巴马', weight : 1}
+
+
+                // {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
+                // {source : '保罗-乔布斯', target : '乔布斯', weight : 2, name: '父亲'},
+                // {source : '克拉拉-乔布斯', target : '乔布斯', weight : 1, name: '母亲'},
+                // {source : '劳伦-鲍威尔', target : '乔布斯', weight : 2},
+                // {source : '史蒂夫-沃兹尼艾克', target : '乔布斯', weight : 3, name: '合伙人'},
+                // {source : '奥巴马', target : '乔布斯', weight : 1},
+                // {source : '比尔-盖茨', target : '乔布斯', weight : 6, name: '竞争对手'},
+                // {source : '乔纳森-艾夫', target : '乔布斯', weight : 1, name: '爱将'},
+                // {source : '蒂姆-库克', target : '乔布斯', weight : 1},
+                // {source : '龙-韦恩', target : '乔布斯', weight : 1},
+                // {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
+                // {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
+                // {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
+                // {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
+                // {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
+                // {source : '比尔-盖茨', target : '奥巴马', weight : 6},
+                // {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
+                // {source : '蒂姆-库克', target : '奥巴马', weight : 1}
+            ];
+            var categories=[
+                {
+                    name: '人物',
+                    itemStyle:{normal:{color:color[0],}}
+                },
+                {
+                    name: '家人',
+                    itemStyle:{normal:{color:color[1],}}
+                },
+                {
+                    name:'朋友',
+                    itemStyle:{normal:{color:color[2],}}
+                }
+            ];
+            this.genData=function() {
+                option.series[0].nodes.splice(0,option.series[0].nodes.length);
+                option.series[0].links.splice(0,option.series[0].links.length);
+                option.series[0].categories.splice(0,option.series[0].categories.length);
+                option.series[0].nodes=(nodes);
+                option.series[0].links=(links);
+                option.series[0].categories=(categories);
+                //生成9个节点，1个1级，3个2级，6个3级
+                //生成若干边
+                return option;
+            }
+        }
+        function initPage(){
+            //testMapFuncs();
+            $("#btnSimpleForeceGraph").on("click",function () {
+                var dom = document.getElementById("canvas");
+                var myChart = echarts.init(dom);
+                var tmap=new simpleForceGraph();
+                var option=tmap.genData();
+                option.series[0].layout="none";
+                option.series[0].force=null;
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
+                }
+                initForceByD3Graph();
+                function initInvisibleGraphic() {
+                    // Add shadow circles (which is not visible) to enable drag.
+                    myChart.setOption({
+                        graphic: echarts.util.map(option.series[0].nodes, function (item, dataIndex) {
+                            var tmpPos=myChart.convertToPixel({'seriesIndex': 0},[item.x,item.y]);
+                            //var tmpPos=[item.x+500,item.y];
+                            //console.log(dataIndex+":"+item.name+":"+tmpPos);
+                            return {
+                                type: 'circle',
+                                position: tmpPos,
+                                shape: {
+                                    cx: 0,
+                                    cy: 0,
+                                    r: 10
+                                },
+                                invisible: true,
+                                draggable: true,
+                                ondrag: echarts.util.curry(onPointDragging, dataIndex),
+                                //onmousemove: echarts.util.curry(showTooltip, dataIndex),
+                                //onmouseout: echarts.util.curry(hideTooltip, dataIndex),
+                                z: 100
+                            };
+                        })
+                    });
+                    window.addEventListener('resize', updatePosition);
+                    myChart.on('dataZoom', updatePosition);
+                }
+                function updatePosition() {
+                    myChart.setOption({
+                        graphic: echarts.util.map(option.series[0].nodes, function (item, dataIndex) {
+                            var tmpPos=myChart.convertToPixel({'seriesIndex': 0},[item.x,item.y]);
+                            return {
+                                position: tmpPos,
+                            };
+                        })
+                    });
+                }
+                function onPointDragging(dataIndex, dx, dy) {
+                    var tmpPos=myChart.convertFromPixel({'seriesIndex': 0},this.position);
+                    option.series[0].nodes[dataIndex].x = tmpPos[0];
+                    option.series[0].nodes[dataIndex].y = tmpPos[1];
+                    //console.log("dragging:"+dataIndex+":"+tmpPos+":"+[dx,dy]+":"+this.position);
+                    myChart.setOption(option);
+                    updatePosition();
+                }
+                function initForceByD3Graph() {
+                    var force = d3.layout.force()
+                            .nodes(option.series[0].nodes)
+                            .links(option.series[0].links)
+                            .size([winWidth,winHeight])
+                            .linkDistance(200)
+                            .charge(-1500)
+                            .start();
+                    //在力导布局还未稳定时，每次刷新图
+                    force.on("tick",function () {
+                        myChart.setOption(option);
+                    });
+                    //在力导布局稳定后，创建graphic
+                    force.on("end",function () {
+                        initInvisibleGraphic();
+                    });
+                }
+            });
+        }
+
+    </script>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%">
+    <table style="width:100%;" >
+        <tr>
+            <td><input type="submit" id="btnSimpleForeceGraph" value="简单力导布局"/></td>
+        </tr>
+    </table>
+    <div id="canvas" style="width:1500px;height:800px"></div>
+</div>
+    <script>
+        initPage();
+    </script>
+</body>
+</html>

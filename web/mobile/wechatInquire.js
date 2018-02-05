@@ -140,6 +140,7 @@ getData(function(data){
 		});
 		// $('.myTable' + k).on( 'click', 'tbody td:not(:first-child)', function( e ) {
 		$('.myTable' + k).on( 'click', 'tbody td', function( e ) {
+			$('.content').css('paddingBottom','300px');
 			var rowData = table.row( $(this).parent('tr') ).data();
 			var selected = $(this).parent('tr').hasClass('selected');
 			try {
