@@ -19,6 +19,7 @@ window.onload = function(){
 		globalFood = json.food;
 	});
 
+	var isRun = true;
 	button.onclick = function(){
 		if(globalFood.length === 0){
 			h3.innerText = '暂无食物';
@@ -31,19 +32,23 @@ window.onload = function(){
 			weightSum += globalFood[j].weight;
 			weightObj[globalFood[j].value] = [num, weightSum];
 		}
-		var i = 0;
-		var timer = setInterval(function(){
-			var number = parseInt(Math.random()*globalFood.length);
-			h3.innerText = globalFood[number].value;
-			i++;
-			if(i > 20){
-				clearInterval(timer);
-				var random = parseInt(Math.random()*weightSum);
-				// var random = parseInt(Math.random()*globalFood.length);
-				// h3.innerText = globalFood[random].value;
-				h3.innerText = judgeLocation(weightObj, random);
-			}
-		},50);
+		if(isRun){
+			var i = 0;
+			isRun = false;
+			var timer = setInterval(function(){
+				var number = parseInt(Math.random()*globalFood.length);
+				h3.innerText = globalFood[number].value;
+				i++;
+				if(i > 20){
+					clearInterval(timer);
+					var random = parseInt(Math.random()*weightSum);
+					// var random = parseInt(Math.random()*globalFood.length);
+					// h3.innerText = globalFood[random].value;
+					h3.innerText = judgeLocation(weightObj, random);
+					isRun = true;
+				}
+			},50);
+		}
 	}
 	function judgeLocation(obj, random){
 		var str = '';
@@ -66,7 +71,7 @@ window.onload = function(){
 		});
 		if(input.value){
 			var http = new XMLHttpRequest();
-			http.open('POST','http://192.168.1.118:8088/add');
+			http.open('POST','http://192.168.1.115:8099/add');
 			http.send(data);
 			http.onreadystatechange = function(json){
 				var result = json.target.response;
