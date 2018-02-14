@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<h1>Nested Named Views</h1>
+		<router-view></router-view>
+	</div>
+
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	<script>
+		const UserSettingsNav = {
+			template: `
+				<div class="us__nav">
+					<router-link to="/settings/emails">emails</router-link>
+					<br>
+					<router-link to="/settings/profile">profile</router-link>
+				</div>
+			`
+		}
+		const UserSettings = {
+			template: `
+				<div class="us">
+					<h2>User settings</h2>
+					<UserSettingsNav />
+					<router-view class="us__content" />
+					<router-view name="helper" class="us__content us__content--helper" />
+				</div>
+			`,
+			component: {UserSettingsNav}
+		}
+		const UserEmailsSubscriptions = {
+			template: `
+				<div>
+					<h3>Emails Subscriptions</h3>
+				</div>
+			`
+		}
+		const UserProfile = {
+			template: `
+				<div>
+					<h3>Edit your profile</h3>
+				</div>
+			`
+		}
+		const UserProfilePreview = {
+			template: `
+				<div>
+					<h3>Preview of your profile</h3>
+				</div>
+			`
+		}
+		const router = new VueRouter({
+			mode: 'history',
+			routes: [{
+				path: '/settings',
+				component: UserSettings,
+				children: [{
+					path: 'emails',
+					component: UserEmailsSubscriptions
+				},{
+					path: 'profile',
+					component: {
+						default: UserProfile,
+						helper: UserProfilePreview
+					}
+				}]
+			}]
+		})
+		new Vue({
+			router
+		}).$mount('#app');
+		setTimeout(function(){
+			console.log(1);
+			// router.push('/settings/emails');
+		},1000);
+	</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>pintu game</title>
+	<style>
+		.box {
+			width: 300px;
+			overflow: hidden;
+		}
+		.box img{
+			float: left;
+			width: 83px;
+			height: 83px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<img src="../images/images/201__.png" alt="" class="pj">
+		<img src="../images/images/202.png" alt="" class="p2">
+		<img src="../images/images/203.png" alt="" class="p3">
+		<img src="../images/images/204.png" alt="" class="p4">
+		<img src="../images/images/205.png" alt="" class="p5">
+		<img src="../images/images/206.png" alt="" class="p6">
+		<img src="../images/images/207.png" alt="" class="p7">
+		<img src="../images/images/208.png" alt="" class="p8">
+		<img src="../images/images/209.png" alt="" class="p9">
+	</div>
+
+	<button class="start">开始</button>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function(){
+			var isRun = false;
+			var arr = [1,2,3,4,5,6,7,8,9];
+			$('.start').click(function(){
+				isRun = true;
+				arr.sort(function(){
+					return Math.random() > 0.5 ? 1: -1;
+				});
+				// var arrImgs = [];
+				makePintu();
+			});
+			function makePintu(){
+				$('.box').empty();
+				for(var i = 0;i < arr.length; i++){
+					var img = $('<img />').prop('src','../images/images/20' + arr[i] + '.png');
+					$('.box').append(img);
+				}
+			}
+			$('.box').on('click','img',function(){
+				if(isRun){
+					var isCanRun = false;
+					var index1 = $(this).index() + 1;
+					var index2 = 0;
+					for(var j = 0; j < arr.length; j++){
+						if(arr[j] == 1){
+							index2 = j + 1;
+							break;
+						}
+					}
+					var canSwap = locationObj[index2];
+					for(var k = 0; k < canSwap.length; k++){
+						if(canSwap[k] == index1){
+							isCanRun = true;
+							break;
+						}
+					}
+					if(isCanRun){
+						swapArray(arr, index1-1, index2-1);
+						makePintu();
+						if(judgeSuccess(arr)){
+							alert('Congratulation!');
+							arr = [1,2,3,4,5,6,7,8,9];
+							makePintu();
+						}
+					}
+				}
+			});
+			function judgeSuccess(resultArr){
+				var num = 0;
+				for(var i = 0; i < resultArr.length; i++){
+					if(i == resultArr -1 )
+						num++;
+				}
+				if(num == resultArr.length)
+					return true;
+				else
+					return false;
+			}
+			var locationObj = {
+				'1': [2,4],
+				'2': [1,3,5],
+				'3': [2,6],
+				'4': [1,5,7],
+				'5': [2,4,6,8],
+				'6': [3,5,9],
+				'7': [4,8],
+				'8': [5,7,9],
+				'9': [6,8]
+			}
+			//交换数组中的 index1 和index2
+			function swapArray(arr, index1, index2) {
+				arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+				return arr;
+			}
+		});
+	</script>
+</body>
+</html>

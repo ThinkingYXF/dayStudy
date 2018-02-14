@@ -5,14 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
-	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="../js/resources/Editor-1.6.3/css/editor.bootstrap.min.css">
 	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
 	<title>Document</title>
 	<style>
-		/* *{ */
-			/* touch-action: none; */
-		/* } */
+		 *{
+			touch-action: none;
+		 }
 		header{
 			background: #3c8dbc;
 			color: white;
@@ -75,6 +73,13 @@
 			overflow: hidden;
 			white-space: nowrap;
 		}
+		.content {
+			width: 90%;
+			border: 1px solid #ccc;
+			margin: 2vh auto;
+			height: 40vh;
+			padding: 10px;
+		}
 	</style>
 </head>
 <body>
@@ -92,8 +97,6 @@
 	</div> -->
 	<script src="../js/lib/jquery-1.11.1.js"></script>
 	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<script src="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script src="../js/resources/Editor-1.6.3/js/dataTables.editor.min.js"></script>
 	<!-- <script src="data.js"></script> -->
 	<script>
 		// $(document).ready(function(){
@@ -121,24 +124,11 @@
 									'<h2></h2>'+
 								'</div>'
 					//content
-					var columns = [{
-						title: '商品编号',
-						data: 'product.code'
-					},{
-						title: '商品名称',
-						data: 'product.name'
-					},{
-						title: '配件编号',
-						data: 'product.parts.code'
-					},{
-						title: '价格',
-						data: 'price'
-					},{
-						title: '数量',
-						data: 'quantity'
-					}];
-					var content = $('<div />').addClass('content').append(table);
-					$('<table />').addClass('myTable'+k).appendTo(content);
+					var content = $('<div />').addClass('content');
+					var p1 = $('<p />').text('商品编号: ' + this.product.code).appendTo(content);
+					var p2 = $('<p />').text('商品名称: ' + this.product.name).appendTo(content);
+					var p3 = $('<p />').text('数量: ' + this.quantity).appendTo(content);
+					var p4 = $('<p />').text('价格: ' + this.price).appendTo(content);
 					//footer
 					var footer = $('<div />').attr('data-role','footer');
 					var selectDiv = $('<div />').addClass('ui-field-contain');
@@ -157,98 +147,7 @@
 					$('body').append(div);
 					var arr = [];
 					arr.push(data.data[k]);
-					var table = $('.myTable' + k).addClass('table able-bordered table-striped').css('width','100%').css('min-width','360px').DataTable({
-						columnDefs: [{
-							targets: '_all',
-							data: null,
-							defaultContent: '',
-							className: 'text-nowrap'
-						}],
-						columns: columns,
-						paging: false,
-						searching: false,
-						info: false,
-						scrollX: true,
-						scrollY: '60vh',
-						scrollCollapse: true,
-						// data: data.data,
-						data: arr,
-						initComplete: function(){
-							$(this).DataTable().columns.adjust();
-						}
-					}).on('draw.dt',function(){
-						$(this).DataTable().columns.adjust();
-					});
 
-					var fields = [{
-						label: '商品编号',
-						name: 'product.code'
-					}, {
-						label: '商品名称',
-						name: 'product.name'
-					}, {
-						label: '配件编号',
-						name: 'product.parts.code'
-					}, {
-						label: '价格',
-						name: 'price'
-					},{
-						label: '数量',
-						name: 'quantity'
-					}];
-
-					var editor = new $.fn.dataTable.Editor({
-						table: '.myTable' + k,
-						idSrc: 'id',
-						fields: fields,
-						ajax: {
-							edit: {
-								// url: 'http://192.168.1.118:8082/product',
-								url: 'http://localhost:8082/product',
-								method: 'POST',
-								contentType: 'application/json',
-								data: function ( d ) {
-									return JSON.stringify( d );
-								},
-								success: function( json ) {
-									if(!json['success']) {
-										$.msgBox(json['message'], 'warning');
-										return false;
-									}
-									table.columns.adjust();
-								},
-								error: function(error){
-									getData(function(json){
-										$.each(json.data,function(k){
-											if((parseInt(count) + 1) == this['id']){
-												$('.myTable' + k).DataTable().rows().remove();
-												$('.myTable' + k).DataTable().rows.add([this]).draw();
-											}
-										})
-									});
-								}
-							}
-						},
-						formOptions: {
-							inline: {
-								onBlur: 'submit',
-								// onBlur: true,
-								drawType: 'none'
-							}
-						}
-					} ).on('preSubmit',function(){
-						editor.close();
-					});
-					// $('.myTable' + k).on( 'click', 'tbody td:not(:first-child)', function( e ) {
-					$('.myTable' + k).on( 'click', 'tbody td', function( e ) {
-						var rowData = table.row( $(this).parent('tr') ).data();
-						var selected = $(this).parent('tr').hasClass('selected');
-						try {
-							editor.inline( this );
-						} catch (e) {
-							console.log(e);
-						}
-					} );
 
 					totalPrice+= parseInt(this.price);
 					totalQuantity+= parseInt(this.quantity);
@@ -296,7 +195,6 @@
 				$('.paging').on('pageshow',function(){
 					selectChange();
 					setPublic(count,selectValue);
-					$('table').DataTable().columns.adjust();
 				});
 				$('.paging').on('pagebeforeshow',function(){
 					$('#filter-menu' + count).val(count).change();

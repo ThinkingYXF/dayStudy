@@ -3,8 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// import { VueRouter } from 'vue-router/types/router';
 
 Vue.config.productionTip = false
+
+// const Foo = {'template': '<div>Foo</div>'}
+// const Bar = {'template': '<div>Bar</div>'}
+// const routes = [{path: '/foo',component: Foo},{path: '/bar', component: Bar}];
+// const router = new VueRouter({
+//   routes
+// });
 
 /* eslint-disable no-new */
 new Vue({
