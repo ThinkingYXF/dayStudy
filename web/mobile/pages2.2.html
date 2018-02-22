@@ -77,24 +77,15 @@
 			width: 90%;
 			border: 1px solid #ccc;
 			margin: 2vh auto;
-			height: 40vh;
+			height: 30vh;
 			padding: 10px;
+		}
+		div.p{
+			margin-top: 10%;
 		}
 	</style>
 </head>
 <body>
-	<!-- <div data-role="page" id="page0" class="paging">
-		<iframe id="header" src="../mobile/header.html"></iframe>
-		<h1>第一页</h1>
-		<div data-role="footer">
-			<div class="ui-field-contain">
-				<select name="select-native" id="filter-menu0" class="filterable-select" data-native-menu="false">
-					<option value="0">第一页</option>
-				</select>
-			</div>
-		</div>
-		<button>提交</button>
-	</div> -->
 	<script src="../js/lib/jquery-1.11.1.js"></script>
 	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<!-- <script src="data.js"></script> -->
@@ -125,10 +116,11 @@
 								'</div>'
 					//content
 					var content = $('<div />').addClass('content');
-					var p1 = $('<p />').text('商品编号: ' + this.product.code).appendTo(content);
-					var p2 = $('<p />').text('商品名称: ' + this.product.name).appendTo(content);
-					var p3 = $('<p />').text('数量: ' + this.quantity).appendTo(content);
-					var p4 = $('<p />').text('价格: ' + this.price).appendTo(content);
+					var divP = $('<div />').addClass('p').appendTo(content);
+					var p1 = $('<p />').text('商品编号: ' + this.product.code).appendTo(divP);
+					var p2 = $('<p />').text('商品名称: ' + this.product.name).appendTo(divP);
+					var p3 = $('<p />').text('数量: ' + this.quantity).appendTo(divP);
+					var p4 = $('<p />').text('价格: ' + this.price).appendTo(divP);
 					//footer
 					var footer = $('<div />').attr('data-role','footer');
 					var selectDiv = $('<div />').addClass('ui-field-contain');
@@ -169,7 +161,6 @@
 						count = 0;
 						return false;
 					}
-					// $.mobile.changePage('#page' + count,{transition: 'fade'});
 					location.hash = '#page' + count;
 				});
 				$('.paging').on('swipeleft',function(){
@@ -178,7 +169,6 @@
 						count = data.data.length-1;
 						return false;
 					}
-					// $.mobile.changePage('#page' + count,{transition: 'fade'});
 					location.hash = '#page' + count;
 				});
 
