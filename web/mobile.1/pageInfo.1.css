@@ -36,11 +36,6 @@ select{
 	height: 2.5rem;
 	outline: none;
 }
-iframe{
-	border: none;
-	border-bottom: 1px solid #ccc;
-	width: 100%;
-}
 .buttonContainer{
 	position: absolute;
 	bottom: 0vh;
@@ -65,13 +60,17 @@ iframe{
 	width: 90%;
 	border: 1px solid #ccc;
 	margin: 2vh auto;
-	height: 20vh;
+	height: 35vh;
 	padding: 10px;
+	border-radius: 5px;
 }
 div.p{
 	margin-top: 2%;
 }
 .container{
-	max-height: 70vh;
+	max-height: 75vh;
 	overflow-y: auto;
+}
+div.p p,div.p1 p{
+	margin-bottom: 0;
 }

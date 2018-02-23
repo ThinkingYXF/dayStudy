@@ -8,75 +8,77 @@
 	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
 	<title>Document</title>
 	<style>
-		 *{
+		 /* *{
 			touch-action: none;
-		 }
-		header{
-			background: #3c8dbc;
-			color: white;
-			padding: 5px 15px;
+		 } */
+		input{
+			 outline: none;
+		}
+		.paging{
+			background: #fff;
+		}
+		#header{
+			background: #fff;
+			/* padding: 5px 15px; */
 			border-radius: 5px 5px 0 0;
 		}
-		header span{
-			display: block;
-			position: absolute;
-			right: 10px;
-			top: 18px;
-			max-width: 230px;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-			cursor: pointer;
+		#header header{
+			border-bottom: 1px solid #ccc;
 		}
-		header h3{
+		#header h3{
 			margin: 10px 5px;
+			text-align: center;
 		}
 		/* body{
 			margin: 0;
 		} */
-		#header h2{
-			font-size: 14px ;
-			font-weight: normal;
-			margin: 0 ;
-			background-color: #fff ;
-			line-height: 30px;
-			text-align: left ;
+		.select{
+			padding: 10px 15px !important;
+			line-height: 25px;
+			background: #fff;
 		}
-		select{
-			height: 2.5rem;
-			outline: none;
+		.select label{
+			float: left;
+			margin: 13px 20px 0 0 ;
 		}
 		.text-nowrap{
 			overflow: hidden;
 			white-space: nowrap;
 		}
-		.content {
+		/* .content {
 			width: 90%;
 			border: 1px solid #ccc;
 			margin: 2vh auto;
 			height: 30vh;
 			padding: 10px;
-		}
+		} */
 		.needPart{
-			border: 1px solid #ccc;
+			/* border: 1px solid #ccc; */
 			margin: 2rem 5rem;
 			padding: 1rem;
+			border-radius: 5px;
 		}
 		.resultContainer{
 			border-top: 1px solid #ccc;
 		}
 		.resultPart{
-			border: 1px solid #ccc;
-			margin: 2rem 5rem 2rem 8rem;
+			/* border: 1px solid #ccc; */
+			margin: 2rem 2rem 2rem 5rem;
 			padding: 1rem;
+			border-radius: 5px;
+			overflow: hidden;
+		}
+		.resultPart p{
+			float: left;
+			margin-right: 2vw;
 		}
 		.resultDiv{
 			position: relative;
 		}
 		.ui-radio,.resultDiv input{
 			position: absolute;
-			top: 36%;
-			left: 8%;
+			top: 15%;
+			left: 3%;
 		}
 		.needDiv{
 			position: relative;
@@ -84,7 +86,11 @@
 		.previous, .next{
 			position: absolute;
 			width: 4rem;
-			top: 37%;
+			top: 0;
+		}
+		.previous button, .next button{
+			padding-left: 0;
+			bottom: 0;
 		}
 		.previous{
 			left: 3%;
@@ -95,28 +101,38 @@
 		.clone{
 			display: none !important;
 		}
+		.container{
+			max-height: 60vh;
+			overflow-y: auto;
+		}
+		.show{
+			position: absolute !important;
+			bottom: 2vh;
+		}
 	</style>
 </head>
 <body>
 
-	<div data-role="page" class="paging clone">
+	<div class="paging clone">
 		<div data-role="header" id="header">
 			<header>
-				<h3>微重力</h3>
-				<span>商户:中华科技有限公司(M1001)</span>
+				<h3>报价单</h3>
 			</header>
-			<h2></h2>
+			<fieldset class="select">
+				<label>商户: </label>
+			</fieldset>
 		</div>
 		<div class="container">
 			<div class="needDiv">
-				<div class="previous">pre</div>
+				<div class="previous"><button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-carat-l"></button></div>
 				<div class="needPart">
 					<p>需求编号: <span>ABC1000</span></p>
-					<p>商品名称: <span>前挡风镜D</span></p>
-					<p>数量: <span>10</span></p>
-					<p>价格: <span>99</span></p>
+					<!-- <p>商品名称: <span>前挡风镜D</span></p> -->
+					<!-- <p>数量: <input type="number"></p> -->
+					<!-- <p>数量: 10</p> -->
+					<!-- <p>价格: <span>99</span></p> -->
 				</div>
-				<div class="next">next</div>
+				<div class="next"><button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-carat-r"></button></div>
 			</div>
 			<div class="resultContainer">
 				<div class="resultDiv">
@@ -124,6 +140,7 @@
 					<div class="resultPart">
 						<p>商品编号: ABC1000</p>
 						<p>商品名称: 前挡风镜D</p>
+						<!-- <p>数量: <input type="number"></p> -->
 						<p>数量: 10</p>
 						<p>价格: 99</p>
 					</div>
@@ -133,13 +150,14 @@
 					<div class="resultPart">
 						<p>商品编号: ABC1000</p>
 						<p>商品名称: 前挡风镜D</p>
+						<!-- <p>数量: <input type="number"></p> -->
 						<p>数量: 10</p>
 						<p>价格: 99</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<button>展示</button>
+		<button class="show">展示</button>
 	</div>
 
 	<script src="../js/lib/jquery-1.11.1.js"></script>
@@ -159,21 +177,28 @@
 			// var data = dataObj;
 			var count = 0;
 			getData(function(data){
+				// $('.ui-page').remove();
 				$.each(data.data,function(k){
 					var product = this;
 					var clone = $('.clone').clone().removeClass('clone').show();
 					clone.prop('id','page'+ k);
 					clone.find('.needPart p').eq(0).find('span').html(product.product.code);
 					clone.find('.needPart p').eq(1).find('span').html(product.product.name);
+					// clone.find('.needPart p').eq(2).find('input').val(product.quantity);
 					clone.find('.needPart p').eq(2).find('span').html(product.quantity);
 					clone.find('.needPart p').eq(3).find('span').html(product.price);
+					var select = $('<select />').prop('name','company').prop('id','company');
+					$('<option />').text('请选择').val('-1').appendTo(select);
+					$('<option />').text('彩虹科技有限公司').val('1000').appendTo(select);
+					clone.find('.select').append(select);
 					var resultStr = '';
 					$.each(product.originProduct,function(){
-						var str = '<div class="resultDiv"><input type="radio" name="parts">'+
+						var str = '<div class="resultDiv"><input type="radio" name="'+product.id+'" checked="checked">'+
 										'<div class="resultPart">'+
 											'<p>商品编号: '+this.product.code+'</p>'+
 											'<p>商品名称: '+this.product.name+'</p>'+
-											'<p>数量: '+this.quantity+'</p>'+
+											// '<p><label>数量: </label><input type="number" value="'+ this.quantity +'"></p>'+
+											'<p>数量: '+ this.quantity +'</p>'+
 											'<p>价格: '+this.price+'</p>'+
 										'</div></div>';
 						resultStr += str;
@@ -188,49 +213,53 @@
 				count = 0;
 				var selectValue = '-1';
 				//reload page set count
-				$.each($('.paging'),function(k){
-					if($(this).css('display') === 'block')
-						count = k;
-				});
+				// $.each($('.paging'),function(k){
+				// 	if($(this).css('display') === 'block')
+				// 		count = k;
+				// });
 				$('.right a').prop('href','#page' + (count));
 
 				//左右滑动切换
-				// $('.paging').on('swiperight',function(){
-				// 	count--;
-				// 	if(count < 0){
-				// 		count = 0;
-				// 		return false;
-				// 	}
-				// 	location.hash = '#page' + count;
-				// });
-				// $('.paging').on('swipeleft',function(){
-				// 	count++;
-				// 	if(count > data.data.length-1){
-				// 		count = data.data.length-1;
-				// 		return false;
-				// 	}
-				// 	location.hash = '#page' + count;
-				// });
-				$('.previous').on('tap',function(){
+				$('.paging').on('swiperight',function(){
 					count--;
 					if(count < 0){
 						count = 0;
 						return false;
 					}
-					setPublic(count,selectValue);
 					location.hash = '#page' + count;
-					$('.ui-page').hide();
+					$('.paging').hide();
 					$('#page'+ count).show();
 				});
-				$('.next').on('tap',function(){
+				$('.paging').on('swipeleft',function(){
 					count++;
 					if(count > data.data.length-1){
 						count = data.data.length-1;
 						return false;
 					}
-					setPublic(count,selectValue);
 					location.hash = '#page' + count;
-					$('.ui-page').hide();
+					$('.paging').hide();
+					$('#page'+ count).show();
+				});
+				$('.previous').unbind().on('click',function(){
+					count--;
+					if(count < 0){
+						count = 0;
+						return false;
+					}
+					// setPublic(count,selectValue);
+					location.hash = '#page' + count;
+					$('.paging').hide();
+					$('#page'+ count).show();
+				});
+				$('.next').unbind().on('click',function(){
+					count++;
+					if(count > data.data.length-1){
+						count = data.data.length-1;
+						return false;
+					}
+					// setPublic(count,selectValue);
+					location.hash = '#page' + count;
+					$('.paging').hide();
 					$('#page'+ count).show();
 				});
 				setTimeout(function(){
@@ -239,10 +268,14 @@
 					if(hash)
 						count = hash[0];
 					$.mobile.changePage('#page' + count);
-					$('.ui-page').hide();
+					$('.paging').hide();
 					$('#page'+ count).show();
-					setPublic(count,selectValue);
+					// setPublic(count,selectValue);
 				},500);
+
+				$('.show').unbind().on('click',function(){
+					location.href = 'pageInfo.1.html';
+				});
 			});
 			function setPublic(count,selectValue){
 				selectValue = selectValue || '-1';

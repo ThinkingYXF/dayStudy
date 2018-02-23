@@ -4,15 +4,129 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>order list</title>
+	<title>报价历史</title>
+	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="orderList.css">
 </head>
 <body>
 
 	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script>
-		$(document).ready(function(){
+			var data = {"success":true,"data":[{"id":"1","merchantInfo": {
+					"name": '彩虹科技有限公司',
+					"id": 1000
+				},
+				"time": '2018-01-14',
+				"totalPrice": '129',
+				"total": 4,"originProduct": {
+				"product": {
+					"code": "ABC1000",
+					"name": "前挡风镜",
+					"parts": {
+						"code": "ABC1000",
+						"name": "前挡风镜"
+					}
+				},
+				"price": "99",
+				"quantity": 10
+			},"product":{"code":"ABC1000","name":"前挡风镜d","parts":{"code":"ABC1000","name":"前挡风镜"}},"price":"99","quantity":"10"},
+			{"id":"2","merchantInfo": {
+					"name": '彩虹科技有限公司',
+					"id": 1000
+				},
+				"time": '2018-01-15',
+				"total": 42,
+				"totalPrice": '88',
+				"originProduct": {
+				"product": {
+					"code": "ABC100001",
+					"name": "前挡风镜222",
+					"parts": {
+						"code": "ABC100001",
+						"name": "前挡风镜222"
+					}
+				},
+				"price": "999",
+				"quantity": 10
+			},"product":{"code":"ABC1001","name":"后挡风镜","parts":{"code":"ABC1001","name":"后挡风镜"}},"price":"80","quantity":"5"},
+			{"id":"3","merchantInfo": {
+					"name": '白兔科技有限公司',
+					"id": 1001
+				},
+				"time": '2017-12-24',
+				"total": 10,
+				"totalPrice": '389',
+				"originProduct": {
+				"product": {
+					"code": "ABC1002",
+					"name": "大灯",
+					"parts": {
+						"code": "ABC1002",
+						"name": "大灯"
+					}
+				},
+				"price": "50",
+				"quantity": 10
+			},"product":{"code":"ABC1002","name":"大灯","parts":{"code":"ABC1002","name":"大灯"}},"price":"50","quantity":"2"},
+			{"id":"4","merchantInfo": {
+					"name": '蓝天科技有限公司',
+					"id": 1002
+				},
+				"time": '2018-01-27',
+				"total": 30,
+				"totalPrice": '1903',
+				"originProduct": {
+				"product": {
+					"code": "ABC1003",
+					"name": "车顶",
+					"parts": {
+						"code": "ABC1003",
+						"name": "车顶"
+					}
+				},
+				"price": "888",
+				"quantity": 10
+			},"product":{"code":"ABC1003","name":"车顶","parts":{"code":"ABC1003","name":"车顶"}},"price":"888","quantity":"3"}]}
 
-		});
+			var header = '<div data-role="header" id="header">'+
+							'<h2>报价历史</h2>'+
+						'</div>';
+			var div = $('<div />').attr('data-role','page').addClass('paging').prop('id','page');
+			var container = $('<div />').addClass('container');
+			$.each(data.data,function(k){
+				//content
+				var content = $('<div />').addClass('content');
+				var divP1 = $('<div />').addClass('p1');
+				$('<p />').text('客户: ' + this.merchantInfo.name).appendTo(divP1);
+				$('<p />').text('品种: ' + this.total).appendTo(divP1);
+				$('<p />').text('时间: ' + this.time).appendTo(divP1);
+				$('<p />').text('金额: ' + this.totalPrice).appendTo(divP1);
+				$('<p />').text('备注: ').appendTo(divP1);
+
+				// var divP = $('<div />').addClass('p');
+				// $('<p />').text('商品编号: ' + this.product.code).appendTo(divP);
+				// $('<p />').text('商品名称: ' + this.product.name).appendTo(divP);
+				// $('<p />').text('数量: ' + this.quantity).appendTo(divP);
+				// $('<p />').text('价格: ' + this.price).appendTo(divP);
+				content.append(divP1).appendTo(container);
+			});
+			div.append(header).append(container);
+			// $('body').append(div);
+			$('body').append(div);
+			var count = 0;
+			setTimeout(function(){
+				$.each($('.paging'),function(k){
+					if($(this).css('display') === 'block')
+						count = k;
+				});
+			},500);
+
+			$('.content').unbind().on('click',function(){
+				location.href = 'pages2.2.html';
+			});
+		// });
 	</script>
 </body>
 </html>
