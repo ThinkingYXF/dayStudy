@@ -8,7 +8,7 @@
 	height: 7vh;
 }
 #header h2{
-	/* margin: 10px 5px; */
+	margin: 10px 5px;
 	line-height: 0;
 	font-size: 1.2em;
 }
@@ -30,8 +30,9 @@ select{
 	width: 100%;
 	border-bottom: 1px solid #ccc;
 	margin: 2vh auto;
-	height: 20vh;
+	/* height: 20vh; */
 	padding: 10px;
+	overflow: hidden;
 }
 div.p{
 	margin-top: 2%;

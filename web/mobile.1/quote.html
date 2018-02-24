@@ -6,110 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
 	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
-	<title>Document</title>
-	<style>
-		 /* *{
-			touch-action: none;
-		 } */
-		input{
-			 outline: none;
-		}
-		.paging{
-			background: #fff;
-		}
-		#header{
-			background: #fff;
-			/* padding: 5px 15px; */
-			border-radius: 5px 5px 0 0;
-		}
-		#header header{
-			border-bottom: 1px solid #ccc;
-		}
-		#header h3{
-			margin: 10px 5px;
-			text-align: center;
-		}
-		/* body{
-			margin: 0;
-		} */
-		.select{
-			padding: 10px 15px !important;
-			line-height: 25px;
-			background: #fff;
-		}
-		.select label{
-			float: left;
-			margin: 13px 20px 0 0 ;
-		}
-		.text-nowrap{
-			overflow: hidden;
-			white-space: nowrap;
-		}
-		/* .content {
-			width: 90%;
-			border: 1px solid #ccc;
-			margin: 2vh auto;
-			height: 30vh;
-			padding: 10px;
-		} */
-		.needPart{
-			/* border: 1px solid #ccc; */
-			margin: 2rem 5rem;
-			padding: 1rem;
-			border-radius: 5px;
-		}
-		.resultContainer{
-			border-top: 1px solid #ccc;
-		}
-		.resultPart{
-			/* border: 1px solid #ccc; */
-			margin: 2rem 2rem 2rem 5rem;
-			padding: 1rem;
-			border-radius: 5px;
-			overflow: hidden;
-		}
-		.resultPart p{
-			float: left;
-			margin-right: 2vw;
-		}
-		.resultDiv{
-			position: relative;
-		}
-		.ui-radio,.resultDiv input{
-			position: absolute;
-			top: 15%;
-			left: 3%;
-		}
-		.needDiv{
-			position: relative;
-		}
-		.previous, .next{
-			position: absolute;
-			width: 4rem;
-			top: 0;
-		}
-		.previous button, .next button{
-			padding-left: 0;
-			bottom: 0;
-		}
-		.previous{
-			left: 3%;
-		}
-		.next{
-			right: 1%;
-		}
-		.clone{
-			display: none !important;
-		}
-		.container{
-			max-height: 60vh;
-			overflow-y: auto;
-		}
-		.show{
-			position: absolute !important;
-			bottom: 2vh;
-		}
-	</style>
+	<link rel="stylesheet" href="quote.css">
+	<title>报价单</title>
 </head>
 <body>
 
@@ -198,8 +96,9 @@
 											'<p>商品编号: '+this.product.code+'</p>'+
 											'<p>商品名称: '+this.product.name+'</p>'+
 											// '<p><label>数量: </label><input type="number" value="'+ this.quantity +'"></p>'+
-											'<p>数量: '+ this.quantity +'</p>'+
 											'<p>价格: '+this.price+'</p>'+
+											'<p class="quantity"><button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-minus"></button> <input type="number" value="'+ this.quantity +'">'+
+											'<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-plus"></button></p>'+
 										'</div></div>';
 						resultStr += str;
 					});
@@ -241,6 +140,7 @@
 					$('#page'+ count).show();
 				});
 				$('.previous').unbind().on('click',function(){
+					selectValue = $('#page'+ count).find('select').val();
 					count--;
 					if(count < 0){
 						count = 0;
@@ -248,10 +148,12 @@
 					}
 					// setPublic(count,selectValue);
 					location.hash = '#page' + count;
-					$('.paging').hide();
-					$('#page'+ count).show();
+					$('.paging').fadeOut();
+					$('#page'+ count).fadeIn();
+					$('#page'+ count).find('select').val(selectValue).change();
 				});
 				$('.next').unbind().on('click',function(){
+					selectValue = $('#page'+ count).find('select').val();
 					count++;
 					if(count > data.data.length-1){
 						count = data.data.length-1;
@@ -259,8 +161,9 @@
 					}
 					// setPublic(count,selectValue);
 					location.hash = '#page' + count;
-					$('.paging').hide();
-					$('#page'+ count).show();
+					$('.paging').fadeOut();
+					$('#page'+ count).fadeIn();
+					$('#page'+ count).find('select').val(selectValue).change();
 				});
 				setTimeout(function(){
 					var hash = location.hash.match(/\d+/);
@@ -274,7 +177,22 @@
 				},500);
 
 				$('.show').unbind().on('click',function(){
-					location.href = 'pageInfo.1.html';
+					location.href = 'pageInfo.html';
+				});
+
+				$('.ui-icon-plus').unbind().on('click',function(){
+					var value = $(this).prev().find('input').val();
+					var num = value;
+					num++;
+					$(this).prev().find('input').val(num);
+				});
+				$('.ui-icon-minus').unbind().on('click',function(){
+					var value = $(this).next().find('input').val();
+					var num = value;
+					num--;
+					if(num < 0)
+						num = 0;
+					$(this).next().find('input').val(num);
 				});
 			});
 			function setPublic(count,selectValue){
