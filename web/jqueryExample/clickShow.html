@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		body{
+			font-size: 14px;
+		}
+		.wrapper{
+			width: 200px;
+			border: 1px solid #ccc;
+			padding: 10px;
+		}
+		.comment{
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<p>名称: 阿克帝国和</p>
+		<p>编号: asdas112</p>
+		<p class="comment">备注: 期间巍峨和健康和卡红色的大赛柯棣华阿斯巨大和健康的画激情会更强我国企鹅奖回国后军区阿角色大师的</p>
+	</div>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('.comment').click(function(){
+				var clamp = $(this).css('-webkit-line-clamp');
+				if(clamp != 1000)
+					$(this).css('-webkit-line-clamp','1000');
+				else
+					$(this).css('-webkit-line-clamp','2');
+			});
+		});
+	</script>
+</body>
+</html>

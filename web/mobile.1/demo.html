@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- <link rel="stylesheet" href="/resources/vendor/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css" /> -->
+	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css" />
+	<!-- <link rel="stylesheet" href="/resources/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css" /> -->
+	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="/resources/css/wxinquirereply.css" /> -->
+	<link rel="stylesheet" href="demo.css" />
+	<title>询价回复</title>
+	<style>
+		.resultPart .price{
+			position: relative;
+		}
+		.resultPart .price > div{
+			min-width: 13vw;
+			height: 2.6rem;
+			position: absolute;
+			top: -0.8rem;
+			left: 4rem;
+		}
+		.resultPart .price div input{
+			min-width: 13vw;
+			top: -0.5rem;
+		}
+		.resultPart > div > input{
+			top: -0.4rem;
+			width: 100%;
+		}
+		.resultPart p > .price > span{
+			display: inline-block;
+			min-width: 13vw;
+			height: 2.6rem;
+			position: absolute;
+			top: -0.8rem;
+			left: 4rem;
+		}
+		.resultPart p > .price > span > input{
+			min-width: 13vw;
+			top: -0.5rem;
+		}
+		.resultPart p > .price > span > div{
+			border: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="paging clone">
+		<div data-role="header" id="header">
+			<header>
+				<h3>询价回复</h3>
+			</header>
+			<fieldset class="select">
+				<label>策略商户: </label>
+			</fieldset>
+		</div>
+		<div class="container">
+			<div class="needDiv">
+				<div class="previous"><button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-carat-l"></button></div>
+				<div class="needPart">
+					<p>需求编号: <span>ABC1000</span></p>
+					<p>需求名称: <span>前挡风镜D</span></p>
+					<!-- <p>数量: <input type="number"></p> -->
+					<p>数量: <span></span></p>
+					<p>车型: <span></span> 年款: <span></span></p>
+					<!-- <p>价格: <span>99</span></p> -->
+				</div>
+				<div class="next"><button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-carat-r"></button></div>
+			</div>
+			<div class="resultContainer"></div>
+		</div>
+		<button class="show">保存并展示</button>
+	</div>
+	<input type="hidden" class="code" value="${id!}">
+	<input type="hidden" class="openId" value="${openId!}">
+
+
+	<div class="modal" id="modalTip" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">提示</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-primary">确定</button> -->
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+          </div>
+        </div>
+	</div>
+
+	<!-- <script src="/resources/vendor/jquery-2.2.4.min.js"></script> -->
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<!-- <script src="/resources/vendor/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<!-- <script src="/resources/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> -->
+	<script src="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
+	<script>
+		function getData(str,callback,customerId){
+			var code = $('.code').val();
+			var openId = $('.openId').val();
+			var customerId = customerId || 0;
+			// $.getJSON('/wechat/info/inquire/replymodify?customerId='+ customerId +'&id=' + code + "&openId=" + openId,function(json){
+			$.getJSON(str,function(json){
+				if(callback && $.isFunction(callback))
+					callback(json);
+			});
+		}
+		var totalPrice = 0,
+			totalQuantity = 0,
+			count = 0;
+		getData('demo.json',function(data){
+			if(data.data.length){
+				//分组
+				var productsObj = {};
+				$.each(data.data,function(j){
+					if(!productsObj[this.product.originCode.code]){
+						productsObj[this.product.originCode.code] = [this];
+					}
+					else{
+						productsObj[this.product.originCode.code].push(this);
+					}
+				});
+				var pagesNum = 0;
+				//生成页面
+				$.each(productsObj,function(key){
+					var resultStr = '';
+					var openId = $('.openId').val();
+					var clone = $('.clone').clone().removeClass('clone').show();
+					clone.prop('id','page'+ pagesNum);
+					var select = $('<select />').prop('name','company').prop('id','company');
+					// $.get('/wechat/info/merchant/customers?openId=' + openId,function(json){
+					$.get('customers.json',function(json){
+						$.each(json.data,function(k,val){
+							var option = "<option value='"+val.merchant.id+"'>"+val.merchant.name+"</option>";
+							if(val.merchant.id==999){
+								select.prepend(option);
+							}
+							else{
+								select.append(option);
+							}
+						});
+						select.val(999).change();
+						clone.find('.select').append(select);
+
+						var isRun = false;
+						clone.find('#company').unbind().click(function(){
+							isRun = true;
+						});
+						clone.find('#company').on('change',function(){
+							if(isRun){
+								var merchantId = $(this).val();
+								changeMerchant(merchantId);
+								isRun = false;
+							}
+						});
+					});
+					if(productsObj[key].length){
+						clone.find('.needPart p').eq(0).find('span').html(key);
+						clone.find('.needPart p').eq(1).find('span').html(productsObj[key][0].product.originCode.name);
+						clone.find('.needPart p').eq(2).find('span').html(productsObj[key][0].product.originCode.quantity);
+					}
+					//无供应
+					if(!productsObj[key][0].id){
+						resultStr = '<p style="margin:2rem">无供应</p>';
+						clone.find('.resultContainer').html(resultStr);
+						$('body').append(clone);
+					}
+					else{
+						$.each(productsObj[key],function(k){
+							var product = this;
+							var str = '<div class="resultDiv">'+
+											'<div class="resultPart">'+
+												'<p>配件编号: '+product.product.parts.code+'</p>'+
+												'<p>配件名称: '+product.product.parts.name+'</p>'+
+												'<p>类别: '+typeKeyToValue(product.product.parts.tags[1000])+' 品牌: '+product.product.parts.brand.name+'</p>'+
+												'<p>库存: '+product.product.inventory+'<span class="price"> 价格: <input type="number" jump="true" class="partsPrice" value="'+product.price+'" ></span></p>'+
+											'</div></div>';
+							resultStr += str;
+							clone.find('.resultContainer').html(resultStr);
+							$('body').append(clone);
+						});
+					}
+					pagesNum++;
+				});
+
+				count = 0;
+				var selectValue = '999';
+				//左右滑动切换
+				$('.paging').on('swiperight',function(){
+					count--;
+					if(count < 0){
+						count = 0;
+						return false;
+					}
+					location.hash = '#page' + count;
+					$('.paging').hide();
+					$('#page'+ count).show();
+				});
+				$('.paging').on('swipeleft',function(){
+					count++;
+					if(count > pagesNum-1){
+						count = pagesNum-1;
+						return false;
+					}
+					location.hash = '#page' + count;
+					$('.paging').hide();
+					$('#page'+ count).show();
+				});
+				$('.previous').unbind().on('click',function(){
+					selectValue = $('#page'+ count).find('select').val();
+					count--;
+					if(count < 0){
+						count = 0;
+						return false;
+					}
+					// setPublic(count,selectValue);
+					location.hash = '#page' + count;
+					$('.paging').fadeOut();
+					$('#page'+ count).fadeIn();
+					$('#page'+ count).find('select').val(selectValue).change();
+				});
+				$('.next').unbind().on('click',function(){
+					selectValue = $('#page'+ count).find('select').val();
+					count++;
+					if(count > pagesNum-1){
+						count = pagesNum-1;
+						return false;
+					}
+					// setPublic(count,selectValue);
+					location.hash = '#page' + count;
+					$('.paging').fadeOut();
+					$('#page'+ count).fadeIn();
+					$('#page'+ count).find('select').val(selectValue).change();
+				});
+				setTimeout(function(){
+					var hash = location.hash.match(/\d+/);
+					location.hash = '';
+					if(hash)
+						count = hash[0];
+					// $.mobile.changePage('#page' + count);
+					location.hash = '#page' + count;
+					$('.paging').hide();
+					$('#page'+ count).show();
+					// setPublic(count,selectValue);
+				},500);
+
+				$('.show').unbind().on('click',function(){
+					// var params = {};
+					// var customerId = $("#company").val();
+					// var code = $('.code').val();
+					// var openId = $('.openId').val();
+					// params['customer.id'] = customerId;
+					// params['originId'] = code;
+					// params['openId'] = openId
+					// // var radio = $('input[name="'+data.data[0].product.originCode.id+'"]:checked');
+					// // var id = radio.attr('data');
+					// $.each(data.data,function(k,v){
+					// 	// if(id == this.id){
+					// 		var price = $('.resultContainer').find('.resultDiv').eq(k).find('.partsPrice').val();
+					// 		var productObj = this;
+					// 		params['codes['+k+'].code'] = productObj.product.code;
+					// 		params['codes['+k+'].name'] = productObj.product.name;
+					// 		// params['codes[0].price'] = productObj.price;
+					// 		params['codes['+k+'].price'] = price;
+					// 		params['codes['+k+'].quantity'] = productObj.product.inventory;
+					// 		params['codes['+k+'].type'] = productObj.product.parts.tags[1000];
+					// 		params['codes['+k+'].brand.id'] = productObj.product.parts.brand.id;
+					// 		params['codes['+k+'].originId'] = productObj.product.originCode.id;
+					// 		params['codes['+k+'].selected'] = productObj.id;
+					// 	// }
+					// });
+					// $.ajax({
+					// 	url: '/wechat/info/inquire/reply',
+					// 	method: 'POST',
+					// 	data: params
+					// }).success(function(json){
+					// 	// $('#modalTip .modal-body p').html(json.message);
+					// 	// $('#modalTip').modal('show');
+					// 	// $('#modalTip').on('hidden.bs.modal', function () {
+					// 		location.href = '/wechat/inquire/replyInfo?id='+code;
+					// 	// })
+					// });
+					location.href = 'info/info.html';
+				});
+
+				$('.ui-icon-plus').unbind().on('click',function(){
+					var value = $(this).prev().find('input').val();
+					var num = value;
+					num++;
+					$(this).prev().find('input').val(num);
+				});
+				$('.ui-icon-minus').unbind().on('click',function(){
+					var value = $(this).next().find('input').val();
+					var num = value;
+					num--;
+					if(num < 0)
+						num = 0;
+					$(this).next().find('input').val(num);
+				});
+
+				// $('input[type=number]').focus(function(){
+				// 	var scrollTop = $('#page' + count).find('.container').scrollTop();
+				// 	setTimeout(function(){
+				// 		$('#page' + count).find('.container').scrollTop(100 + scrollTop);
+				// 	},500);
+				// });
+			}
+		});
+
+		function changeMerchant(merchantId){
+			getData('demo1.json',function(data){
+				if(data.data.length){
+					//分组
+					var productsObj = {};
+					$.each(data.data,function(j){
+						if(!productsObj[this.product.originCode.code]){
+							productsObj[this.product.originCode.code] = [this];
+						}
+						else{
+							productsObj[this.product.originCode.code].push(this);
+						}
+					});
+					var pagesNum = 0;
+					//生成页面
+					$.each(productsObj,function(key){
+						var resultStr = '';
+						//无供应
+						if(!productsObj[key][0].id){
+							resultStr = '<p style="margin:2rem">无供应</p>';
+							$('#page' + pagesNum).find('.resultContainer').html(resultStr);
+						}
+						else{
+							$.each(productsObj[key],function(k){
+								var product = this;
+								var str = '<div class="resultDiv">'+
+												'<div class="resultPart">'+
+													'<p>配件编号: '+product.product.parts.code+'</p>'+
+													'<p>配件名称: '+product.product.parts.name+'</p>'+
+													'<p>类别: '+typeKeyToValue(product.product.parts.tags[1000])+' 品牌: '+product.product.parts.brand.name+'</p>'+
+													'<p>库存: '+product.product.inventory+'<span class="price">'+
+													' 价格: <span class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="number" class="partsPrice" value="'+product.price+'" ></span></span></p>'+
+												'</div></div>';
+								resultStr += str;
+								$('#page' + pagesNum).find('.resultContainer').html(resultStr);
+							});
+						}
+						pagesNum++;
+					});
+
+					count = 0;
+					var selectValue = '999';
+					//左右滑动切换
+					$('.paging').on('swiperight',function(){
+						count--;
+						if(count < 0){
+							count = 0;
+							return false;
+						}
+						location.hash = '#page' + count;
+						$('.paging').hide();
+						$('#page'+ count).show();
+					});
+					$('.paging').on('swipeleft',function(){
+						count++;
+						if(count > pagesNum-1){
+							count = pagesNum-1;
+							return false;
+						}
+						location.hash = '#page' + count;
+						$('.paging').hide();
+						$('#page'+ count).show();
+					});
+					$('.previous').unbind().on('click',function(){
+						selectValue = $('#page'+ count).find('select').val();
+						count--;
+						if(count < 0){
+							count = 0;
+							return false;
+						}
+						// setPublic(count,selectValue);
+						location.hash = '#page' + count;
+						$('.paging').fadeOut();
+						$('#page'+ count).fadeIn();
+						$('#page'+ count).find('select').val(selectValue).change();
+					});
+					$('.next').unbind().on('click',function(){
+						selectValue = $('#page'+ count).find('select').val();
+						count++;
+						if(count > pagesNum-1){
+							count = pagesNum-1;
+							return false;
+						}
+						// setPublic(count,selectValue);
+						location.hash = '#page' + count;
+						$('.paging').fadeOut();
+						$('#page'+ count).fadeIn();
+						$('#page'+ count).find('select').val(selectValue).change();
+					});
+					setTimeout(function(){
+						var hash = location.hash.match(/\d+/);
+						location.hash = '';
+						if(hash)
+							count = hash[0];
+						// $.mobile.changePage('#page' + count);
+						location.hash = '#page' + count;
+						$('.paging').hide();
+						$('#page'+ count).show();
+						// setPublic(count,selectValue);
+					},500);
+
+					$('.ui-icon-plus').unbind().on('click',function(){
+						var value = $(this).prev().find('input').val();
+						var num = value;
+						num++;
+						$(this).prev().find('input').val(num);
+					});
+					$('.ui-icon-minus').unbind().on('click',function(){
+						var value = $(this).next().find('input').val();
+						var num = value;
+						num--;
+						if(num < 0)
+							num = 0;
+						$(this).next().find('input').val(num);
+					});
+				}
+			},merchantId);
+		}
+
+		function typeKeyToValue(name){
+			//PartsType  为 getPartsType.js中的变量（全局）
+			for(var key in PartsType){
+				if(name == key||name == PartsType[key]){
+					return PartsType[key];
+				}
+			}
+		}
+
+		var PartsType = {
+			"OE":"主机原厂件",
+			"SUPPORTOE":"配套原厂件",
+			"CIRCULATEOE":"流通原厂件",
+			"AM":"经济适用件",
+			"BRANDPARTS":"配套品牌件",
+			"AFTERMARKETBRANDPARTS":"售后品牌件",
+			"DETACHEDPARTS":"拆车回用件",
+			"RENOVATIONPARTS":"再制造件",
+			"COMMONPARTS":"通用件",
+			"CHOICESTPARTS":"精品选装件",
+			"INDUSTRIALPARTS":"工业用品",
+			"TOOLEQUIPMENT":"工具设备",
+			"OTHERS":"其他"
+		}
+	</script>
+</body>
+</html>

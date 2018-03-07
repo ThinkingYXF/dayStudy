@@ -1,6 +1,6 @@
 /* *{
 	touch-action: none;
-	} */
+} */
 input{
 	outline: none;
 }
@@ -43,23 +43,24 @@ input{
 	/* border: 1px solid #ccc; */
 	margin: 2rem 5rem;
 	padding: 1rem;
-	border-radius: 5px;
+	/* border-radius: 5px; */
 }
 .resultContainer{
 	border-top: 1px solid #ccc;
 }
 .resultPart{
 	/* border: 1px solid #ccc; */
-	margin: 2rem;
+	margin: 2rem 2rem 2rem 4rem;
 	padding: 2rem;
-	border-radius: 5px;
+	/* border-radius: 5px; */
 	overflow: hidden;
+	border-bottom: 1px solid #ccc;
 }
 .resultPart p{
 	/* float: left; */
 	/* margin-right: 2vw; */
 }
-.resultPart .price{
+/* .resultPart .price{
 	position: relative;
 }
 .resultPart .price div{
@@ -72,7 +73,7 @@ input{
 .resultPart .price div input{
 	min-width: 13vw;
 	top: -0.5rem;
-}
+} */
 .resultDiv{
 	position: relative;
 	margin-bottom: 3rem;
@@ -80,7 +81,7 @@ input{
 .ui-radio,.resultDiv input{
 	position: absolute;
 	top: 15%;
-	left: 2%;
+	left: 5%;
 	width: 18px;
 }
 .needDiv{
@@ -89,7 +90,7 @@ input{
 .previous, .next{
 	position: absolute;
 	width: 4rem;
-	top: 4vh;
+	top: 0;
 }
 .previous button, .next button{
 	padding-left: 0;
@@ -109,12 +110,9 @@ input{
 	overflow-y: auto;
 	min-height: 60vh;
 }
-button.show,button.save{
-	/* position: absolute !important; */
-	/* bottom: 2vh; */
-	width: 20vw;
-	float: right;
-	margin-right: 2vw;
+.show{
+	position: absolute !important;
+	bottom: 0;
 }
 .quantity{
 	position: absolute;
@@ -129,15 +127,14 @@ button.show,button.save{
 }
 .quantity div{
 	width: 10vw;
-	/* height: 4vh; */
-	height: 2.6rem;
+	height: 4vh;
 	margin-top: 8px;
 }
 .quantity div input{
 	width: 10vw;
 	height: 4vh;
 	margin-left: 8vw;
-	/* margin-top: -5px; */
+	margin-top: -3px;
 }
 .quantity button{
 	font-size: 14px;

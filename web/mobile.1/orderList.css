@@ -43,6 +43,6 @@ div.p{
 }
 div.p p,div.p1 p{
 	margin-bottom: 0;
-	float: left;
-	margin-right: 3vw;
+	/* float: left; */
+	/* margin-right: 3vw; */
 }

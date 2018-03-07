@@ -7,14 +7,14 @@
 	<link rel="stylesheet" href="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
 	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="quote.css">
-	<title>报价单</title>
+	<title>询价回复</title>
 </head>
 <body>
 
 	<div class="paging clone">
 		<div data-role="header" id="header">
 			<header>
-				<h3>报价单</h3>
+				<h3>询价回复</h3>
 			</header>
 			<fieldset class="select">
 				<label>商户: </label>
@@ -25,9 +25,9 @@
 				<div class="previous"><button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-carat-l"></button></div>
 				<div class="needPart">
 					<p>需求编号: <span>ABC1000</span></p>
-					<!-- <p>商品名称: <span>前挡风镜D</span></p> -->
-					<!-- <p>数量: <input type="number"></p> -->
-					<!-- <p>数量: 10</p> -->
+					<p>需求名称: <span>前挡风镜D</span></p>
+					<p>需求数量: <span></span></p>
+					<p>车型: <span></span> &nbsp;年款: <span></span></p>
 					<!-- <p>价格: <span>99</span></p> -->
 				</div>
 				<div class="next"><button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-carat-r"></button></div>
@@ -55,6 +55,7 @@
 				</div>
 			</div>
 		</div>
+		<button class="save">保存</button>
 		<button class="show">展示</button>
 	</div>
 
@@ -82,30 +83,44 @@
 					clone.prop('id','page'+ k);
 					clone.find('.needPart p').eq(0).find('span').html(product.product.code);
 					clone.find('.needPart p').eq(1).find('span').html(product.product.name);
-					// clone.find('.needPart p').eq(2).find('input').val(product.quantity);
 					clone.find('.needPart p').eq(2).find('span').html(product.quantity);
-					clone.find('.needPart p').eq(3).find('span').html(product.price);
+					// clone.find('.needPart p').eq(3).find('span').html(product.price);
 					var select = $('<select />').prop('name','company').prop('id','company');
 					$('<option />').text('请选择').val('-1').appendTo(select);
 					$('<option />').text('彩虹科技有限公司').val('1000').appendTo(select);
 					clone.find('.select').append(select);
 					var resultStr = '';
 					$.each(product.originProduct,function(){
-						var str = '<div class="resultDiv"><input type="radio" name="'+product.id+'" checked="checked">'+
+						var str = '<div class="resultDiv">'+
+						// '<input type="radio" name="'+product.id+'" checked="checked" data="'+this.product.code+'">'+
 										'<div class="resultPart">'+
 											'<p>商品编号: '+this.product.code+'</p>'+
 											'<p>商品名称: '+this.product.name+'</p>'+
+											'<p>供应商名称: '+this.supplier.name+'</p>'+
 											// '<p><label>数量: </label><input type="number" value="'+ this.quantity +'"></p>'+
-											'<p>价格: '+this.price+'</p>'+
-											'<p class="quantity"><button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-minus"></button> <input type="number" value="'+ this.quantity +'">'+
-											'<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-plus"></button></p>'+
+											'<p class="price">价格: <input type="number" value="'+this.price+'" ></p>'+
+											// '<p class="quantity"><button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-minus"></button> <input type="number" value="'+ this.quantity +'">'+
+											// '<button class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-plus"></button></p>'+
 										'</div></div>';
-						resultStr += str;
+						// if(product.id.id)
+							resultStr += str;
+						// else
+							// resultStr = '<p class="noProduct">无供应</p>'
 					});
 					clone.find('.resultContainer').html(resultStr);
 
 
 					$('body').append(clone);
+					$('input[name="'+product.id+'"]').on('change',function(){
+						var value = $(this).attr('data');
+						var price = $(this).parent().parent('.resultDiv').find('.resultPart .price input').val();
+						$.each(product.originProduct,function(){
+							if(value == this.product.code)
+								console.log(this);
+						});
+						console.log(price);
+						// value = JSON.parse(value);
+					});
 					totalPrice+= parseInt(this.price);
 					totalQuantity+= parseInt(this.quantity);
 				});
@@ -165,6 +180,12 @@
 					$('#page'+ count).fadeIn();
 					$('#page'+ count).find('select').val(selectValue).change();
 				});
+
+				//点击div选择配件
+				$('.resultPart').unbind().on('click',function(){
+					$(this).prev('div').find('input').trigger('click');
+				});
+
 				setTimeout(function(){
 					var hash = location.hash.match(/\d+/);
 					location.hash = '';
@@ -177,6 +198,11 @@
 				},500);
 
 				$('.show').unbind().on('click',function(){
+					var customerId = $("#company").val();
+					var params = {};
+					params['customer.id'] = customerId;
+
+					console.log(params);
 					location.href = 'pageInfo.html';
 				});
 

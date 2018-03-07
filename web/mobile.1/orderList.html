@@ -99,10 +99,10 @@
 				//content
 				var content = $('<div />').addClass('content');
 				var divP1 = $('<div />').addClass('p1');
-				$('<p />').text('客户: ' + this.merchantInfo.name).appendTo(divP1);
-				$('<p />').text('品种: ' + this.total).appendTo(divP1);
-				$('<p />').text('时间: ' + this.time).appendTo(divP1);
-				$('<p />').text('金额: ' + this.totalPrice).appendTo(divP1);
+				$('<p />').html('客户: ' + this.merchantInfo.name + '&nbsp; 时间: ' + this.time).appendTo(divP1);
+				// $('<p />').text('时间: ' + this.time).appendTo(divP1);
+				$('<p />').html('品种: ' + this.total + '&nbsp; 金额: ' + this.totalPrice).appendTo(divP1);
+				// $('<p />').text('金额: ' + this.totalPrice).appendTo(divP1);
 				$('<p />').text('备注: ').appendTo(divP1);
 
 				// var divP = $('<div />').addClass('p');
