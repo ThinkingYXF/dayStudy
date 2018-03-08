@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>报价历史</title>
+	<link rel="stylesheet" href="../../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="../../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="history.css">
+</head>
+<body>
+
+	<script src="../../js/lib/jquery-1.11.1.js"></script>
+	<script src="../../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script>
+		var header = '<div data-role="header" id="header">'+
+						'<h2>报价历史</h2>'+
+					'</div>';
+		var div = $('<div />').attr('data-role','page').addClass('paging').prop('id','page');
+		$.getJSON('history.json',function(data){
+			var container = $('<div />').addClass('container');
+			$.each(data.data,function(k){
+				//content
+				var content = $('<div />').addClass('content');
+				var divP1 = $('<div />').addClass('p1');
+				$('<p />').html('客户: ' + this.merchantInfo.name + '&nbsp; 时间: ' + this.time).appendTo(divP1);
+				// $('<p />').text('时间: ' + this.time).appendTo(divP1);
+				$('<p />').html('品种: ' + this.total + '&nbsp; 金额: ' + this.totalPrice).appendTo(divP1);
+				// $('<p />').text('金额: ' + this.totalPrice).appendTo(divP1);
+				$('<p />').addClass('comment').html('备注: <span>' + this.comment + '</span>').appendTo(divP1);
+
+				// var divP = $('<div />').addClass('p');
+				// $('<p />').text('商品编号: ' + this.product.code).appendTo(divP);
+				// $('<p />').text('商品名称: ' + this.product.name).appendTo(divP);
+				// $('<p />').text('数量: ' + this.quantity).appendTo(divP);
+				// $('<p />').text('价格: ' + this.price).appendTo(divP);
+				content.append(divP1).appendTo(container);
+			});
+			div.append(header).append(container).show();
+			$('body').append(div);
+			// $('#page').show();
+
+
+			$('.comment span').unbind().on('click',function(e){
+				e.stopPropagation();
+				var css = $(this).parent('.comment').css('whiteSpace');
+				if(css == 'nowrap')
+					$(this).parent('.comment').css('whiteSpace','inherit');
+				else
+					$(this).parent('.comment').css('whiteSpace','nowrap');
+			});
+			$('.content').unbind().on('click',function(){
+				location.href = '../demo.html';
+			});
+		});
+	</script>
+</body>
+</html>

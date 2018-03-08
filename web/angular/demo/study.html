@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Angular</title>
+	<style>
+		li{
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myController">
+		<p>
+			绑定
+			<input type="text" ng-model="text">
+			<span ng-bind="text"></span>
+		</p>
+		<ul>
+			<li ng-repeat='item in fruits' ng-bind="item.name"></li>
+		</ul>
+		<p><button ng-click="btnClick()">按钮</button></p>
+		<p>
+			过滤器
+			<input type="text" ng-modal="filterText | myFilter">
+			<ul>
+				<li ng-repeat="i in items">{{i}}</li>
+			</ul>
+		</p>
+	</div>
+	<script src="../angular.js"></script>
+	<script>
+		var app = angular.module('myApp',[]);
+		app.controller('myController',function($scope){
+			$scope.fruits = [{
+				name: '苹果'
+			},{
+				name: '草莓'
+			},{
+				name: '香蕉'
+			}];
+			$scope.btnClick = function(){
+				console.log('Clicked');
+			}
+			$scope.items = ['ABC11111','FSWQ222','FQQ22'];
+		});
+		app.filter('myFilter',function(){
+			return function(text){
+				console.log('111');
+			}
+		});
+	</script>
+</body>
+</html>
