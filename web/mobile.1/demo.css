@@ -30,10 +30,16 @@ input{
 	padding: 10px 15px !important;
 	line-height: 25px;
 	background: #fff;
+	position: relative;
 }
 .select label{
 	float: left;
 	margin: 13px 20px 0 0 ;
+}
+#header > span{
+	position: absolute;
+	right: 2rem;
+	bottom: 1rem;
 }
 .text-nowrap{
 	overflow: hidden;
@@ -56,14 +62,10 @@ input{
 	overflow: hidden;
 	border-bottom: 1px solid #ccc;
 }
-.resultPart p{
-	/* float: left; */
-	/* margin-right: 2vw; */
-}
-/* .resultPart .price{
+.resultPart .price{
 	position: relative;
 }
-.resultPart .price div{
+.resultPart .price > div{
 	min-width: 13vw;
 	height: 2.6rem;
 	position: absolute;
@@ -73,7 +75,26 @@ input{
 .resultPart .price div input{
 	min-width: 13vw;
 	top: -0.5rem;
-} */
+}
+.resultPart > div > input{
+	top: -0.4rem;
+	width: 100%;
+}
+.resultPart p > .price > span{
+	display: inline-block;
+	min-width: 13vw;
+	height: 2.6rem;
+	position: absolute;
+	top: -0.8rem;
+	left: 4rem;
+}
+.resultPart p > .price > span > input{
+	min-width: 13vw;
+	top: -0.5rem;
+}
+.resultPart p > .price > span > div{
+	border: none;
+}
 .resultDiv{
 	position: relative;
 	margin-bottom: 3rem;
@@ -106,7 +127,7 @@ input{
 	display: none !important;
 }
 .container{
-	max-height: 70vh;
+	max-height: 65vh;
 	overflow-y: auto;
 	min-height: 60vh;
 }
@@ -138,4 +159,22 @@ input{
 }
 .quantity button{
 	font-size: 14px;
+}
+.buttonContainer{
+	padding: 0 1.5rem;
+}
+.buttonContainer > button{
+	border-radius: 0.3rem;
+}
+.modal{
+	position: fixed;
+	display: block;
+	margin: 5rem auto;
+	z-index: 4000;
+}
+.modal h5{
+	float: left;
+}
+#modalTip input{
+	padding-left: 0.5rem;
 }

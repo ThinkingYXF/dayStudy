@@ -8,6 +8,64 @@
 	<link rel="stylesheet" href="../../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css">
 	<link rel="stylesheet" href="../../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="history.css">
+	<style>
+		.paging{
+			background: #fff;
+		}
+		#header{
+			background: #fff;
+			padding: 5px 15px;
+			text-align: center;
+			height: 7vh;
+			border-bottom: 1px solid #ccc;
+		}
+		#header h2{
+			margin: 10px 5px;
+			line-height: 0;
+			font-size: 1.2em;
+		}
+		select{
+			height: 2.5rem;
+			outline: none;
+		}
+		.ui-field-contain > div{
+			text-align: center;
+		}
+		#filter-menu{
+			max-height: 100px;
+		}
+		.text-nowrap{
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		.content {
+			width: 100%;
+			border-bottom: 1px solid #ccc;
+			margin: 2vh auto;
+			/* height: 20vh; */
+			padding: 10px;
+			overflow: hidden;
+		}
+		div.p{
+			margin-top: 2%;
+		}
+		.container{
+			max-height: 90vh;
+			overflow-y: auto;
+		}
+		div.p p{
+			margin-bottom: 0.5rem;
+			/* float: left; */
+			/* margin-right: 3vw; */
+		}
+		.comment{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			color: #ccc;
+		}
+
+	</style>
 </head>
 <body>
 
@@ -23,19 +81,11 @@
 			$.each(data.data,function(k){
 				//content
 				var content = $('<div />').addClass('content');
-				var divP1 = $('<div />').addClass('p1');
-				$('<p />').html('客户: ' + this.merchantInfo.name + '&nbsp; 时间: ' + this.time).appendTo(divP1);
-				// $('<p />').text('时间: ' + this.time).appendTo(divP1);
-				$('<p />').html('品种: ' + this.total + '&nbsp; 金额: ' + this.totalPrice).appendTo(divP1);
-				// $('<p />').text('金额: ' + this.totalPrice).appendTo(divP1);
-				$('<p />').addClass('comment').html('备注: <span>' + this.comment + '</span>').appendTo(divP1);
-
-				// var divP = $('<div />').addClass('p');
-				// $('<p />').text('商品编号: ' + this.product.code).appendTo(divP);
-				// $('<p />').text('商品名称: ' + this.product.name).appendTo(divP);
-				// $('<p />').text('数量: ' + this.quantity).appendTo(divP);
-				// $('<p />').text('价格: ' + this.price).appendTo(divP);
-				content.append(divP1).appendTo(container);
+				var divP = $('<div />').addClass('p');
+				$('<p />').html('客户: ' + this.merchantInfo.name + '&nbsp; 时间: ' + formatTime(this.time)).appendTo(divP);
+				$('<p />').html('品种: ' + this.total + '&nbsp; 总金额: ' + this.totalPrice).appendTo(divP);
+				$('<p />').addClass('comment').html('备注: <span>' + this.comment + '</span>').appendTo(divP);
+				content.append(divP).appendTo(container);
 			});
 			div.append(header).append(container).show();
 			$('body').append(div);
@@ -54,6 +104,20 @@
 				location.href = '../demo.html';
 			});
 		});
+
+		function formatTime(time) {
+			var date = new Date(time * 1000);
+			var month = date.getMonth() + 1;
+			var day = date.getDate();
+			var hour = date.getHours();
+			var minute = date.getMinutes();
+			return month + '-' + formatNum(day) + ' ' + hour + ':' + formatNum(minute);
+		}
+		function formatNum(num){
+			if(num < 10)
+				num = '0' + num;
+			return num;
+		}
 	</script>
 </body>
 </html>

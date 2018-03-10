@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/jquery-mobile/1.4.5/jquery.mobile.min.css" rel="stylesheet">
+	<style>
+		body{
+			font-size: 14px;
+		}
+		table thead tr {
+			font-size: 13px;
+			color: #aaa;
+		}
+		table tbody th {
+			font-weight: normal;
+		}
+		table:nth-child(2){
+			margin-top: 50px;
+		}
+		.ui-table caption {
+			font-size: 15px;
+			color: black;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #ccc;
+			padding-left: 10px;
+		}
+	</style>
+</head>
+<body>
+
+	<table data-role="table" data-mode="" class="ui-responsive table-stroke">
+		<thead>
+			<tr>
+				<th>&nbsp;&nbsp;</th>
+				<th>股数(万股)</th>
+				<th>占流通股比</th>
+				<th>占自由流通股比</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>A股合计</th>
+				<td>217,588.79</td>
+				<td>--</td>
+				<td>--</td>
+			</tr>
+			<tr>
+				<th>流通A股</th>
+				<td>203,919.53</td>
+				<td>100.00%</td>
+				<td>--</td>
+			</tr>
+			<tr>
+				<th>自由流通股</th>
+				<td>158,789.42</td>
+				<td>77.87%</td>
+				<td>100.00%</td>
+			</tr>
+			<tr>
+				<th>股权质押总量</th>
+				<td>52,652.05</td>
+				<td>25.82%</td>
+				<td>33.16%</td>
+			</tr>
+			<tr>
+				<th>未解押</th>
+				<td>45,202.05</td>
+				<td>22.17%</td>
+				<td>28.47%</td>
+			</tr>
+			<tr>
+				<th>已解押</th>
+				<td>7,450.00</td>
+				<td>3.65%</td>
+				<td>4.69</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<table data-role="table" data-mode="" class="ui-responsive table-stroke" title="质押明细">
+		<caption align="top">质押明细</caption>
+		<thead>
+			<tr>
+				<th>公告日期</th>
+				<th>股东名称</th>
+				<th>质押方</th>
+				<th>质押股数(万股)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>2018-02-10</th>
+				<td>广东宝丽华集团有限公司</td>
+				<td>中信证券</td>
+				<td>2,000.00</td>
+			</tr>
+			<tr>
+				<th>2018-02-10</th>
+				<td>广东宝丽华集团有限公司</td>
+				<td>中信证券</td>
+				<td>6,750.00</td>
+			</tr>
+			<tr>
+				<th>2017-11-24</th>
+				<td>宁远喜</td>
+				<td>广发证券</td>
+				<td>450.00</td>
+			</tr>
+			<tr>
+				<th>2017-10-25</th>
+				<td>广东宝丽华集团有限公司</td>
+				<td>银华财富资本-宁波银...</td>
+				<td>5,000.00</td>
+			</tr>
+			<tr>
+				<th>2017-04-10/th>
+				<td>宁远喜</td>
+				<td>招商证券资产管理</td>
+				<td>11,118.00</td>
+			</tr>
+			<tr>
+				<th>2017-02-21</th>
+				<td>萍乡市富海久泰投资...</td>
+				<td>万向信托</td>
+				<td>10,879.00</td>
+			</tr>
+			<tr>
+				<th>2016-09-03</th>
+				<td>广东宝丽华集团有限...</td>
+				<td>中信证券</td>
+				<td>8,750.00</td>
+			</tr>
+			<tr>
+				<th>2016-01-05</th>
+				<td>广东宝丽华集团有限...</td>
+				<td>广发证券资产管理(广东)</td>
+				<td>7,703.00</td>
+			</tr>
+		</tbody>
+	</table>
+
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-mobile/1.4.3/jquery.mobile.min.js"></script>
+</body>
+</html>

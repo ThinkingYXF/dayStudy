@@ -42,7 +42,7 @@ div.p{
 	max-height: 90vh;
 	overflow-y: auto;
 }
-div.p p,div.p1 p{
+div.p p{
 	margin-bottom: 0.5rem;
 	/* float: left; */
 	/* margin-right: 3vw; */
@@ -51,4 +51,5 @@ div.p p,div.p1 p{
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	color: #ccc;
 }

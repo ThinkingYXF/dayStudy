@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>双色球与大乐透</title>
+	<style>
+		ul li {
+			list-style: none;
+			float: left;
+			width: 26px;
+			height: 26px;
+			border-radius: 15px;
+			line-height: 26px;
+			text-align: center;
+			color: #fff;
+			margin-right: 10px;
+		}
+		.red{
+			background: red;
+		}
+		.blue{
+			background: blue;
+		}
+		.bigLottery{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<button class="transform">切换</button>
+	<p class="doubleColorBall"><span>双色球&nbsp;&nbsp;</span><button id="doubleColorBall">选号</button></p>
+	<p class="bigLottery"><span>大乐透&nbsp;&nbsp;</span><button id="bigLottery">选号</button></p>
+
+	<ul id="balls"></ul>
+	<script>
+		//双色球规则
+		//红球1-33 蓝球1-16  红球6个 蓝球1个
+		var redBallArr = [],
+			blueBallArr = [],
+			REDBALLNUM = 33,
+			BLUEBALLNUM = 16,
+			CHOOSERED = 6,
+			CHOOSEBLUE = 1;
+
+		//大乐透规则
+		//红球1-35 蓝球1-12  红球5个 篮球2个
+		// var redBallArr = [],
+		// 	blueBallArr = [],
+		// 	REDBALLNUM = 35,
+		// 	BLUEBALLNUM = 12,
+		// 	CHOOSERED = 5,
+		// 	CHOOSEBLUE =2;
+
+		function chooseBallNumber(ballArr){
+			var random = parseInt(Math.random() * ballArr.length);
+			return ballArr[random];
+		}
+		function dealBallArr(ballArr,number){
+			var index = ballArr.indexOf(number);
+			ballArr.splice(index,1);
+			return ballArr;
+		}
+		function chooseBall(ballArr,number){
+			var arr = [];
+			for(var j = 0;j < number; j++){
+				var ballNum = chooseBallNumber(ballArr);
+				arr.push(ballNum);
+				dealBallArr(ballArr,ballNum);
+			}
+			arr = arr.sort(function(a,b){
+				return parseInt(a)- parseInt(b);
+			});
+			return arr;
+		}
+		var resultBlueArr = [],
+			resultRedArr = [];
+		function setResult(leftArr,rightArr){
+			document.getElementById('balls').innerHTML = '';
+			for(var k = 0; k < leftArr.length; k++){
+				var li = document.createElement('li');
+				li.className = 'red';
+				li.innerText = leftArr[k];
+				document.getElementById('balls').appendChild(li);
+			}
+			for(var k = 0; k < rightArr.length; k++){
+				var li = document.createElement('li');
+				li.className = 'blue';
+				li.innerText = rightArr[k];
+				document.getElementById('balls').appendChild(li);
+			}
+		}
+		// document.getElementsByClassName('blue')[0].style.marginLeft = '20px';
+		function start(){
+			for(var i = 1,j = 1; i < REDBALLNUM + 1; i++,j++){
+				redBallArr.push(i);
+				if(j < (BLUEBALLNUM + 1)){
+					blueBallArr.push(j);
+				}
+			}
+			resultBlueArr = chooseBall(blueBallArr,CHOOSEBLUE),
+			resultRedArr = chooseBall(redBallArr,CHOOSERED);
+			setResult(resultRedArr,resultBlueArr);
+		}
+		//双色球选号
+		document.getElementById('doubleColorBall').onclick = function(){
+			redBallArr = [];
+			blueBallArr = [];
+			REDBALLNUM = 33;
+			BLUEBALLNUM = 16;
+			CHOOSERED = 6;
+			CHOOSEBLUE = 1;
+			start();
+		}
+		//大乐透选号
+		document.getElementById('bigLottery').onclick = function(){
+			redBallArr = [];
+			blueBallArr = [];
+			REDBALLNUM = 35;
+			BLUEBALLNUM = 12;
+			CHOOSERED = 5;
+			CHOOSEBLUE = 2;
+			start();
+		}
+		var isDouble = true;
+		document.getElementsByClassName('transform')[0].onclick = function(){
+			if(isDouble){
+				document.getElementsByClassName('doubleColorBall')[0].style.display = 'none';
+				document.getElementsByClassName('bigLottery')[0].style.display = 'block';
+			}
+			else{
+				document.getElementsByClassName('doubleColorBall')[0].style.display = 'block';
+				document.getElementsByClassName('bigLottery')[0].style.display = 'none';
+			}
+			isDouble = false;
+		};
+	</script>
+</body>
+</html>

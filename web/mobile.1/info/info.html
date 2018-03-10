@@ -100,6 +100,7 @@
 	<script src="../../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<!-- <script src="/resources/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> -->
 	<script src="../../js/resources/vendor/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://cdn.bootcss.com/clipboard.js/2.0.0/clipboard.min.js"></script>
 	<script>
 		var totalPrice = 0,
 			totalQuantity = 0;
@@ -128,12 +129,12 @@
 			});
 
 			$.each(needPartsObj,function(k){
-				var needContent = $('<div />').addClass('needContent').append('<p>需求编号: '+needPartsObj[k][0].originCode.code+'</p>');
+				// var needContent = $('<div />').addClass('needContent').append('<p>需求编号: '+needPartsObj[k][0].originCode.code+'</p>');
 				$.each(needPartsObj[k],function(){
 					//content
 					var content = $('<div />').addClass('content');
 					var divP1 = $('<div />').addClass('p1');
-					// $('<p />').text('需求编号: ' + this.originCode.code).appendTo(divP1);
+					$('<p />').text('需求编号: ' + this.originCode.code).appendTo(divP1);
 					// $('<p />').text('需求名称: ' + this.originCode.name).appendTo(divP1);
 					// $('<p />').text('数量: ' + this.originCode.quantity).appendTo(divP1);
 					// $('<p />').text('价格: ' + this.originCode.price).appendTo(divP1);
@@ -141,11 +142,12 @@
 					var divP = $('<div />').addClass('p');
 					$('<p />').text('配件编号: ' + this.parts.code).appendTo(divP);
 					$('<p />').text('配件名称: ' + this.parts.name).appendTo(divP);
-					$('<p />').html('数量: ' + this.quantity + '&nbsp;价格: '+ this.price).appendTo(divP);
+					$('<p />').html('需求数量: ' + this.quantity + '&nbsp;价格: '+ this.price).appendTo(divP);
 					$('<p />').html('品牌: ' + this.parts.brand.name + '&nbsp;类别: '+ typeKeyToValue(this.parts.tags[1000])).appendTo(divP);
-					content.append(divP1).append(divP).appendTo(needContent);
+					// content.append(divP1).append(divP).appendTo(needContent);
+					content.append(divP1).append(divP).appendTo(container);
 				});
-				needContent.appendTo(container);
+				// needContent.appendTo(container);
 			});
 
 
@@ -155,13 +157,27 @@
 						'</div>';
 			div.append(header).append(container);
 			var button = $('<button />').text('复制分享链接').addClass('ui-btn ui-shadow ui-corner-all btnCreate');
-			button.click(function(e){
-				$('.location').remove();
-				var input = $('<input />').addClass('location').val(location.href).appendTo($('body'));
-				input.select();
-				document.execCommand("Copy");
-			});
+			// button.click(function(e){
+			// 	$('.location').remove();
+			// 	var input = $('<input />').addClass('location').prop('type','hidden').val(location.href).appendTo($('body'));
+			// 	input.select();
+			// 	document.execCommand("Copy");
+			// });
 			div.append(button);
+			var clipboard = new ClipboardJS('.ui-btn', {
+				// 点击copy按钮，直接通过text直接返回复印的内容
+				text: function() {
+					return location.href;
+				}
+			});
+			clipboard.on('success', function(e) {
+				alert('success');
+
+				e.clearSelection();
+			});
+			clipboard.on('error', function(e) {
+				alert('error');
+			});
 			$('body').append(div);
 			// $('ui-page').hide();
 			$('#page').show();

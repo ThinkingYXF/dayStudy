@@ -45,6 +45,10 @@
 		.resultPart p > .price > span > div{
 			border: none;
 		}
+		.notice{
+			position: fixed;
+			width: 300px;
+		}
 	</style>
 </head>
 <body>
@@ -77,37 +81,18 @@
 	<input type="hidden" class="code" value="${id!}">
 	<input type="hidden" class="openId" value="${openId!}">
 
-
-	<div class="modal" id="modalTip" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">提示</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-primary">确定</button> -->
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-            </div>
-          </div>
-        </div>
-	</div>
-
 	<!-- <script src="/resources/vendor/jquery-2.2.4.min.js"></script> -->
 	<script src="../js/lib/jquery-1.11.1.js"></script>
 	<!-- <script src="/resources/vendor/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
 	<script src="../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<!-- <script src="/resources/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> -->
 	<script src="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/resources/vendor/mustache.js-2.3.0/mustache.min.js"></script>
+	<script src="modal.js"></script>
 	<script>
+		var openId = $('.openId').val();
 		function getData(str,callback,customerId){
 			var code = $('.code').val();
-			var openId = $('.openId').val();
 			var customerId = customerId || 0;
 			// $.getJSON('/wechat/info/inquire/replymodify?customerId='+ customerId +'&id=' + code + "&openId=" + openId,function(json){
 			$.getJSON(str,function(json){
@@ -138,6 +123,12 @@
 					var clone = $('.clone').clone().removeClass('clone').show();
 					clone.prop('id','page'+ pagesNum);
 					var select = $('<select />').prop('name','company').prop('id','company');
+					var pageSpan = $('<span />').text((pagesNum+1)+'/'+Object.getOwnPropertyNames(productsObj).length);
+					clone.find('#header').append(pageSpan);
+					var buttonContainer = $('<div />').addClass('buttonContainer');
+					$('<button />').addClass('ui-btn ui-btn-inline addNewPart').text('添加配件').appendTo(buttonContainer);
+					$('<button />').addClass('ui-btn ui-btn-inline deletePart').text('删除当前').appendTo(buttonContainer);
+					clone.find('#header').append(buttonContainer);
 					// $.get('/wechat/info/merchant/customers?openId=' + openId,function(json){
 					$.get('customers.json',function(json){
 						$.each(json.data,function(k,val){
@@ -151,7 +142,6 @@
 						});
 						select.val(999).change();
 						clone.find('.select').append(select);
-
 						var isRun = false;
 						clone.find('#company').unbind().click(function(){
 							isRun = true;
@@ -165,6 +155,7 @@
 						});
 					});
 					if(productsObj[key].length){
+						clone.find('.needDiv').attr('originId',productsObj[key][0].product.originCode.id);
 						clone.find('.needPart p').eq(0).find('span').html(key);
 						clone.find('.needPart p').eq(1).find('span').html(productsObj[key][0].product.originCode.name);
 						clone.find('.needPart p').eq(2).find('span').html(productsObj[key][0].product.originCode.quantity);
@@ -179,6 +170,7 @@
 						$.each(productsObj[key],function(k){
 							var product = this;
 							var str = '<div class="resultDiv">'+
+											'<input type="radio" name="'+product.product.originCode.id+'" data="'+this.id+'">'+
 											'<div class="resultPart">'+
 												'<p>配件编号: '+product.product.parts.code+'</p>'+
 												'<p>配件名称: '+product.product.parts.name+'</p>'+
@@ -255,57 +247,96 @@
 				},500);
 
 				$('.show').unbind().on('click',function(){
-					// var params = {};
-					// var customerId = $("#company").val();
-					// var code = $('.code').val();
-					// var openId = $('.openId').val();
-					// params['customer.id'] = customerId;
-					// params['originId'] = code;
-					// params['openId'] = openId
-					// // var radio = $('input[name="'+data.data[0].product.originCode.id+'"]:checked');
-					// // var id = radio.attr('data');
-					// $.each(data.data,function(k,v){
-					// 	// if(id == this.id){
-					// 		var price = $('.resultContainer').find('.resultDiv').eq(k).find('.partsPrice').val();
-					// 		var productObj = this;
-					// 		params['codes['+k+'].code'] = productObj.product.code;
-					// 		params['codes['+k+'].name'] = productObj.product.name;
-					// 		// params['codes[0].price'] = productObj.price;
-					// 		params['codes['+k+'].price'] = price;
-					// 		params['codes['+k+'].quantity'] = productObj.product.inventory;
-					// 		params['codes['+k+'].type'] = productObj.product.parts.tags[1000];
-					// 		params['codes['+k+'].brand.id'] = productObj.product.parts.brand.id;
-					// 		params['codes['+k+'].originId'] = productObj.product.originCode.id;
-					// 		params['codes['+k+'].selected'] = productObj.id;
-					// 	// }
-					// });
-					// $.ajax({
-					// 	url: '/wechat/info/inquire/reply',
-					// 	method: 'POST',
-					// 	data: params
-					// }).success(function(json){
-					// 	// $('#modalTip .modal-body p').html(json.message);
-					// 	// $('#modalTip').modal('show');
-					// 	// $('#modalTip').on('hidden.bs.modal', function () {
-					// 		location.href = '/wechat/inquire/replyInfo?id='+code;
-					// 	// })
-					// });
+					var params = {};
+					var customerId = $("#company").val();
+					var code = $('.code').val();
+					var openId = $('.openId').val();
+					params['customer.id'] = customerId;
+					params['originId'] = code;
+					params['openId'] = openId
+					var radios = $('.paging').find('input[type=radio]:checked');
+					var ids = [];
+					$.each(radios,function(){
+						ids.push(parseInt($(this).attr('data')));
+					});
+					var paramsNum = 0;
+					$.each(data.data,function(k,v){
+						if(ids.indexOf(this.id) !=-1){
+							var price = $('.resultContainer').find('.resultDiv').eq(k).find('.partsPrice').val();
+							var productObj = this;
+							params['codes['+paramsNum+'].code'] = productObj.product.code;
+							params['codes['+paramsNum+'].name'] = productObj.product.name;
+							// params['codes[0].price'] = productObj.price;
+							params['codes['+paramsNum+'].price'] = price;
+							params['codes['+paramsNum+'].quantity'] = productObj.product.inventory;
+							params['codes['+paramsNum+'].type'] = productObj.product.parts.tags[1000];
+							params['codes['+paramsNum+'].brand.id'] = productObj.product.parts.brand.id;
+							params['codes['+paramsNum+'].originId'] = productObj.product.originCode.id;
+							params['codes['+paramsNum+'].selected'] = productObj.id;
+							paramsNum++;
+						}
+					});
+					if(ids.length == 0){
+						$.msgBox('请选择商品','warning');
+						return false;
+					}
+					else if(paramsNum == 0){
+						$.msgBox('暂无可保存商品','warning');
+						return false;
+					}
+					$.ajax({
+						url: '/wechat/info/inquire/reply',
+						method: 'POST',
+						data: params
+					}).success(function(json){
+						// $('#modalTip .modal-body p').html(json.message);
+						// $('#modalTip').modal('show');
+						// $('#modalTip').on('hidden.bs.modal', function () {
+							location.href = '/wechat/inquire/replyInfo?id='+code;
+						// })
+					});
 					location.href = 'info/info.html';
 				});
 
-				$('.ui-icon-plus').unbind().on('click',function(){
-					var value = $(this).prev().find('input').val();
-					var num = value;
-					num++;
-					$(this).prev().find('input').val(num);
+				$('.addNewPart').unbind().on('click',function(){
+					$.modal('modal',{}).progress(function(modal){
+						var value = $('input',modal).val();
+						if(value){
+							var customerId = $("#company").val();
+							var code = $('.code').val();
+							var params = {};
+							params['id'] = code;
+							params['customer'] = customerId;
+							params['code'] = value;
+							params['openId'] = openId;
+							console.log(params);
+							$('#modalTip').modal('hide');
+							return false;
+							$.ajax({
+								url: '/wechat/info/reply/code',
+								method: 'POST',
+								data: params
+							}).success(function(json){
+								alert(json.message);
+							});
+						}
+						else{
+							alert('请输入配件编号');
+						}
+					});
 				});
-				$('.ui-icon-minus').unbind().on('click',function(){
-					var value = $(this).next().find('input').val();
-					var num = value;
-					num--;
-					if(num < 0)
-						num = 0;
-					$(this).next().find('input').val(num);
+				$('.deletePart').unbind().on('click',function(){
+					$.confirm('确定删除当前配件?').done(function(){
+						var originId = $('#page' + count).find('.needDiv').attr('originId');
+						console.log('/wechat/info/reply/code?id=' + originId + '&openId=' + openId);
+						return false;
+						$.ajax({
+							url: '/wechat/info/reply/code?id=' + originId + '&openId=' + openId,
+							method: 'DELETE',
+						}).success(function(json){
+							alert(json.message);
+						});
+					});
 				});
 
 				// $('input[type=number]').focus(function(){
@@ -318,124 +349,112 @@
 		});
 
 		function changeMerchant(merchantId){
-			getData('demo1.json',function(data){
-				if(data.data.length){
-					//分组
-					var productsObj = {};
-					$.each(data.data,function(j){
-						if(!productsObj[this.product.originCode.code]){
-							productsObj[this.product.originCode.code] = [this];
-						}
-						else{
-							productsObj[this.product.originCode.code].push(this);
-						}
-					});
-					var pagesNum = 0;
-					//生成页面
-					$.each(productsObj,function(key){
-						var resultStr = '';
-						//无供应
-						if(!productsObj[key][0].id){
-							resultStr = '<p style="margin:2rem">无供应</p>';
-							$('#page' + pagesNum).find('.resultContainer').html(resultStr);
-						}
-						else{
-							$.each(productsObj[key],function(k){
-								var product = this;
-								var str = '<div class="resultDiv">'+
-												'<div class="resultPart">'+
-													'<p>配件编号: '+product.product.parts.code+'</p>'+
-													'<p>配件名称: '+product.product.parts.name+'</p>'+
-													'<p>类别: '+typeKeyToValue(product.product.parts.tags[1000])+' 品牌: '+product.product.parts.brand.name+'</p>'+
-													'<p>库存: '+product.product.inventory+'<span class="price">'+
-													' 价格: <span class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="number" class="partsPrice" value="'+product.price+'" ></span></span></p>'+
-												'</div></div>';
-								resultStr += str;
-								$('#page' + pagesNum).find('.resultContainer').html(resultStr);
-							});
-						}
-						pagesNum++;
-					});
-
-					count = 0;
-					var selectValue = '999';
-					//左右滑动切换
-					$('.paging').on('swiperight',function(){
-						count--;
-						if(count < 0){
-							count = 0;
-							return false;
-						}
-						location.hash = '#page' + count;
-						$('.paging').hide();
-						$('#page'+ count).show();
-					});
-					$('.paging').on('swipeleft',function(){
-						count++;
-						if(count > pagesNum-1){
-							count = pagesNum-1;
-							return false;
-						}
-						location.hash = '#page' + count;
-						$('.paging').hide();
-						$('#page'+ count).show();
-					});
-					$('.previous').unbind().on('click',function(){
-						selectValue = $('#page'+ count).find('select').val();
-						count--;
-						if(count < 0){
-							count = 0;
-							return false;
-						}
-						// setPublic(count,selectValue);
-						location.hash = '#page' + count;
-						$('.paging').fadeOut();
-						$('#page'+ count).fadeIn();
-						$('#page'+ count).find('select').val(selectValue).change();
-					});
-					$('.next').unbind().on('click',function(){
-						selectValue = $('#page'+ count).find('select').val();
-						count++;
-						if(count > pagesNum-1){
-							count = pagesNum-1;
-							return false;
-						}
-						// setPublic(count,selectValue);
-						location.hash = '#page' + count;
-						$('.paging').fadeOut();
-						$('#page'+ count).fadeIn();
-						$('#page'+ count).find('select').val(selectValue).change();
-					});
-					setTimeout(function(){
-						var hash = location.hash.match(/\d+/);
-						location.hash = '';
-						if(hash)
-							count = hash[0];
-						// $.mobile.changePage('#page' + count);
-						location.hash = '#page' + count;
-						$('.paging').hide();
-						$('#page'+ count).show();
-						// setPublic(count,selectValue);
-					},500);
-
-					$('.ui-icon-plus').unbind().on('click',function(){
-						var value = $(this).prev().find('input').val();
-						var num = value;
-						num++;
-						$(this).prev().find('input').val(num);
-					});
-					$('.ui-icon-minus').unbind().on('click',function(){
-						var value = $(this).next().find('input').val();
-						var num = value;
-						num--;
-						if(num < 0)
-							num = 0;
-						$(this).next().find('input').val(num);
-					});
-				}
+			getData('demo2.json',function(data){
+				refreshParts(data)
 			},merchantId);
 		}
+		function refreshParts(data){
+			if(data.data.length){
+				//分组
+				var productsObj = {};
+				$.each(data.data,function(j){
+					if(!productsObj[this.product.originCode.code]){
+						productsObj[this.product.originCode.code] = [this];
+					}
+					else{
+						productsObj[this.product.originCode.code].push(this);
+					}
+				});
+				var pagesNum = 0;
+				//生成页面
+				$.each(productsObj,function(key){
+					var resultStr = '';
+					//无供应
+					if(!productsObj[key][0].id){
+						resultStr = '<p style="margin:2rem">无供应</p>';
+						$('#page' + pagesNum).find('.resultContainer').html(resultStr);
+					}
+					else{
+						$.each(productsObj[key],function(k){
+							var product = this;
+							var str = '<div class="resultDiv">'+
+											'<div class="ui-radio"><input type="radio" name="'+product.product.originCode.id+'" data="'+this.id+'"></div>'+
+											'<div class="resultPart">'+
+												'<p>配件编号: '+product.product.parts.code+'</p>'+
+												'<p>配件名称: '+product.product.parts.name+'</p>'+
+												'<p>类别: '+typeKeyToValue(product.product.parts.tags[1000])+' 品牌: '+product.product.parts.brand.name+'</p>'+
+												'<p>库存: '+product.product.inventory+'<span class="price">'+
+												' 价格: <span class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="number" class="partsPrice" value="'+product.price+'" ></span></span></p>'+
+											'</div></div>';
+							resultStr += str;
+							$('#page' + pagesNum).find('.resultContainer').html(resultStr);
+						});
+					}
+					pagesNum++;
+				});
 
+				count = 0;
+				var selectValue = '999';
+				//左右滑动切换
+				$('.paging').on('swiperight',function(){
+					count--;
+					if(count < 0){
+						count = 0;
+						return false;
+					}
+					location.hash = '#page' + count;
+					$('.paging').hide();
+					$('#page'+ count).show();
+				});
+				$('.paging').on('swipeleft',function(){
+					count++;
+					if(count > pagesNum-1){
+						count = pagesNum-1;
+						return false;
+					}
+					location.hash = '#page' + count;
+					$('.paging').hide();
+					$('#page'+ count).show();
+				});
+				$('.previous').unbind().on('click',function(){
+					selectValue = $('#page'+ count).find('select').val();
+					count--;
+					if(count < 0){
+						count = 0;
+						return false;
+					}
+					// setPublic(count,selectValue);
+					location.hash = '#page' + count;
+					$('.paging').fadeOut();
+					$('#page'+ count).fadeIn();
+					$('#page'+ count).find('select').val(selectValue).change();
+				});
+				$('.next').unbind().on('click',function(){
+					selectValue = $('#page'+ count).find('select').val();
+					count++;
+					if(count > pagesNum-1){
+						count = pagesNum-1;
+						return false;
+					}
+					// setPublic(count,selectValue);
+					location.hash = '#page' + count;
+					$('.paging').fadeOut();
+					$('#page'+ count).fadeIn();
+					$('#page'+ count).find('select').val(selectValue).change();
+				});
+				setTimeout(function(){
+					var hash = location.hash.match(/\d+/);
+					location.hash = '';
+					if(hash)
+						count = hash[0];
+					// $.mobile.changePage('#page' + count);
+					location.hash = '#page' + count;
+					$('.paging').hide();
+					$('#page'+ count).show();
+					// setPublic(count,selectValue);
+				},500);
+			}
+		}changeMerchant
 		function typeKeyToValue(name){
 			//PartsType  为 getPartsType.js中的变量（全局）
 			for(var key in PartsType){

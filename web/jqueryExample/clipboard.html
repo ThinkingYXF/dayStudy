@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<button class="btn">复制</button>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="https://cdn.bootcss.com/clipboard.js/2.0.0/clipboard.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			var href = location.href;
+			var clipboard = new ClipboardJS('.btn', {
+				// 点击copy按钮，直接通过text直接返回复印的内容
+				text: function() {
+					return href;
+				}
+			});
+			// clipboard.destroy();
+		});
+	</script>
+</body>
+</html>
