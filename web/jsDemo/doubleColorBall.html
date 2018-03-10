@@ -128,12 +128,13 @@
 			if(isDouble){
 				document.getElementsByClassName('doubleColorBall')[0].style.display = 'none';
 				document.getElementsByClassName('bigLottery')[0].style.display = 'block';
+				isDouble = false;
 			}
 			else{
 				document.getElementsByClassName('doubleColorBall')[0].style.display = 'block';
 				document.getElementsByClassName('bigLottery')[0].style.display = 'none';
+				isDouble = true;
 			}
-			isDouble = false;
 		};
 	</script>
 </body>

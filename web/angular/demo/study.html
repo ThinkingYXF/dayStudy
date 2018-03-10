@@ -24,9 +24,9 @@
 		<p><button ng-click="btnClick()">按钮</button></p>
 		<p>
 			过滤器
-			<input type="text" ng-modal="filterText | myFilter">
+			<input type="text" ng-modal="filterText">
 			<ul>
-				<li ng-repeat="i in items">{{i}}</li>
+				<li ng-repeat="i in items | myFilter:filterText">{{i}}</li>
 			</ul>
 		</p>
 	</div>
@@ -47,8 +47,16 @@
 			$scope.items = ['ABC11111','FSWQ222','FQQ22'];
 		});
 		app.filter('myFilter',function(){
-			return function(text){
-				console.log('111');
+			return function(items, text){
+				if(!text)
+					return items;
+				var arr = [];
+				for(var i = 0; i < items.length; i++){
+					if(items[i].indexOf(text) != -1){
+						arr.push(items[i]);
+					}
+				}
+				return arr;
 			}
 		});
 	</script>
