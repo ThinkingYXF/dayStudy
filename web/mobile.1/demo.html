@@ -277,11 +277,11 @@
 						}
 					});
 					if(ids.length == 0){
-						$.msgBox('请选择商品','warning');
+						alert('请选择商品','warning');
 						return false;
 					}
 					else if(paramsNum == 0){
-						$.msgBox('暂无可保存商品','warning');
+						alert('暂无可保存商品','warning');
 						return false;
 					}
 					$.ajax({
@@ -311,14 +311,25 @@
 							params['openId'] = openId;
 							console.log(params);
 							$('#modalTip').modal('hide');
-							return false;
-							$.ajax({
-								url: '/wechat/info/reply/code',
-								method: 'POST',
-								data: params
-							}).success(function(json){
-								alert(json.message);
+							// return false;
+
+							getData('newPart.json',function(json){
+								if(json.success && json.data && json.data.length){
+									$.each(json.data,function(){
+										data.data.unshift(this);
+									});
+									refreshParts(data,true);
+								}
 							});
+
+
+							// $.ajax({
+							// 	url: '/wechat/info/reply/code',
+							// 	method: 'POST',
+							// 	data: params
+							// }).success(function(json){
+							// 	alert(json.message);
+							// });
 						}
 						else{
 							alert('请输入配件编号');
@@ -329,13 +340,20 @@
 					$.confirm('确定删除当前配件?').done(function(){
 						var originId = $('#page' + count).find('.needDiv').attr('originId');
 						console.log('/wechat/info/reply/code?id=' + originId + '&openId=' + openId);
-						return false;
-						$.ajax({
-							url: '/wechat/info/reply/code?id=' + originId + '&openId=' + openId,
-							method: 'DELETE',
-						}).success(function(json){
-							alert(json.message);
+						// return false;
+
+						getData('deleted.json',function(json){
+							if(json.success && json.data && json.data.length){
+								refreshParts(json,true);
+							}
 						});
+
+						// $.ajax({
+						// 	url: '/wechat/info/reply/code?id=' + originId + '&openId=' + openId,
+						// 	method: 'DELETE',
+						// }).success(function(json){
+						// 	alert(json.message);
+						// });
 					});
 				});
 
@@ -353,7 +371,7 @@
 				refreshParts(data)
 			},merchantId);
 		}
-		function refreshParts(data){
+		function refreshParts(data,isChange){
 			if(data.data.length){
 				//分组
 				var productsObj = {};
@@ -366,13 +384,67 @@
 					}
 				});
 				var pagesNum = 0;
+				if(isChange){
+					var num = 0;
+					$.each(productsObj,function(){
+						$('#page' + num).remove();
+						num++;
+					})
+				}
 				//生成页面
 				$.each(productsObj,function(key){
 					var resultStr = '';
+					//改变公共部分
+					if(isChange){
+						var clone = $('.clone').clone().removeClass('clone').show();
+						clone.prop('id','page' + pagesNum);
+						var select = $('<select />').prop('name','company').prop('id','company');
+						var pageSpan = $('<span />').text((pagesNum + 1) + '/'+Object.getOwnPropertyNames(productsObj).length);
+						clone.find('#header').append(pageSpan);
+						var buttonContainer = $('<div />').addClass('buttonContainer');
+						$('<button />').addClass('ui-btn ui-btn-inline addNewPart').text('添加配件').appendTo(buttonContainer);
+						$('<button />').addClass('ui-btn ui-btn-inline deletePart').text('删除当前').appendTo(buttonContainer);
+						clone.find('#header').append(buttonContainer);
+						// $.get('/wechat/info/merchant/customers?openId=' + openId,function(json){
+						$.get('customers.json',function(json){
+							$.each(json.data,function(k,val){
+								var option = "<option value='"+val.merchant.id+"'>"+val.merchant.name+"</option>";
+								if(val.merchant.id==999){
+									select.prepend(option);
+								}
+								else{
+									select.append(option);
+								}
+							});
+							select.val(999).change();
+							clone.find('.select').append(select);
+							var isRun = false;
+							clone.find('#company').unbind().click(function(){
+								isRun = true;
+							});
+							clone.find('#company').on('change',function(){
+								if(isRun){
+									var merchantId = $(this).val();
+									changeMerchant(merchantId);
+									isRun = false;
+								}
+							});
+						});
+						if(productsObj[key].length){
+							clone.find('.needDiv').attr('originId',productsObj[key][0].product.originCode.id);
+							clone.find('.needPart p').eq(0).find('span').html(key);
+							clone.find('.needPart p').eq(1).find('span').html(productsObj[key][0].product.originCode.name);
+							clone.find('.needPart p').eq(2).find('span').html(productsObj[key][0].product.originCode.quantity);
+						}
+					}
 					//无供应
 					if(!productsObj[key][0].id){
 						resultStr = '<p style="margin:2rem">无供应</p>';
-						$('#page' + pagesNum).find('.resultContainer').html(resultStr);
+						if(isChange){
+							clone.find('.resultContainer').html(resultStr);
+							$('body').append(clone);
+						}else
+							$('#page' + pagesNum).find('.resultContainer').html(resultStr);
 					}
 					else{
 						$.each(productsObj[key],function(k){
@@ -387,7 +459,11 @@
 												' 价格: <span class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input type="number" class="partsPrice" value="'+product.price+'" ></span></span></p>'+
 											'</div></div>';
 							resultStr += str;
-							$('#page' + pagesNum).find('.resultContainer').html(resultStr);
+							if(isChange){
+								clone.find('.resultContainer').html(resultStr);
+								$('body').append(clone);
+							}else
+								$('#page' + pagesNum).find('.resultContainer').html(resultStr);
 						});
 					}
 					pagesNum++;
@@ -453,8 +529,113 @@
 					$('#page'+ count).show();
 					// setPublic(count,selectValue);
 				},500);
+				if(isChange){
+					$('.show').unbind().on('click',function(){
+						var params = {};
+						var customerId = $("#company").val();
+						var code = $('.code').val();
+						var openId = $('.openId').val();
+						params['customer.id'] = customerId;
+						params['originId'] = code;
+						params['openId'] = openId
+						var radios = $('.paging').find('input[type=radio]:checked');
+						var ids = [];
+						$.each(radios,function(){
+							ids.push(parseInt($(this).attr('data')));
+						});
+						var paramsNum = 0;
+						$.each(data.data,function(k,v){
+							if(ids.indexOf(this.id) !=-1){
+								var price = $('.resultContainer').find('.resultDiv').eq(k).find('.partsPrice').val();
+								var productObj = this;
+								params['codes['+paramsNum+'].code'] = productObj.product.code;
+								params['codes['+paramsNum+'].name'] = productObj.product.name;
+								// params['codes[0].price'] = productObj.price;
+								params['codes['+paramsNum+'].price'] = price;
+								params['codes['+paramsNum+'].quantity'] = productObj.product.inventory;
+								params['codes['+paramsNum+'].type'] = productObj.product.parts.tags[1000];
+								params['codes['+paramsNum+'].brand.id'] = productObj.product.parts.brand.id;
+								params['codes['+paramsNum+'].originId'] = productObj.product.originCode.id;
+								params['codes['+paramsNum+'].selected'] = productObj.id;
+								paramsNum++;
+							}
+						});
+						if(ids.length == 0){
+							alert('请选择商品','warning');
+							return false;
+						}
+						else if(paramsNum == 0){
+							alert('暂无可保存商品','warning');
+							return false;
+						}
+						$.ajax({
+							url: '/wechat/info/inquire/reply',
+							method: 'POST',
+							data: params
+						}).success(function(json){
+							// $('#modalTip .modal-body p').html(json.message);
+							// $('#modalTip').modal('show');
+							// $('#modalTip').on('hidden.bs.modal', function () {
+								location.href = '/wechat/inquire/replyInfo?id='+code;
+							// })
+						});
+						location.href = 'info/info.html';
+					});
+
+					$('.addNewPart').unbind().on('click',function(){
+						$.modal('modal',{}).progress(function(modal){
+							var value = $('input',modal).val();
+							if(value){
+								var customerId = $("#company").val();
+								var code = $('.code').val();
+								var params = {};
+								params['id'] = code;
+								params['customer'] = customerId;
+								params['code'] = value;
+								params['openId'] = openId;
+								console.log(params);
+								$('#modalTip').modal('hide');
+								// return false;
+
+								$.getJSON('newPart.json',function(json){
+									if(json.success && json.data && json.data.length){
+										$.each(json.data,function(){
+											data.data.unshift(this);
+										});
+										refreshParts(data,true);
+									}
+								});
+
+
+								// $.ajax({
+								// 	url: '/wechat/info/reply/code',
+								// 	method: 'POST',
+								// 	data: params
+								// }).success(function(json){
+								// 	alert(json.message);
+								// });
+							}
+							else{
+								alert('请输入配件编号');
+							}
+						});
+					});
+					$('.deletePart').unbind().on('click',function(){
+						$.confirm('确定删除当前配件?').done(function(){
+							var originId = $('#page' + count).find('.needDiv').attr('originId');
+							console.log('/wechat/info/reply/code?id=' + originId + '&openId=' + openId);
+							return false;
+							$.ajax({
+								url: '/wechat/info/reply/code?id=' + originId + '&openId=' + openId,
+								method: 'DELETE',
+							}).success(function(json){
+								alert(json.message);
+							});
+						});
+					});
+				}
 			}
-		}changeMerchant
+		}
 		function typeKeyToValue(name){
 			//PartsType  为 getPartsType.js中的变量（全局）
 			for(var key in PartsType){

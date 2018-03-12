@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		li{
+			list-style: none;
+		}
+	</style>
+</head>
+<body ng-app="myApp">
+	<h4>
+		<p>broadcasted: 从父级作用域广播至子级scope</p>
+		<p>emitted: 从子级作用域往上发射到父级作用域</p>
+	</h4>
+	<div ng-controller="myController">
+		root作用域 myEvent count:{{count}}
+		<ul>
+			<li ng-repeat="in in [1]" ng-controller="myController">
+				<button ng-click="$emit('myEvent')">$emit('myEvent')</button>
+				<button ng-click="$broadcast('myEvent')">$broadcast('myEvent')</button>
+				<br>
+				Middle作用域 myEvent count:{{count}}
+				<ul>
+					<li ng-repeat="item in [1,2]" ng-controller="myController">
+						Leaf作用域 myEvent count:{{count}}
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<script src="../angular.js"></script>
+	<script>
+		angular.module('myApp',[]).controller('myController',function($scope){
+			$scope.count = 0;
+			$scope.$on('myEvent',function(){
+				$scope.count++;
+			});
+		})
+	</script>
+</body>
+</html>
