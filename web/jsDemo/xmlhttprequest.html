@@ -17,7 +17,8 @@
 			request.responseText = 'json';
 			request.send();
 			request.onload = function(){
-				var response = request.response;
+				var response = request.response;	//response  为string
+				response = JSON.parse(response);
 				console.log(response);
 			}
 

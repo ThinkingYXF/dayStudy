@@ -405,8 +405,7 @@
 						$('<button />').addClass('ui-btn ui-btn-inline addNewPart').text('添加配件').appendTo(buttonContainer);
 						$('<button />').addClass('ui-btn ui-btn-inline deletePart').text('删除当前').appendTo(buttonContainer);
 						clone.find('#header').append(buttonContainer);
-						// $.get('/wechat/info/merchant/customers?openId=' + openId,function(json){
-						$.get('customers.json',function(json){
+						$.get('/wechat/info/merchant/customers?openId=' + openId,function(json){
 							$.each(json.data,function(k,val){
 								var option = "<option value='"+val.merchant.id+"'>"+val.merchant.name+"</option>";
 								if(val.merchant.id==999){
