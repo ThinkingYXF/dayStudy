@@ -83,9 +83,17 @@
 			/* padding-bottom: 1vh; */
 			/* border-bottom: 1px solid #ccc; */
 		}
-		.btnCreate{
+		button.btnCreate{
 			position: fixed;
 			bottom: 0;
+			left: 0;
+			width: 49%;
+		}
+		button.btnHistory{
+			position: fixed;
+			bottom: 0;
+			right: 0;
+			width: 49%;
 		}
 	</style>
 </head>
@@ -100,7 +108,8 @@
 	<script src="../../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<!-- <script src="/resources/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> -->
 	<script src="../../js/resources/vendor/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
-	<script src="https://cdn.bootcss.com/clipboard.js/2.0.0/clipboard.min.js"></script>
+	<!-- <script src="https://cdn.bootcss.com/clipboard.js/2.0.0/clipboard.min.js"></script> -->
+	<script src="../../js/clipboard.min.js"></script>
 	<script>
 		var totalPrice = 0,
 			totalQuantity = 0;
@@ -142,7 +151,7 @@
 					var divP = $('<div />').addClass('p');
 					$('<p />').text('配件编号: ' + this.parts.code).appendTo(divP);
 					$('<p />').text('配件名称: ' + this.parts.name).appendTo(divP);
-					$('<p />').html('需求数量: ' + this.quantity + '&nbsp;价格: '+ this.price).appendTo(divP);
+					$('<p />').html('库存: ' + this.quantity + '&nbsp;价格: '+ this.price).appendTo(divP);
 					$('<p />').html('品牌: ' + this.parts.brand.name + '&nbsp;类别: '+ typeKeyToValue(this.parts.tags[1000])).appendTo(divP);
 					// content.append(divP1).append(divP).appendTo(needContent);
 					content.append(divP1).append(divP).appendTo(container);
@@ -157,14 +166,19 @@
 						'</div>';
 			div.append(header).append(container);
 			var button = $('<button />').text('复制分享链接').addClass('ui-btn ui-shadow ui-corner-all btnCreate');
+			var buttonHistory = $('<button />').text('报价历史').addClass('ui-btn ui-shadow ui-corner-all btnHistory');
+
 			// button.click(function(e){
 			// 	$('.location').remove();
 			// 	var input = $('<input />').addClass('location').prop('type','hidden').val(location.href).appendTo($('body'));
 			// 	input.select();
 			// 	document.execCommand("Copy");
 			// });
-			div.append(button);
-			var clipboard = new ClipboardJS('.ui-btn', {
+			buttonHistory.click(function(){
+				location.href = '../history/history.html';
+			});
+			div.append(button).append(buttonHistory);
+			var clipboard = new ClipboardJS('.btnCreate', {
 				// 点击copy按钮，直接通过text直接返回复印的内容
 				text: function() {
 					return location.href;
