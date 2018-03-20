@@ -13,6 +13,7 @@ input{
 #header header{
 	border-bottom: 1px solid #ccc;
 	padding: 0;
+	position: relative;
 }
 #header h3{
 	margin: 10px 5px;
@@ -20,6 +21,11 @@ input{
 	font-size: 1.2em;
 	height: 5vh;
 	line-height: 5vh;
+}
+#header header .pageInfo{
+	position: absolute;
+	right: 1em;
+	bottom: .2em;
 }
 .select{
 	text-align: left;
@@ -40,6 +46,7 @@ input{
 	position: absolute;
 	top: 0;
 	padding: 0 1em;
+	font-size: 16px;
 }
 .addPart{
 	right: 4em;
@@ -47,3 +54,4 @@ input{
 .deletePart{
 	right: 1em;
 }
+

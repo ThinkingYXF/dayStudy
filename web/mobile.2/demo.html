@@ -4,26 +4,34 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="weUI/weui.min.css">
+	<!--<link rel="stylesheet" href="weUI/weui.min.css">-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
 	<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
 	<link rel="stylesheet" href="demo.css">
 	<title>询价回复</title>
 </head>
-<body>
+<body ontouchstart>
 	<div class="paging">
 		<div data-role="header" id="header">
 			<header>
 				<h3>询价回复</h3>
+                <div class="pageInfo">
+                    <span class="pageNow">1</span>/<span class="pageCount">3</span>
+                </div>
 			</header>
 			<div class="select">
 				<p class="merchantStrategy">
-					<label for="">商户策略:</label>
+					<label >商户策略:</label>
 					<input type="text" id="merchantPicker">
 				</p>
 				<div class="addPart">+</div>
 				<div class="deletePart">x</div>
 			</div>
 		</div>
+
+        <div class="needPartContainer">
+            
+        </div>
 	</div>
 	<input type="hidden" class="code" value="${id!}">
 	<input type="hidden" class="openId" value="${openId!}">
@@ -42,18 +50,31 @@
 			}],
 			onChange:function(value){
 				// console.log(value.value);
+			},
+			onClose: function (obj) {
+				console.log(obj.value);
 			}
 		});
 		$('.select label').click(function(){
 			$('.select input').trigger('focus');
 		});
 		$('.addPart').click(function(){
-			$.confirm('请输入配件编号','',function(){
-				console.log(11);
-			});
+			$.prompt({
+                title: '请输入配件编号',
+//                text: '文本',
+//                input: '配件编号',
+                onOK: function(value){
+                    console.log(value);
+                },
+                onCancel: function(){
+
+                }
+            });
 		});
 		$('.deletePart').click(function(){
-			console.log('delete');
+            $.confirm('确认删除当前需求配件？', function () {
+                console.log('sure delete');
+            })
 		});
 	</script>
 </body>
