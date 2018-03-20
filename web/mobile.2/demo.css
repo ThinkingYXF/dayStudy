@@ -25,9 +25,25 @@ input{
 	text-align: left;
 	line-height: 4em;
 	padding-left: .5em;
+	position: relative;
 }
 .select input{
 	height: 1.5em;
 	border: none;
 	font-size: 16px;
+	max-width: 50vw;
+}
+.merchantStrategy{
+	margin: 0;
+}
+.addPart, .deletePart{
+	position: absolute;
+	top: 0;
+	padding: 0 1em;
+}
+.addPart{
+	right: 4em;
+}
+.deletePart{
+	right: 1em;
 }
