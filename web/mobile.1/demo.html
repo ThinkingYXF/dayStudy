@@ -259,28 +259,54 @@
 					params['originId'] = code;
 					params['openId'] = openId
 					var radios = $('.paging').find('input[type=radio]:checked');
-					var ids = [];
+					var ids = {};
 					$.each(radios,function(){
-						ids.push(parseInt($(this).attr('data')));
+						var originId = $(this).prop('name');
+						ids[originId] = parseInt($(this).attr('data'));
+						// ids.push(parseInt($(this).attr('data')));
 					});
 					var paramsNum = 0;
-					$.each(data.data,function(k,v){
-						if(ids.indexOf(this.id) !=-1 && ids.length > paramsNum){
-							var index = $('#page' + paramsNum).find('input[type="radio"]:checked').parents('.resultDiv').index();
-							var price = $('#page' + paramsNum).find('.resultDiv').eq(index).find('.partsPrice').val();
-							var productObj = this;
-							params['codes['+paramsNum+'].code'] = productObj.product.code;
-							params['codes['+paramsNum+'].name'] = productObj.product.name;
-							// params['codes[0].price'] = productObj.price;
-							params['codes['+paramsNum+'].price'] = price;
-							params['codes['+paramsNum+'].quantity'] = productObj.product.inventory;
-							params['codes['+paramsNum+'].type'] = productObj.product.parts.tags[1000];
-							params['codes['+paramsNum+'].brand.id'] = productObj.product.parts.brand.id;
-							params['codes['+paramsNum+'].originId'] = productObj.product.originCode.id;
-							params['codes['+paramsNum+'].selected'] = productObj.id;
-							paramsNum++;
-						}
+
+					$.each(productsObj,function(k,v){
+						$.each(productsObj[k],function(j, value){
+							$.each(ids,function(key){
+								if(key == value.product.originCode.id && ids[key] == value.id){
+									var index = $('#page' + paramsNum).find('input[type="radio"]:checked').parents('.resultDiv').index();
+									var price = $('#page' + paramsNum).find('.resultDiv').eq(index).find('.partsPrice').val();
+									var productObj = value;
+									params['codes['+paramsNum+'].code'] = productObj.product.code;
+									params['codes['+paramsNum+'].name'] = productObj.product.name;
+									// params['codes[0].price'] = productObj.price;
+									params['codes['+paramsNum+'].price'] = price;
+									params['codes['+paramsNum+'].quantity'] = productObj.product.inventory;
+									params['codes['+paramsNum+'].type'] = productObj.product.parts.tags[1000];
+									params['codes['+paramsNum+'].brand.id'] = productObj.product.parts.brand.id;
+									params['codes['+paramsNum+'].originId'] = productObj.product.originCode.id;
+									params['codes['+paramsNum+'].selected'] = productObj.id;
+									paramsNum++;
+								}
+							})
+						});
 					});
+
+
+					// $.each(data.data,function(k,v){
+					// 	if(ids.indexOf(this.id) !=-1 && ids.length > paramsNum){
+					// 		var index = $('#page' + paramsNum).find('input[type="radio"]:checked').parents('.resultDiv').index();
+					// 		var price = $('#page' + paramsNum).find('.resultDiv').eq(index).find('.partsPrice').val();
+					// 		var productObj = this;
+					// 		params['codes['+paramsNum+'].code'] = productObj.product.code;
+					// 		params['codes['+paramsNum+'].name'] = productObj.product.name;
+					// 		// params['codes[0].price'] = productObj.price;
+					// 		params['codes['+paramsNum+'].price'] = price;
+					// 		params['codes['+paramsNum+'].quantity'] = productObj.product.inventory;
+					// 		params['codes['+paramsNum+'].type'] = productObj.product.parts.tags[1000];
+					// 		params['codes['+paramsNum+'].brand.id'] = productObj.product.parts.brand.id;
+					// 		params['codes['+paramsNum+'].originId'] = productObj.product.originCode.id;
+					// 		params['codes['+paramsNum+'].selected'] = productObj.id;
+					// 		paramsNum++;
+					// 	}
+					// });
 					if(ids.length == 0){
 						alert('请选择商品','warning');
 						return false;

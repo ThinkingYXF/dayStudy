@@ -1,4 +1,4 @@
-{"success":true,"data":[{"id":"1","merchantInfo": {
+/*{"success":true,"data":[{"id":"1","merchantInfo": {
 	"name": "彩虹科技有限公司",
 	"id": 1000
 },
@@ -77,3 +77,14 @@
 "price": "888",
 "quantity": 10
 },"product":{"code":"ABC1003","name":"车顶","parts":{"code":"ABC1003","name":"车顶"}},"price":"888","quantity":"3"}]}
+*/
+
+
+{"success":true,"data":
+	[
+		{"id":4163,"createdTime":1521527130,"createdBy":1628,"flag":1,"user":{"id":1628},
+			"merchant":{"id":1560},"customer":{"id":999},"type":"WECHAT_REPLY","originId":4162},
+		{"id":4166,"createdTime":1521527323,"createdBy":1628,"flag":1,"user":{"id":1628},
+			"merchant":{"id":1560},"customer":{"id":999},"type":"WECHAT_REPLY","originId":4162}
+	]
+}

@@ -23,6 +23,21 @@
             arr = $.makeArray(arr);
             console.log(arr);
         });
+
+
+
+        var obj = {
+            arr: [1,2,3],
+            arr1: [2,3,4],
+            arr3: [3,4,5]
+        }
+        $.each(obj,function(k){
+            $.each(obj[k],function(j){
+                if(this == 2)
+                    return false;
+                console.log(k,this);
+            })
+        })
     </script>
 </body>
 </html>

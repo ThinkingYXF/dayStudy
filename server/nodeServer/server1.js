@@ -13,6 +13,7 @@ var server = http.createServer(function(req,res){
 		var fileTypes = {
 			'.html': 'text/html;charset="utf-8"',
 			'.css': 'text/css',
+			'.less': 'text/css',
 			'.js': 'application/javascript',
 			'.json': 'application/json',
 			'.txt': 'text/plain',

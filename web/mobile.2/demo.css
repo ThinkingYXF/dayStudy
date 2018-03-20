@@ -1,0 +1,33 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+input{
+	outline: none;
+}
+#header{
+	background: #fff;
+	border-radius: 5px 5px 0 0;
+	border-bottom: 1px solid #ccc;
+}
+#header header{
+	border-bottom: 1px solid #ccc;
+	padding: 0;
+}
+#header h3{
+	margin: 10px 5px;
+	text-align: center;
+	font-size: 1.2em;
+	height: 5vh;
+	line-height: 5vh;
+}
+.select{
+	text-align: left;
+	line-height: 4em;
+	padding-left: .5em;
+}
+.select input{
+	height: 1.5em;
+	border: none;
+	font-size: 16px;
+}
