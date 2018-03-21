@@ -5,77 +5,283 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<!--<link rel="stylesheet" href="weUI/weui.min.css">-->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
 	<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
 	<link rel="stylesheet" href="demo.css">
 	<title>询价回复</title>
 </head>
 <body ontouchstart>
 	<div class="paging">
+		<!--公共部分-->
 		<div data-role="header" id="header">
 			<header>
 				<h3>询价回复</h3>
-                <div class="pageInfo">
-                    <span class="pageNow">1</span>/<span class="pageCount">3</span>
-                </div>
 			</header>
 			<div class="select">
 				<p class="merchantStrategy">
 					<label >商户策略:</label>
-					<input type="text" id="merchantPicker">
+					<input type="text" id="merchantPicker" />
 				</p>
 				<div class="addPart">+</div>
 				<div class="deletePart">x</div>
 			</div>
 		</div>
+		<div class="container">
+			<div class="containerDiv clone">
+				<!--页数-->
+				<div class="pageInfo">
+					<span class="pageNow"></span>/<span class="pageCount"></span>
+				</div>
+				<!--需求部分-->
+				<div class="weui-cell weui-cell_swiped needPartContainer">
+					<div class="weui-cell__bd" style="transform: translate3d(0px, 0px, 0px);height:5em;overflow:hidden">
+						<div class="previous"><</div>
+						<div class="needPart">
+							<div class="weui-cell__ft">
+								需求编号: <span class="needPartsCode">ABC12344</span>
+							</div>
+							<div class="weui-cell__ft">
+								需求数量:
+								<div class="weui-count">
+									<a class="weui-count__btn weui-count__decrease"></a>
+									<input type="number" class="weui-count__number needPartsQuantity" value="1">
+									<a class="weui-count__btn weui-count__increase"></a>
+								</div>
+							</div>
 
-        <div class="needPartContainer">
-            
-        </div>
+						</div>
+						<div class="next">></div>
+					</div>
+
+					<div class="weui-cell__ft">
+						<a class="weui-swiped-btn weui-swiped-btn_warn delete-swipeout">删除</a>
+					</div>
+				</div>
+				<!--列表部分-->
+				<div class="resultPartContainer">
+					<div class="resultPart">
+						<div class="weui-flex">
+							<div class="weui-flex__item">
+								供应商: <span class="merchantName"></span>
+							</div>
+						</div>
+						<div class="weui-flex">
+							<div class="weui-flex__item">
+								商品编号: <span class="productCode"></span>
+							</div>
+						</div>
+						<div class="weui-flex">
+							<div class="weui-flex__item">
+								配件编号: <span class="partsCode"></span>
+							</div>
+						</div>
+						<div class="weui-flex">
+							<div class="weui-flex__item">
+								配件名称: <span class="partsName"></span>
+							</div>
+						</div>
+						<div class="weui-flex">
+							<div class="weui-flex__item">
+								配件类别: <span class="partsType"></span>
+							</div>
+							<div class="weui-flex__item">
+								配件品牌: <span class="partsBrand"></span>
+							</div>
+						</div>
+						<div class="weui-flex">
+							<div class="weui-flex__item">
+								<div class="weui-cell weui-cell_vcode" style="padding-left:0;">
+									<div class="weui-cell__hd">
+										<label class="weui-label" style="width:3em">单价: </label>
+									</div>
+									<div class="weui-cell__bd" style="margin-left: .2em">
+										<input class="weui-input" type="number" placeholder="单价">
+									</div>
+								</div>
+							</div>
+							<div class="weui-flex__item">
+								库存: <span class="partsInventory"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<a href="javascript:;" class="weui-btn weui-btn_default btn-save">保存并预览</a>
 	</div>
 	<input type="hidden" class="code" value="${id!}">
-	<input type="hidden" class="openId" value="${openId!}">
 
-
-	<!-- <script src="../js/lib/jquery-1.11.1.js"></script> -->
 	<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.js"></script>
 	<script>
-		$('#merchantPicker').picker({
-			title: '',
-			cols:[{
-				textAlign: 'center',
-				values: ['公开询价','公开招标']
-				// items: [{title:'公开询价',value: 999},{title:'公开招标',value: 998}]
-			}],
-			onChange:function(value){
-				// console.log(value.value);
-			},
-			onClose: function (obj) {
-				console.log(obj.value);
+		$(document).ready(function(){
+			//获取策略商户列表
+			$.getJSON('customers.json',function(customers){
+				if(customers.success && customers.data && customers.data.length){
+					var customersArr = [];
+					$.each(customers.data,function(){
+						var customersObj = {};
+						customersObj['title'] = this.merchant.name;
+						customersObj['value'] = this.merchant.id;
+						customersArr.push(customersObj);
+						if(this.merchant.id == 999)
+							$('#merchantPicker').val(this.merchant.name).attr('data-values',this.merchant.id);
+					});
+					$('#merchantPicker').select({
+						title: '请选择策略商户',
+						items: customersArr,
+						onClose: function (obj) {
+							var id = $('#merchantPicker').val();
+							// console.log(obj.data.titles,id);
+						}
+					});
+				}
+			});
+			//添加配件
+			$('.addPart').click(function(){
+				$.prompt({
+					title: '请输入配件编号',
+					//text: '文本',
+					//input: '配件编号',
+					onOK: function(value){
+						console.log(value);
+					},
+					onCancel: function(){
+
+					}
+				});
+			});
+			//删除配件
+			$('.deletePart').click(function(){
+				$.confirm('确认删除当前需求配件？', function () {
+					console.log('sure delete');
+				});
+			});
+			var GLOBAL = {
+				pageNow: 0,
+				pageCount: 0
+			};
+			//获取当前页数据
+			$.getJSON('demo.json',function(json){
+				if(json.success && json.data && json.data.length){
+					var productsObj = {};
+					$.each(json.data,function(j){
+						if(!productsObj[this.product.originCode.code]){
+							productsObj[this.product.originCode.code] = [this];
+						}
+						else{
+							productsObj[this.product.originCode.code].push(this);
+						}
+					});
+
+					$.each(productsObj,function(key,value){
+						var containerDivClone = $('.clone').clone().removeClass('clone').addClass('containerDiv' + GLOBAL.pageCount);
+						containerDivClone.find('.pageNow').html(GLOBAL.pageCount + 1);
+						containerDivClone.find('.pageCount').html(Object.getOwnPropertyNames(productsObj).length);
+						if(GLOBAL.pageCount != 0)
+							containerDivClone.hide();
+						containerDivClone.find('.needPartsCode').html(key);
+						productsObj[key].sort(function(a, b){
+							return parseInt(a.price) - parseInt(b.price);
+						});
+						$.each(productsObj[key],function(){
+							var resultPartClone = containerDivClone.find('.resultPart').eq(0).clone();
+							resultPartClone.find('.merchantName').html(this.supplier.name);
+							resultPartClone.find('.productCode').html(this.product.code);
+							resultPartClone.find('.partsCode').html(this.product.parts.code);
+							resultPartClone.find('.partsName').html(this.product.parts.name);
+							resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
+							resultPartClone.find('.partsBrand').html(this.product.parts.brand.name);
+							resultPartClone.find('.partsInventory').html(this.product.inventory);
+							resultPartClone.find('.weui-input').val(this.price);
+							containerDivClone.find('.resultPartContainer').append(resultPartClone);
+						});
+						containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).remove();
+						containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).addClass('selected');
+						$('.container').append(containerDivClone);
+						GLOBAL.pageCount++;
+					});
+					$('.weui-cell_swiped').swipeout();
+					$('.previous').unbind().click(function(){
+						GLOBAL.pageNow--;
+						if(GLOBAL.pageNow < 0)
+							GLOBAL.pageNow = GLOBAL.pageCount - 1;
+						$('.containerDiv').hide();
+						$('.containerDiv' + GLOBAL.pageNow).show();
+					});
+					$('.next').unbind().click(function(){
+						GLOBAL.pageNow++;
+						if(GLOBAL.pageNow > (GLOBAL.pageCount -1))
+							GLOBAL.pageNow = 0;
+						$('.containerDiv').hide();
+						$('.containerDiv' + GLOBAL.pageNow).show();
+					});
+
+					//选择配件
+					$('.resultPart').unbind().click(function(){
+						var that = $('.containerDiv' + GLOBAL.pageNow).find('.resultPart');
+						if($(this).hasClass('selected'))
+							return false;
+						that.removeClass('selected');
+						$(this).addClass('selected');
+					});
+					//更改价格时阻止选择配件
+					$('.weui-flex__item .weui-cell').unbind().click(function(){
+						return false;
+					});
+
+					//需求数量js
+					var MAX = Infinity, MIN = 1;
+					$('.weui-count__decrease').unbind().click(function (e) {
+						var $input = $(e.currentTarget).parent().find('.weui-count__number');
+						var number = parseInt($input.val() || "0") - 1
+						if (number < MIN) number = MIN;
+						$input.val(number);
+					});
+					$('.weui-count__increase').unbind().click(function (e) {
+						var $input = $(e.currentTarget).parent().find('.weui-count__number');
+						var number = parseInt($input.val() || "0") + 1
+						if (number > MAX) number = MAX;
+						$input.val(number);
+					});
+
+					$('.delete-swipeout').unbind().click(function(){
+						$.confirm('确认删除当前需求配件？', function () {
+							console.log('sure delete');
+							$('.weui-cell_swiped').swipeout('close');
+						});
+					});
+				}
+			});
+
+
+
+			function typeKeyToValue(name){
+				//PartsType  为 getPartsType.js中的变量（全局）
+				for(var key in PartsType){
+					if(name == key||name == PartsType[key]){
+						return PartsType[key];
+					}
+				}
+			}
+			var PartsType = {
+				"OE":"主机原厂件",
+				"SUPPORTOE":"配套原厂件",
+				"CIRCULATEOE":"流通原厂件",
+				"AM":"经济适用件",
+				"BRANDPARTS":"配套品牌件",
+				"AFTERMARKETBRANDPARTS":"售后品牌件",
+				"DETACHEDPARTS":"拆车回用件",
+				"RENOVATIONPARTS":"再制造件",
+				"COMMONPARTS":"通用件",
+				"CHOICESTPARTS":"精品选装件",
+				"INDUSTRIALPARTS":"工业用品",
+				"TOOLEQUIPMENT":"工具设备",
+				"OTHERS":"其他"
 			}
 		});
-		$('.select label').click(function(){
-			$('.select input').trigger('focus');
-		});
-		$('.addPart').click(function(){
-			$.prompt({
-                title: '请输入配件编号',
-//                text: '文本',
-//                input: '配件编号',
-                onOK: function(value){
-                    console.log(value);
-                },
-                onCancel: function(){
 
-                }
-            });
-		});
-		$('.deletePart').click(function(){
-            $.confirm('确认删除当前需求配件？', function () {
-                console.log('sure delete');
-            })
-		});
 	</script>
 </body>
 </html>

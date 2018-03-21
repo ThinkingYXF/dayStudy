@@ -1,6 +1,9 @@
 body{
 	margin: 0;
-	padding: 0;
+	padding: 0 .2em;
+	background: #f4f4f4;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
 }
 input{
 	outline: none;
@@ -9,6 +12,7 @@ input{
 	background: #fff;
 	border-radius: 5px 5px 0 0;
 	border-bottom: 1px solid #ccc;
+	font-size: 14px;
 }
 #header header{
 	border-bottom: 1px solid #ccc;
@@ -22,22 +26,26 @@ input{
 	height: 5vh;
 	line-height: 5vh;
 }
-#header header .pageInfo{
+.container{
+	position: relative;
+}
+.container .pageInfo{
 	position: absolute;
 	right: 1em;
-	bottom: .2em;
+	top: -4.8em;
 }
 .select{
 	text-align: left;
-	line-height: 4em;
+	line-height: 3em;
 	padding-left: .5em;
 	position: relative;
 }
 .select input{
 	height: 1.5em;
-	border: none;
-	font-size: 16px;
-	max-width: 50vw;
+	border: 1px solid #ccc;
+	/* font-size: 16px; */
+	max-width: 30vw;
+	padding: .2em .5em;
 }
 .merchantStrategy{
 	margin: 0;
@@ -54,4 +62,91 @@ input{
 .deletePart{
 	right: 1em;
 }
-
+.clone{
+	display: none;
+}
+.needPartContainer{
+	position: relative;
+	height: 5em;
+	border-bottom: 1px solid #ccc;
+	overflow: hidden;
+}
+.needPartContainer .previous, .needPartContainer .next{
+	position: absolute;
+	width: 2em;
+	height: 3em;
+	background: #ccc;
+	top: .8em;
+	line-height: 3em;
+	text-align: center;
+	font-size: 16px;
+	opacity: .3;
+}
+.needPartContainer .previous:hover, .needPartContainer .next:hover{
+	opacity: .6;
+}
+.needPartContainer .previous{
+	left: 1em;
+}
+.needPartContainer .next{
+	right: 1em;
+}
+.needPartContainer .delete-swipeout{
+	width: 3em;
+	text-align: center;
+	line-height: 4em;
+	color: #fff;
+}
+.needPartContainer .needPart{
+	margin-top: 1em;
+	padding-left: 20vw;
+}
+.needPartContainer .weui-cell__ft{
+	text-align: left;
+	color: #000;
+}
+.needPartContainer .needPart > .weui-cell__ft:nth-child(1){
+	/* margin-top: 1em; */
+}
+.resultPartContainer{
+	font-size: 14px;
+	max-height: 60vh;
+	overflow-y: auto;
+}
+.resultPartContainer .resultPart{
+	background: #fff;
+	margin: .5em;
+	padding: .5em .5em;
+	border-radius: .3em;
+}
+.resultPartContainer .selected{
+	background: #ccc;
+}
+.resultPartContainer .weui-input{
+	width: 50%;
+	border: 1px solid #000;
+	padding: 0 .2em;
+}
+.needPartContainer .weui-count .weui-count__btn{
+	border-radius: 0;
+	border: 1px solid #ccc;
+}
+.needPartContainer .weui-count .weui-count__increase{
+	background: none;
+}
+.weui-count .weui-count__btn:after, .weui-count .weui-count__btn:before{
+	background-color: #000;
+}
+.weui-count .weui-count__btn:after{
+	margin-left: 0;
+}
+.weui-count .weui-count__number{
+	min-width: 3em;
+	font-size: 16px;
+}
+.btn-save{
+	position: fixed;
+	bottom: .1em;
+	width: 98%;
+	font-size: 14px;
+}
