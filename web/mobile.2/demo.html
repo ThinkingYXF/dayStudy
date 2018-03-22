@@ -5,8 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<!--<link rel="stylesheet" href="weUI/weui.min.css">-->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
-	<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+	<!-- <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"> -->
+	<!-- <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"> -->
+	<link rel="stylesheet" href="../js/weui/weui.min.css">
+	<link rel="stylesheet" href="../js/weui/jquery-weui.min.css">
 	<link rel="stylesheet" href="demo.css">
 	<title>询价回复</title>
 </head>
@@ -27,6 +29,9 @@
 			</div>
 		</div>
 		<div class="container">
+			<div class="weui-loadmore weui-loadmore_line noMoreDataTip">
+				<span class="weui-loadmore__tips">暂无数据</span>
+			</div>
 			<div class="containerDiv clone">
 				<!--页数-->
 				<div class="pageInfo">
@@ -104,18 +109,38 @@
 							</div>
 						</div>
 					</div>
+
+					<div class="weui-loadmore weui-loadmore_line noDataTip">
+						<span class="weui-loadmore__tips">暂无数据</span>
+					</div>
 				</div>
 			</div>
 
 		</div>
-		<a href="javascript:;" class="weui-btn weui-btn_default btn-save">保存并预览</a>
+		<div class="weui-cell weui-cell_vcode inquireComment">
+			<div class="weui-cell__bd">
+				<input class="weui-input" type="text" placeholder="备注">
+			</div>
+			<div class="weui-cell__ft">
+				<button class="weui-vcode-btn btn-save">下一步</button>
+			</div>
+		</div>
+		<!-- <a href="javascript:;" class="weui-btn weui-btn_default btn-save">保存并预览</a> -->
 	</div>
+	<div class="weui-loadmore loadingIcon">
+		<i class="weui-loading"></i>
+		<span class="weui-loadmore__tips">正在加载</span>
+	</div>
+	<div class="loadingTip"></div>
 	<input type="hidden" class="code" value="${id!}">
 
-	<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
-	<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.js"></script>
+	<!-- <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script> -->
+	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<!-- <script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.js"></script> -->
+	<script src="../js/weui/jquery-weui.min.js"></script>
 	<script>
 		$(document).ready(function(){
+			var code = $('.code').val();
 			//获取策略商户列表
 			$.getJSON('customers.json',function(customers){
 				if(customers.success && customers.data && customers.data.length){
@@ -132,8 +157,7 @@
 						title: '请选择策略商户',
 						items: customersArr,
 						onClose: function (obj) {
-							var id = $('#merchantPicker').val();
-							// console.log(obj.data.titles,id);
+							changeMerchant(obj.data.values);
 						}
 					});
 				}
@@ -142,8 +166,9 @@
 			$('.addPart').click(function(){
 				$.prompt({
 					title: '请输入配件编号',
-					//text: '文本',
-					//input: '配件编号',
+					// text: '文本',
+					// input: '配件编号',
+					// empty: false,
 					onOK: function(value){
 						console.log(value);
                         addNewPart(value);
@@ -155,16 +180,30 @@
 			});
 			//删除配件
 			$('.deletePart').click(function(){
+				if(!$('.containerDiv').not('.clone').length){
+					$.alert("暂无可删除的配件");
+					return false;
+				}
 				$.confirm('确认删除当前需求配件？', function () {
 					removePart();
 				});
 			});
 			var GLOBAL = {
 				pageNow: 0,
-				pageCount: 0
+				pageCount: 0,
+				jsonData: null
 			};
+			startLoading();
+			function getData(callback,merchantId){
+				var id = merchantId || 0;
+				$.getJSON('demo.json',function(json){
+					if(json.success && callback)
+						callback(json);
+				});
+			}
 			//获取当前页数据
-			$.getJSON('demo.json',function(json){
+			getData(function(json){
+				removeLoading();
 				if(json.success && json.data && json.data.length){
 					var productsObj = {};
 					$.each(json.data,function(j){
@@ -183,17 +222,28 @@
 						if(GLOBAL.pageCount != 0)
 							containerDivClone.hide();
 						containerDivClone.find('.needPartsCode').html(key);
+						containerDivClone.find('.needPartsCode').attr('originId',value[0].product.originCode.id);
 						productsObj[key].sort(function(a, b){
 							return parseInt(a.price) - parseInt(b.price);
 						});
+						if(productsObj[key].length == 1 && !productsObj[key][0].id){
+							containerDivClone.find('.resultPart').hide();
+							containerDivClone.find('.noDataTip').show();
+							$('.container').append(containerDivClone);
+							GLOBAL.pageCount++;
+							return true;
+						}
 						$.each(productsObj[key],function(){
 							var resultPartClone = containerDivClone.find('.resultPart').eq(0).clone();
+							resultPartClone.attr('productId',this.id);
 							resultPartClone.find('.merchantName').html(this.supplier.name);
 							resultPartClone.find('.productCode').html(this.product.code);
 							resultPartClone.find('.partsCode').html(this.product.parts.code);
 							resultPartClone.find('.partsName').html(this.product.parts.name);
 							resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
+							resultPartClone.find('.partsType').attr('tags',(this.product.parts.tags[1000]));
 							resultPartClone.find('.partsBrand').html(this.product.parts.brand.name);
+							resultPartClone.find('.partsBrand').attr('brandId',this.product.parts.brand.id);
 							resultPartClone.find('.partsInventory').html(this.product.inventory);
 							resultPartClone.find('.weui-input').val(this.price);
 							containerDivClone.find('.resultPartContainer').append(resultPartClone);
@@ -203,195 +253,336 @@
 						$('.container').append(containerDivClone);
 						GLOBAL.pageCount++;
 					});
-
-					$('.previous').unbind().click(function(){
-						GLOBAL.pageNow--;
-						if(GLOBAL.pageNow < 0)
-							GLOBAL.pageNow = GLOBAL.pageCount - 1;
-						$('.containerDiv').hide();
-						$('.containerDiv' + GLOBAL.pageNow).show();
-					});
-					$('.next').unbind().click(function(){
-						GLOBAL.pageNow++;
-						if(GLOBAL.pageNow > (GLOBAL.pageCount -1))
-							GLOBAL.pageNow = 0;
-						$('.containerDiv').hide();
-						$('.containerDiv' + GLOBAL.pageNow).show();
-					});
-                    $('.weui-cell_swiped').swipeout();
-					//选择配件
-					$('.resultPart').unbind().click(function(){
-						var that = $('.containerDiv' + GLOBAL.pageNow).find('.resultPart');
-						if($(this).hasClass('selected'))
-							return false;
-						that.removeClass('selected');
-						$(this).addClass('selected');
-					});
-					//更改价格时阻止选择配件
-					$('.weui-flex__item .weui-cell').unbind().click(function(){
-						return false;
-					});
-
-					//需求数量js
-					var MAX = Infinity, MIN = 1;
-					$('.weui-count__decrease').unbind().click(function (e) {
-						var $input = $(e.currentTarget).parent().find('.weui-count__number');
-						var number = parseInt($input.val() || "0") - 1
-						if (number < MIN) number = MIN;
-						$input.val(number);
-					});
-					$('.weui-count__increase').unbind().click(function (e) {
-						var $input = $(e.currentTarget).parent().find('.weui-count__number');
-						var number = parseInt($input.val() || "0") + 1
-						if (number > MAX) number = MAX;
-						$input.val(number);
-					});
-
-					$('.delete-swipeout').unbind().click(function(){
-						$.confirm('确认删除当前需求配件？', function () {
-							console.log('sure delete');
-							$('.weui-cell_swiped').swipeout('close');
-						});
-					});
+				}else{
+					$('.noMoreDataTip').show();
 				}
+				action();
 			});
+			//商户选择
+			function changeMerchant(value){
+				startLoading();
+				getData(function(json){
+					removeLoading();
+					if(json.success && json.data && json.data.length){
+						$('.containerDiv').not('.clone').remove();
+						GLOBAL.pageCount = 0;
 
-            //添加一个配件
-            function addNewPart(partCode){
-                $.getJSON('demo1.json', function (json) {
-                    if(json.success && json.data && json.data.length){
-                        GLOBAL.pageCount++;
-                        var containerDivClone = $('.clone').clone().removeClass('clone').addClass('containerDiv' + (GLOBAL.pageCount-1));
-                        containerDivClone.find('.pageNow').html(GLOBAL.pageCount);
-                        containerDivClone.find('.pageCount').html(GLOBAL.pageCount);
-                        $('.pageCount').html(GLOBAL.pageCount);
-                        containerDivClone.find('.needPartsCode').html(json.data[0].product.originCode.code);
-                        json.data.sort(function(a, b){
-                            return parseInt(a.price) - parseInt(b.price);
-                        });
-                        $.each(json.data,function(){
-                            var resultPartClone = containerDivClone.find('.resultPart').eq(0).clone();
-                            resultPartClone.find('.merchantName').html(this.supplier.name);
-                            resultPartClone.find('.productCode').html(this.product.code);
-                            resultPartClone.find('.partsCode').html(this.product.parts.code);
-                            resultPartClone.find('.partsName').html(this.product.parts.name);
-                            resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
-                            resultPartClone.find('.partsBrand').html(this.product.parts.brand.name);
-                            resultPartClone.find('.partsInventory').html(this.product.inventory);
-                            resultPartClone.find('.weui-input').val(this.price);
-                            containerDivClone.find('.resultPartContainer').append(resultPartClone);
-                        });
-                        containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).remove();
-                        containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).addClass('selected');
-                        $('.container').append(containerDivClone);
-                        GLOBAL.pageNow = GLOBAL.pageCount - 1;
-                    }
-                    refreshData();
-                    $('.previous').unbind().click(function(){
-                        GLOBAL.pageNow--;
-                        if(GLOBAL.pageNow < 0)
-                            GLOBAL.pageNow = GLOBAL.pageCount - 1;
-                        $('.containerDiv').hide();
-                        $('.containerDiv' + GLOBAL.pageNow).show();
-                    });
-                    $('.next').unbind().click(function(){
-                        GLOBAL.pageNow++;
-                        if(GLOBAL.pageNow > (GLOBAL.pageCount -1))
-                            GLOBAL.pageNow = 0;
-                        $('.containerDiv').hide();
-                        $('.containerDiv' + GLOBAL.pageNow).show();
-                    });
-                    //选择配件
-                    $('.resultPart').unbind().click(function(){
-                        var that = $('.containerDiv' + GLOBAL.pageNow).find('.resultPart');
-                        if($(this).hasClass('selected'))
-                            return false;
-                        that.removeClass('selected');
-                        $(this).addClass('selected');
-                    });
-                    //更改价格时阻止选择配件
-                    $('.weui-flex__item .weui-cell').unbind().click(function(){
-                        return false;
-                    });
+						var productsObj = {};
+						$.each(json.data,function(j){
+							if(!productsObj[this.product.originCode.code]){
+								productsObj[this.product.originCode.code] = [this];
+							}
+							else{
+								productsObj[this.product.originCode.code].push(this);
+							}
+						});
 
-                    //需求数量js
-                    var MAX = Infinity, MIN = 1;
-                    $('.weui-count__decrease').unbind().click(function (e) {
-                        var $input = $(e.currentTarget).parent().find('.weui-count__number');
-                        var number = parseInt($input.val() || "0") - 1
-                        if (number < MIN) number = MIN;
-                        $input.val(number);
-                    });
-                    $('.weui-count__increase').unbind().click(function (e) {
-                        var $input = $(e.currentTarget).parent().find('.weui-count__number');
-                        var number = parseInt($input.val() || "0") + 1
-                        if (number > MAX) number = MAX;
-                        $input.val(number);
-                    });
+						$.each(productsObj,function(key,value){
+							var containerDivClone = $('.clone').clone().removeClass('clone').addClass('containerDiv' + GLOBAL.pageCount);
+							containerDivClone.find('.pageNow').html(GLOBAL.pageCount + 1);
+							containerDivClone.find('.pageCount').html(Object.getOwnPropertyNames(productsObj).length);
+							if(GLOBAL.pageCount != 0)
+								containerDivClone.hide();
+							containerDivClone.find('.needPartsCode').html(key);
+							containerDivClone.find('.needPartsCode').attr('originId',value[0].product.originCode.id);
+							productsObj[key].sort(function(a, b){
+								return parseInt(a.price) - parseInt(b.price);
+							});
+							if(productsObj[key].length == 1 && !productsObj[key][0].id){
+								containerDivClone.find('.resultPart').hide();
+								containerDivClone.find('.noDataTip').show();
+								$('.container').append(containerDivClone);
+								GLOBAL.pageCount++;
+								return true;
+							}
+							$.each(productsObj[key],function(){
+								var resultPartClone = containerDivClone.find('.resultPart').eq(0).clone();
+								resultPartClone.attr('productId',this.id);
+								resultPartClone.find('.merchantName').html(this.supplier.name);
+								resultPartClone.find('.productCode').html(this.product.code);
+								resultPartClone.find('.partsCode').html(this.product.parts.code);
+								resultPartClone.find('.partsName').html(this.product.parts.name);
+								resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
+								resultPartClone.find('.partsType').attr('tags',(this.product.parts.tags[1000]));
+								resultPartClone.find('.partsBrand').html(this.product.parts.brand.name);
+								resultPartClone.find('.partsBrand').attr('brandId',this.product.parts.brand.id);
+								resultPartClone.find('.partsInventory').html(this.product.inventory);
+								resultPartClone.find('.weui-input').val(this.price);
+								containerDivClone.find('.resultPartContainer').append(resultPartClone);
+							});
+							containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).remove();
+							containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).addClass('selected');
+							$('.container').append(containerDivClone);
+							GLOBAL.pageCount++;
+						});
+					}
+					refreshData();
+					action();
+				},value);
+			}
+			//添加一个配件
+			function addNewPart(partCode){
+				$.getJSON('noData.json', function (json) {
+					if(json.success && json.data && json.data.length){
+						GLOBAL.pageCount++;
+						var containerDivClone = $('.clone').clone().removeClass('clone').addClass('containerDiv' + (GLOBAL.pageCount-1));
+						containerDivClone.find('.pageNow').html(GLOBAL.pageCount);
+						containerDivClone.find('.pageCount').html(GLOBAL.pageCount);
+						$('.pageCount').html(GLOBAL.pageCount);
+						containerDivClone.find('.needPartsCode').html(json.data[0].product.originCode.code);
+						json.data.sort(function(a, b){
+							return parseInt(a.price) - parseInt(b.price);
+						});
+						if(json.data.length == 1 && !json.data[0].id){
+							containerDivClone.find('.resultPart').hide();
+							containerDivClone.find('.noDataTip').show();
+							$('.container').append(containerDivClone);
+							GLOBAL.pageNow = GLOBAL.pageCount - 1;
+						}else{
+							$.each(json.data,function(){
+								var resultPartClone = containerDivClone.find('.resultPart').eq(0).clone();
+								resultPartClone.find('.merchantName').html(this.supplier.name);
+								resultPartClone.find('.productCode').html(this.product.code);
+								resultPartClone.find('.partsCode').html(this.product.parts.code);
+								resultPartClone.find('.partsName').html(this.product.parts.name);
+								resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
+								resultPartClone.find('.partsBrand').html(this.product.parts.brand.name);
+								resultPartClone.find('.partsInventory').html(this.product.inventory);
+								resultPartClone.find('.weui-input').val(this.price);
+								containerDivClone.find('.resultPartContainer').append(resultPartClone);
+							});
+							containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).remove();
+							containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).addClass('selected');
+							$('.container').append(containerDivClone);
+							GLOBAL.pageNow = GLOBAL.pageCount - 1;
+						}
+					}
+					refreshData();
+					action();
+				});
 
-                    $('.delete-swipeout').unbind().click(function(){
-                        $.confirm('确认删除当前需求配件？', function () {
-                            console.log('sure delete');
-                            $('.weui-cell_swiped').swipeout('close');
-                        });
-                    });//选择配件
-                    $('.resultPart').unbind().click(function(){
-                        var that = $('.containerDiv' + GLOBAL.pageNow).find('.resultPart');
-                        if($(this).hasClass('selected'))
-                            return false;
-                        that.removeClass('selected');
-                        $(this).addClass('selected');
-                    });
-                    //更改价格时阻止选择配件
-                    $('.weui-flex__item .weui-cell').unbind().click(function(){
-                        return false;
-                    });
 
-                    //需求数量js
-                    var MAX = Infinity, MIN = 1;
-                    $('.weui-count__decrease').unbind().click(function (e) {
-                        var $input = $(e.currentTarget).parent().find('.weui-count__number');
-                        var number = parseInt($input.val() || "0") - 1
-                        if (number < MIN) number = MIN;
-                        $input.val(number);
-                    });
-                    $('.weui-count__increase').unbind().click(function (e) {
-                        var $input = $(e.currentTarget).parent().find('.weui-count__number');
-                        var number = parseInt($input.val() || "0") + 1
-                        if (number > MAX) number = MAX;
-                        $input.val(number);
-                    });
+				// var params = {};
+				// var customerId = $('#merchantPicker').attr('data-values');
+				// params['id'] = code;
+				// params['customer'] = customerId;
+				// params['code'] = partCode;
+				// console.log(params);
+				// return false;
+				// $.ajax({
+				// 	url: '/wechat/reply/code',
+				// 	method: 'POST',
+				// 	data: params
+				// }).success(function(json){
+				// 	if(json.success && json.data && json.data.length){
+				// 		GLOBAL.pageCount++;
+				// 		var containerDivClone = $('.clone').clone().removeClass('clone').addClass('containerDiv' + (GLOBAL.pageCount-1));
+				// 		containerDivClone.find('.pageNow').html(GLOBAL.pageCount);
+				// 		containerDivClone.find('.pageCount').html(GLOBAL.pageCount);
+				// 		$('.pageCount').html(GLOBAL.pageCount);
+				// 		containerDivClone.find('.needPartsCode').html(json.data[0].product.originCode.code);
+				// 		json.data.sort(function(a, b){
+				// 			return parseInt(a.price) - parseInt(b.price);
+				// 		});
+				// 		if(json.data.length == 1 && !json.data[0].id){
+				// 			containerDivClone.find('.resultPart').hide();
+				// 			containerDivClone.find('.noDataTip').show();
+				// 			$('.container').append(containerDivClone);
+				// 			GLOBAL.pageNow = GLOBAL.pageCount - 1;
+				// 		}else{
+				// 			$.each(json.data,function(){
+				// 				var resultPartClone = containerDivClone.find('.resultPart').eq(0).clone();
+				// 				resultPartClone.find('.merchantName').html(this.supplier.name);
+				// 				resultPartClone.find('.productCode').html(this.product.code);
+				// 				resultPartClone.find('.partsCode').html(this.product.parts.code);
+				// 				resultPartClone.find('.partsName').html(this.product.parts.name);
+				// 				resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
+				// 				resultPartClone.find('.partsBrand').html(this.product.parts.brand.name);
+				// 				resultPartClone.find('.partsInventory').html(this.product.inventory);
+				// 				resultPartClone.find('.weui-input').val(this.price);
+				// 				containerDivClone.find('.resultPartContainer').append(resultPartClone);
+				// 			});
+				// 			containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).remove();
+				// 			containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).addClass('selected');
+				// 			$('.container').append(containerDivClone);
+				// 			GLOBAL.pageNow = GLOBAL.pageCount - 1;
+				// 		}
+				// 	}
+				// 	refreshData();
+				// 	action();
+				// });
+			}
+			//删除一个配件
+			function removePart(){
+				$.getJSON('deleted.json',function(json){
+					if(json.success){
+						$('.containerDiv' + GLOBAL.pageNow).remove();
+						GLOBAL.pageCount--;
+						GLOBAL.pageNow--;
+						$('.containerDiv').not('.clone').each(function(k){
+							$(this).removeClass('containerDiv' + (k + 1)).addClass('containerDiv' + k);
+							$(this).find('.pageInfo .pageNow').html(k + 1);
+							$(this).find('.pageInfo .pageCount').html(GLOBAL.pageCount);
+						});
+						if(GLOBAL.pageNow == -1)
+							GLOBAL.pageNow = 0;
+						refreshData();
+					}
+				});
 
-                    $('.delete-swipeout').unbind().click(function(){
-                        $.confirm('确认删除当前需求配件？', function () {
-                            console.log('sure delete');
-                            $('.weui-cell_swiped').swipeout('close');
-                        });
-                    });
-                })
-            }
-            //删除一个配件
-            function removePart(){
-                $.getJSON('deleted.json',function(json){
-                    if(json.success){
-                        $('.containerDiv' + GLOBAL.pageNow).remove();
-                        GLOBAL.pageCount--;
-                        GLOBAL.pageNow--;
-                        $('.containerDiv').not('.clone').each(function(k){
-                            $(this).removeClass('containerDiv' + (k + 1)).addClass('containerDiv' + k);
-                            $(this).find('.pageInfo .pageNow').html(k + 1);
-                            $(this).find('.pageInfo .pageCount').html(GLOBAL.pageCount);
-                        });
-                        if(GLOBAL.pageNow == -1)
-                            GLOBAL.pageNow = 0;
-                        refreshData();
-                    }
-                });
-            }
+
+
+				// var originId = $('.containerDiv' + GLOBAL.pageNow).find('.needPartsCode').attr('originId');
+				// console.log(originId);
+				// return false;
+				// $.ajax({
+				// 	url: '/wechat/reply/code?id=' + originId,
+				// 	method: 'DELETE',
+				// }).success(function(json){
+				// 	if(json.success){
+				// 		$('.containerDiv' + GLOBAL.pageNow).remove();
+				// 		GLOBAL.pageCount--;
+				// 		GLOBAL.pageNow--;
+				// 		$('.containerDiv').not('.clone').each(function(k){
+				// 			$(this).removeClass('containerDiv' + (k + 1)).addClass('containerDiv' + k);
+				// 			$(this).find('.pageInfo .pageNow').html(k + 1);
+				// 			$(this).find('.pageInfo .pageCount').html(GLOBAL.pageCount);
+				// 		});
+				// 		if(GLOBAL.pageNow == -1)
+				// 			GLOBAL.pageNow = 0;
+				// 		refreshData();
+				// 	}
+				// });
+			}
 			//刷新数据
 			function refreshData(){
+				if(!$('.containerDiv' + GLOBAL.pageNow).length)
+					$('.noMoreDataTip').show();
+				else
+					$('.noMoreDataTip').hide();
 				$('.containerDiv').hide();
 				$('.containerDiv' + GLOBAL.pageNow).show();
+			}
+			//动作
+			function action(){
+				$('.previous').unbind().click(function(){
+					GLOBAL.pageNow--;
+					if(GLOBAL.pageNow < 0)
+						GLOBAL.pageNow = GLOBAL.pageCount - 1;
+					$('.containerDiv').hide();
+					$('.containerDiv' + GLOBAL.pageNow).show();
+				});
+				$('.next').unbind().click(function(){
+					GLOBAL.pageNow++;
+					if(GLOBAL.pageNow > (GLOBAL.pageCount -1))
+						GLOBAL.pageNow = 0;
+					$('.containerDiv').hide();
+					$('.containerDiv' + GLOBAL.pageNow).show();
+				});
+				$('.weui-cell_swiped').swipeout();
+				//选择配件
+				$('.resultPart').unbind().click(function(){
+					var that = $('.containerDiv' + GLOBAL.pageNow).find('.resultPart');
+					if($(this).hasClass('selected'))
+						return false;
+					that.removeClass('selected');
+					$(this).addClass('selected');
+				});
+				//更改价格时阻止选择配件
+				$('.weui-flex__item .weui-cell').unbind().click(function(){
+					return false;
+				});
+
+				//需求数量js
+				var MAX = Infinity, MIN = 1;
+				$('.weui-count__decrease').unbind().click(function (e) {
+					var $input = $(e.currentTarget).parent().find('.weui-count__number');
+					var number = parseInt($input.val() || "0") - 1
+					if (number < MIN) number = MIN;
+					$input.val(number);
+				});
+				$('.weui-count__increase').unbind().click(function (e) {
+					var $input = $(e.currentTarget).parent().find('.weui-count__number');
+					var number = parseInt($input.val() || "0") + 1
+					if (number > MAX) number = MAX;
+					$input.val(number);
+				});
+				$('.weui-cell_swiped').on('swipeout-open',function(){
+					$('.previous,.next').hide();
+				});
+				$('.weui-cell_swiped').on('swipeout-close',function(){
+					$('.previous,.next').show();
+				});
+				$('.delete-swipeout').unbind().click(function(){
+					$.confirm('确认删除当前需求配件？', function () {
+						removePart();
+						$('.weui-cell_swiped').swipeout('close');
+					});
+				});
+
+				//
+				$('.resultPart .weui-input').focus(function(){
+					$('.resultPartContainer').css('paddingBottom','30vh');
+				});
+				$('.resultPart .weui-input').blur(function(){
+					$('.resultPartContainer').css('paddingBottom','0');
+				});
+			}
+
+			$('.btn-save').click(saveParams);
+			//提交数据
+			function saveParams(){
+				var params = {};
+				var code = $('.code').val();
+				var customerId = $('#merchantPicker').attr('data-values');
+				var comment = $('.inquireComment .weui-input').val();
+				if($.trim(comment)){
+					params['billExtends[0].billTags'] = "WECHAT_CONTENT";
+					params['billExtends[0].value'] = comment;
+				}
+				params['customer.id'] = customerId;
+				params['originId'] = code;
+				var needParts = $('.containerDiv').not('.clone');
+				var paramsNum = 0;
+				$.each(needParts,function(k){
+					var that = $(this);
+					if(!that.find('.selected').attr('productId'))
+						return true;
+					// params['codes['+paramsNum+'].code'] = that.find('.selected .partsCode').html();
+					// params['codes['+paramsNum+'].name'] = that.find('.selected .partsName').html();
+					// params['codes['+paramsNum+'].price'] = that.find('.selected .weui-input').val();
+					// params['codes['+paramsNum+'].quantity'] = that.find('.needPart .weui-count__number').val();
+					// params['codes['+paramsNum+'].type'] = that.find('.selected .partsType').attr('tags');
+					// params['codes['+paramsNum+'].brand.id'] = that.find('.selected .partsBrand').attr('brandId');
+					// params['codes['+paramsNum+'].originId'] = that.find('.needPartsCode').attr('originId');
+					// params['codes['+paramsNum+'].selected'] = that.find('.selected').attr('productId');
+
+					params['codes['+paramsNum+'].code'] = that.find('.needPartsCode').html();					//需求编号
+					params['codes['+paramsNum+'].price'] = that.find('.selected .weui-input').val();			//价格
+					params['codes['+paramsNum+'].quantity'] = that.find('.needPart .weui-count__number').val();	//需求数量
+					params['codes['+paramsNum+'].selected'] = that.find('.selected').attr('productId');			//supplyingId
+
+					paramsNum++;
+				});
+				if(needParts.length == 0){
+					$.alert('暂无可保存商品');
+					return false;
+				}else if(needParts.length != paramsNum){
+					$.alert('请确认商品有供应');
+					return false;
+				}
+				console.log(params);
+				return false;
+				$.ajax({
+					url: '/wechat/inquire/save',
+					method: 'POST',
+					data: params
+				}).success(function(json){
+					if(json.success && json.data && json.data.length){
+						var billId = json.data[0].id;
+						location.href = '/wechat/inquire/replyInfo?id='+billId;
+					}
+				});
 			}
 
 			function typeKeyToValue(name){
@@ -417,8 +608,15 @@
 				"TOOLEQUIPMENT":"工具设备",
 				"OTHERS":"其他"
 			}
-		});
+			function startLoading(){
+				$('.loadingTip,.loadingIcon').show();
+			}
+			function removeLoading(){
+				$('.loadingTip,.loadingIcon').hide();
+			}
 
+
+		});
 	</script>
 </body>
 </html>

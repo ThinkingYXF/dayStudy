@@ -1,0 +1,11 @@
+{"success":true,"data":
+	[{
+		"product":
+			{"originCode":
+				{"id":24497,"code":"Summer1560000066","createdTime":1520219908,
+					"createdBy":1628,"flag":1,
+					"bill":{"id":4033},"quantity":1,"currency":"CNY"
+				}
+			}
+	}]
+}

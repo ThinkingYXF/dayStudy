@@ -4,252 +4,144 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<!-- <link rel="stylesheet" href="/resources/vendor/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css" /> -->
-	<link rel="stylesheet" href="../../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.css" />
-	<!-- <link rel="stylesheet" href="/resources/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css" /> -->
-	<link rel="stylesheet" href="../../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
-	<!-- <link rel="stylesheet" href="/resources/css/wxReplyInfo.css"> -->
+	<!--<link rel="stylesheet" href="weUI/weui.min.css">-->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
 	<link rel="stylesheet" href="info.css">
 	<title>询价回复详情</title>
-	<style>
-		*{
-			/* touch-action: none; */
-		}
-		.paging{
-			background: #fff;
-		}
-		#header{
-			background: #fff;
-			padding: 5px 0;
-			border-radius: 5px 5px 0 0;
-		}
-		#header h3{
-			width: 100%;
-			margin: 0;
-			font-size: 1.2em ;
-			border-bottom: 1px solid #ccc;
-			line-height: 6vh;
-			text-align: center;
-		}
-		/* body{
-			margin: 0;
-		} */
-		#header h2{
-			font-size: 1.2em ;
-			font-weight: normal;
-			margin: 0 ;
-			background-color: #fff ;
-			line-height: 30px;
-			text-align: left ;
-			overflow: hidden;
-			margin-top: 1vh;
-		}
-		.ui-field-contain > div{
-			text-align: center;
-		}
-		#filter-menu{
-			max-height: 100px;
-		}
-		.text-nowrap{
-			overflow: hidden;
-			white-space: nowrap;
-		}
-		.content {
-			width: 90%;
-			border-bottom: 1px solid #ccc;
-			margin: 0 auto;
-			/* height: 20vh; */
-			padding: 10px;
-			overflow: hidden;
-		}
-		div.p,div.p1{
-			margin-top: 2%;
-			overflow: hidden;
-		}
-		.container{
-			max-height: 80vh;
-			overflow-y: auto;
-		}
-		div.p p,div.p1 p{
-			margin-bottom: 0;
-			/* float: left; */
-			/* margin-right: 2vw; */
-		}
-		div.p1{
-			margin-top: 0;
-		}
-		.needContent > p{
-			margin-top: 1vh;
-			/* padding-bottom: 1vh; */
-			/* border-bottom: 1px solid #ccc; */
-		}
-		button.btnCreate{
-			position: fixed;
-			bottom: 0;
-			left: 0;
-			width: 49%;
-		}
-		button.btnHistory{
-			position: fixed;
-			bottom: 0;
-			right: 0;
-			width: 49%;
-		}
-	</style>
 </head>
-<body>
-	<div class="clone" style="display: none">
-		<label for=""></label>
-		<span></span>
+<body ontouchstart>
+	<div class="paging">
+		<div id="header">
+			<h3>询价回复详情</h3>
+		</div>
 	</div>
-	<!-- <script src="/resources/vendor/jquery-2.2.4.min.js"></script> -->
-	<script src="../../js/lib/jquery-1.11.1.js"></script>
-	<!-- <script src="/resources/vendor/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
-	<script src="../../js/resources/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<!-- <script src="/resources/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> -->
-	<script src="../../js/resources/vendor/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
-	<!-- <script src="https://cdn.bootcss.com/clipboard.js/2.0.0/clipboard.min.js"></script> -->
-	<script src="../../js/clipboard.min.js"></script>
+	<div class="container">
+		<div class="resultPart clone">
+			<div class="weui-flex">
+				<div class="weui-flex__item">
+					需求编号: <span class="needPartCode"></span>
+				</div>
+			</div>
+			<div class="weui-flex">
+				<div class="weui-flex__item">
+					配件编号: <span class="partsCode"></span>
+				</div>
+			</div>
+			<div class="weui-flex">
+				<div class="weui-flex__item">
+					配件名称: <span class="partsName"></span>
+				</div>
+			</div>
+			<div class="weui-flex">
+				<div class="weui-flex__item">
+					数量: <span class="quantity"></span>
+				</div>
+				<div class="weui-flex__item">
+					价格: <span class="price"></span>
+				</div>
+			</div>
+			<div class="weui-flex">
+				<div class="weui-flex__item">
+					配件类别: <span class="partsType"></span>
+				</div>
+				<div class="weui-flex__item">
+					配件品牌: <span class="partsBrand"></span>
+				</div>
+			</div>
+			<div class="weui-flex">
+				<div class="weui-flex__item">
+					总价: <span class="totalPrice"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="comfirm-constract">
+		<input type="checkbox" id="constract" name="confirmConstract">
+		<label for="constract">
+			我已阅读并同意
+			<a href="/resources/contract.html" target="_blank" class="">用户协议</a>
+		</label>
+	</div>
+	<a href="javascript:;" class="weui-btn weui-btn_default btn-confirm">确定</a>
+	<div class="weui-footer">
+		<p class="weui-footer__text">Copyright © 2017-2018 北京微重力 All rights reserved.</p>
+		<p class="weui-footer__text">京ICP备17023267号   京公网安备 11010802023299号</p>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.js"></script>
+	<script src="https://cdn.bootcss.com/clipboard.js/2.0.0/clipboard.min.js"></script>
 	<script>
-		var totalPrice = 0,
-			totalQuantity = 0;
-		// var code = $('.code').val();
-		function getValue(name) {
-			var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-			var r = window.location.search.substr(1).match(reg);
-			if(r!=null)return  unescape(r[2]); return null;
-		}
-		var code = getValue('id');
-		var openId = getValue('openId');
-		// $.getJSON('/wechat/info/inquire/replyInfo?id=' + code + '&openId=' + openId,function(json){
-		$.getJSON('info.json',function(json){
-			var div = $('<div />').attr('data-role','page').addClass('paging').prop('id','page');
-			var container = $('<div />').addClass('container');
-
-			//按需求编号分组
-			var needPartsObj = {};
-			$.each(json.data[0].codes,function(){
-				if(!needPartsObj[this.originCode.code]){
-					needPartsObj[this.originCode.code] = [this];
+		$(document).ready(function(){
+			function getValue(name) {
+				var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r!=null)return  unescape(r[2]); return null;
+			}
+			var code = getValue('id');
+			$.getJSON('info.json',function(json){
+				if(json.success && json.data && json.data.length){
+					if(json.data[0].codes.length){
+						$.each(json.data[0].codes,function(){
+							var resultPartClone = $('.container').find('.clone').clone().removeClass('clone').show();
+							resultPartClone.find('.needPartCode').html(this.originCode.code);
+							resultPartClone.find('.partsCode').html(this.parts.code);
+							resultPartClone.find('.partsName').html(this.parts.name);
+							resultPartClone.find('.partsType').html(typeKeyToValue(this.parts.tags[1000]));
+							resultPartClone.find('.partsBrand').html(this.parts.brand.name);
+							resultPartClone.find('.quantity').html(this.quantity);
+							resultPartClone.find('.price').html(this.price);
+							resultPartClone.find('.totalPrice').html(this.price * this.quantity);
+							$('.container').append(resultPartClone);
+						});
+					}
 				}
-				else{
-					needPartsObj[this.originCode.code].push(this);
+			});
+			$('.btn-confirm').click(function(){
+				if(!$('#constract').prop('checked')){
+					$.alert('请先阅读用户协议');
+					return false;
 				}
 			});
-
-			$.each(needPartsObj,function(k){
-				// var needContent = $('<div />').addClass('needContent').append('<p>需求编号: '+needPartsObj[k][0].originCode.code+'</p>');
-				$.each(needPartsObj[k],function(){
-					//content
-					var content = $('<div />').addClass('content');
-					var divP1 = $('<div />').addClass('p1');
-					$('<p />').text('需求编号: ' + this.originCode.code).appendTo(divP1);
-					// $('<p />').text('需求名称: ' + this.originCode.name).appendTo(divP1);
-					// $('<p />').text('数量: ' + this.originCode.quantity).appendTo(divP1);
-					// $('<p />').text('价格: ' + this.originCode.price).appendTo(divP1);
-
-					var divP = $('<div />').addClass('p');
-					$('<p />').text('配件编号: ' + this.parts.code).appendTo(divP);
-					$('<p />').text('配件名称: ' + this.parts.name).appendTo(divP);
-					$('<p />').html('库存: ' + this.quantity + '&nbsp;价格: '+ this.price).appendTo(divP);
-					$('<p />').html('品牌: ' + this.parts.brand.name + '&nbsp;类别: '+ typeKeyToValue(this.parts.tags[1000])).appendTo(divP);
-					// content.append(divP1).append(divP).appendTo(needContent);
-					content.append(divP1).append(divP).appendTo(container);
-				});
-				// needContent.appendTo(container);
-			});
-
-
-			var header = '<div data-role="header" id="header">'+
-							'<h3>询价回复详情</h3>'+
-							// '<h2></h2>'+
-						'</div>';
-			div.append(header).append(container);
-			var button = $('<button />').text('复制分享链接').addClass('ui-btn ui-shadow ui-corner-all btnCreate');
-			var buttonHistory = $('<button />').text('报价历史').addClass('ui-btn ui-shadow ui-corner-all btnHistory');
-
-			// button.click(function(e){
-			// 	$('.location').remove();
-			// 	var input = $('<input />').addClass('location').prop('type','hidden').val(location.href).appendTo($('body'));
-			// 	input.select();
-			// 	document.execCommand("Copy");
-			// });
-			buttonHistory.click(function(){
-				location.href = '../history/history.html';
-			});
-			div.append(button).append(buttonHistory);
-			var clipboard = new ClipboardJS('.btnCreate', {
+			//复制链接
+			var clipboard = new ClipboardJS('.btn-confirm', {
 				// 点击copy按钮，直接通过text直接返回复印的内容
 				text: function() {
 					return location.href;
 				}
 			});
 			clipboard.on('success', function(e) {
-				alert('success');
-
+				$.alert('复制链接成功');
 				e.clearSelection();
 			});
 			clipboard.on('error', function(e) {
-				alert('error');
+				$.alert('复制链接失败');
 			});
-			$('body').append(div);
-			// $('ui-page').hide();
-			$('#page').show();
 
-			// var headerIframe = $('#header');
-			// var merchant = $('.clone').clone().removeClass('clone').show().addClass('col-xs-12');
-			// merchant.find('label').addClass('col-xs-4').text('策略商户: ');
-			// merchant.find('span').text(json.data[0].customer.name);
-			// var text1 = $('.clone').clone().removeClass('clone').addClass('col-xs-6').show();
-			// text1.find('label').addClass('col-xs-6').text('总价: ');
-			// text1.find('span').text(totalPrice);
-			// var text2 = $('.clone').clone().removeClass('clone').addClass('col-xs-6').show();
-			// text2.find('label').addClass('col-xs-6').text('总数量: ');
-			// text2.find('span').text(totalQuantity);
-			// var div = $('<div >').css('lineHeight','30px').append(merchant).append(text1).append(text2);
-			// var merchantDiv = $('<div >').css('lineHeight','30px').append(merchant);
-			// headerIframe.find('h2').html(merchantDiv);
-		});
-		function setPublic(){
-			var headerIframe = $('#header').eq(count);
-			var merchant = $('.clone').clone().removeClass('clone').show().addClass('col-xs-12');
-			merchant.find('label').addClass('col-xs-3').text('商户: ');
-			merchant.find('span').text('彩虹科技有限公司');
-			// var text1 = $('.clone').clone().removeClass('clone').addClass('col-xs-6').show();
-			// text1.find('label').addClass('col-xs-6').text('总价: ');
-			// text1.find('span').text(totalPrice);
-			// var text2 = $('.clone').clone().removeClass('clone').addClass('col-xs-6').show();
-			// text2.find('label').addClass('col-xs-6').text('总数量: ');
-			// text2.find('span').text(totalQuantity);
-			// var div = $('<div >').css('lineHeight','30px').append(merchant).append(text1).append(text2);
-			var div = $('<div >').css('lineHeight','30px').append(merchant);
-			headerIframe.find('h2').html(div);
-		}
-
-		function typeKeyToValue(name){
-			//PartsType  为 getPartsType.js中的变量（全局）
-			for(var key in PartsType){
-				if(name == key||name == PartsType[key]){
-					return PartsType[key];
+			function typeKeyToValue(name){
+				//PartsType  为 getPartsType.js中的变量（全局）
+				for(var key in PartsType){
+					if(name == key||name == PartsType[key]){
+						return PartsType[key];
+					}
 				}
 			}
-		}
-
-		var PartsType = {
-			"OE":"主机原厂件",
-			"SUPPORTOE":"配套原厂件",
-			"CIRCULATEOE":"流通原厂件",
-			"AM":"经济适用件",
-			"BRANDPARTS":"配套品牌件",
-			"AFTERMARKETBRANDPARTS":"售后品牌件",
-			"DETACHEDPARTS":"拆车回用件",
-			"RENOVATIONPARTS":"再制造件",
-			"COMMONPARTS":"通用件",
-			"CHOICESTPARTS":"精品选装件",
-			"INDUSTRIALPARTS":"工业用品",
-			"TOOLEQUIPMENT":"工具设备",
-			"OTHERS":"其他"
-		}
+			var PartsType = {
+				"OE":"主机原厂件",
+				"SUPPORTOE":"配套原厂件",
+				"CIRCULATEOE":"流通原厂件",
+				"AM":"经济适用件",
+				"BRANDPARTS":"配套品牌件",
+				"AFTERMARKETBRANDPARTS":"售后品牌件",
+				"DETACHEDPARTS":"拆车回用件",
+				"RENOVATIONPARTS":"再制造件",
+				"COMMONPARTS":"通用件",
+				"CHOICESTPARTS":"精品选装件",
+				"INDUSTRIALPARTS":"工业用品",
+				"TOOLEQUIPMENT":"工具设备",
+				"OTHERS":"其他"
+			}
+		});
 	</script>
 </body>
 </html>
