@@ -8,7 +8,13 @@ var server = http.createServer(function(req,res){
 	//设置请求头,允许所有域名访问 防止跨域
 	res.setHeader("Access-Control-Allow-Origin" , "*");
 	var url = req.url;
-	var file = documentRoot + url;
+	//取地址
+	{
+		var index = url.indexOf('?');
+		if(index != -1)
+			url = url.slice(0, index);
+	}
+		var file = documentRoot + url;
 	fs.readFile(file, function(err, data){
 		var fileTypes = {
 			'.html': 'text/html;charset="utf-8"',

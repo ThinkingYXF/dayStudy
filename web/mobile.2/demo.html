@@ -201,63 +201,138 @@
 						callback(json);
 				});
 			}
-			//获取当前页数据
-			getData(function(json){
-				removeLoading();
-				if(json.success && json.data && json.data.length){
-					var productsObj = {};
-					$.each(json.data,function(j){
-						if(!productsObj[this.product.originCode.code]){
-							productsObj[this.product.originCode.code] = [this];
-						}
-						else{
-							productsObj[this.product.originCode.code].push(this);
-						}
-					});
+			//获取当前页数据(根据当前bill)
+			function initData(){
 
-					$.each(productsObj,function(key,value){
-						var containerDivClone = $('.clone').clone().removeClass('clone').addClass('containerDiv' + GLOBAL.pageCount);
-						containerDivClone.find('.pageNow').html(GLOBAL.pageCount + 1);
-						containerDivClone.find('.pageCount').html(Object.getOwnPropertyNames(productsObj).length);
-						if(GLOBAL.pageCount != 0)
-							containerDivClone.hide();
-						containerDivClone.find('.needPartsCode').html(key);
-						containerDivClone.find('.needPartsCode').attr('originId',value[0].product.originCode.id);
-						productsObj[key].sort(function(a, b){
-							return parseInt(a.price) - parseInt(b.price);
+			}
+			$.getJSON('bill.json',function(billInfo){
+				var merchantId = billInfo.data[0].customer ? billInfo.data[0].customer.id : 0;
+				var hasCustomer = false;
+				if(billInfo.data[0].customer && billInfo.data[0].codes.length)
+					hasCustomer = true;
+				getData(function(json){
+					removeLoading();
+					if(json.success && json.data && json.data.length){
+						var productsObj = {};
+						$.each(json.data,function(j){
+							if(!productsObj[this.product.originCode.code]){
+								productsObj[this.product.originCode.code] = [this];
+							}
+							else{
+								productsObj[this.product.originCode.code].push(this);
+							}
 						});
-						if(productsObj[key].length == 1 && !productsObj[key][0].id){
-							containerDivClone.find('.resultPart').hide();
-							containerDivClone.find('.noDataTip').show();
+						var productSelected = {};
+						//存在当前报价单
+						if(hasCustomer){
+							// $.getJSON('/data/merchant/' + billInfo.data[0].customer.id,function(merchantInfo){
+								// $('#merchantPicker').val(merchantInfo.name).attr('data-values',billInfo.data[0].customer.id);
+								$('#merchantPicker').val('测试商户A').attr('data-values',billInfo.data[0].customer.id);
+							// });
+							$.each(billInfo.data[0].codes,function(codeInfo){
+								var isHasSelected = false;
+								//当前商品无供应
+								if(!this.selected){
+									selecteProduct(code ,this.id, 0);
+									return true;
+								}
+								//商品有供应
+								else{
+									var that = this;
+									$.each(productsObj,function(key){
+										if(key == that.code){
+											productsObj[key].sort(function(a, b){
+												return parseInt(a.price) - parseInt(b.price);
+											});
+											productsObj[key].sort(function(a, b){
+												if(!a.priority && b.priority)
+													return 1;
+												else if(a.priority && !b.priority)
+													return -1;
+												else
+													return parseInt(b.priority) - parseInt(a.priority);
+											});
+											$.each(productsObj[key],function(count){
+												if(that.selected == this.id){
+													isHasSelected = true;
+													productSelected[key] = this.id;
+													this.price = that.price;
+													return false;
+												}else if(count == productsObj[key].length - 1){
+													selecteProduct(code ,productsObj[key][0].product.originCode.id, productsObj[key][0].id);
+													productSelected[key] = productsObj[key][0].id;
+												}
+											});
+											if(isHasSelected)
+												return false;
+										}
+									});
+								}
+							});
+						}
+						$.each(productsObj,function(key,value){
+							var containerDivClone = $('.clone').clone().removeClass('clone').addClass('containerDiv' + GLOBAL.pageCount);
+							containerDivClone.find('.pageNow').html(GLOBAL.pageCount + 1);
+							containerDivClone.find('.pageCount').html(Object.getOwnPropertyNames(productsObj).length);
+							if(GLOBAL.pageCount != 0)
+								containerDivClone.hide();
+							containerDivClone.find('.needPartsCode').html(key);
+							containerDivClone.find('.needPartsCode').attr('originId',value[0].product.originCode.id);
+							if(!hasCustomer)
+								productsObj[key].sort(function(a, b){
+									return parseInt(a.price) - parseInt(b.price);
+								});
+							if(productsObj[key].length == 1 && !productsObj[key][0].id){
+								containerDivClone.find('.resultPart').hide();
+								containerDivClone.find('.noDataTip').show();
+								$('.container').append(containerDivClone);
+								GLOBAL.pageCount++;
+								return true;
+							}
+							$.each(productsObj[key],function(){
+								var resultPartClone = containerDivClone.find('.resultPart').eq(0).clone();
+								resultPartClone.attr('productId',this.id);
+								resultPartClone.find('.merchantName').html(this.supplier.name);
+								resultPartClone.find('.productCode').html(this.product.code);
+								resultPartClone.find('.partsCode').html(this.product.parts.code);
+								resultPartClone.find('.partsName').html(this.product.parts.name);
+								resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
+								resultPartClone.find('.partsType').attr('tags',(this.product.parts.tags[1000]));
+								resultPartClone.find('.partsBrand').html(this.product.parts.brand.name);
+								resultPartClone.find('.partsBrand').attr('brandId',this.product.parts.brand.id);
+								resultPartClone.find('.partsInventory').html(this.product.inventory);
+								resultPartClone.find('.weui-input').val(this.price);
+								containerDivClone.find('.resultPartContainer').append(resultPartClone);
+								if(this.id == productSelected[key])
+									resultPartClone.addClass('selected');
+							});
+							containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).remove();
+							if(!productSelected[key])
+								containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).addClass('selected');
 							$('.container').append(containerDivClone);
 							GLOBAL.pageCount++;
-							return true;
-						}
-						$.each(productsObj[key],function(){
-							var resultPartClone = containerDivClone.find('.resultPart').eq(0).clone();
-							resultPartClone.attr('productId',this.id);
-							resultPartClone.find('.merchantName').html(this.supplier.name);
-							resultPartClone.find('.productCode').html(this.product.code);
-							resultPartClone.find('.partsCode').html(this.product.parts.code);
-							resultPartClone.find('.partsName').html(this.product.parts.name);
-							resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
-							resultPartClone.find('.partsType').attr('tags',(this.product.parts.tags[1000]));
-							resultPartClone.find('.partsBrand').html(this.product.parts.brand.name);
-							resultPartClone.find('.partsBrand').attr('brandId',this.product.parts.brand.id);
-							resultPartClone.find('.partsInventory').html(this.product.inventory);
-							resultPartClone.find('.weui-input').val(this.price);
-							containerDivClone.find('.resultPartContainer').append(resultPartClone);
 						});
-						containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).remove();
-						containerDivClone.find('.resultPartContainer').find('.resultPart').eq(0).addClass('selected');
-						$('.container').append(containerDivClone);
-						GLOBAL.pageCount++;
-					});
-				}else{
-					$('.noMoreDataTip').show();
-				}
-				action();
+					}else{
+						$('.noMoreDataTip').show();
+					}
+					action();
+				},merchantId);
 			});
+			//商品selected请求
+			function selecteProduct(id , codeId, select){
+				if (id === '' || !codeId)
+					return;
+				var data = {
+					codeId: codeId,
+					id: id,
+					select: select
+				}
+				$.ajax({
+					url: '/wechat/reply/select',
+					method: 'PUT',
+					data: data
+				});
+			}
 			//商户选择
 			function changeMerchant(value){
 				startLoading();
@@ -572,6 +647,8 @@
 					return false;
 				}
 				console.log(params);
+				var billId = '1321';
+				location.href = 'info/info.html?id=' + encode64(billId);
 				return false;
 				$.ajax({
 					url: '/wechat/inquire/save',
@@ -614,8 +691,35 @@
 			function removeLoading(){
 				$('.loadingTip,.loadingIcon').hide();
 			}
-
-
+			var keyStr = "ABCDEFGHIJKLMNOP" +"QRSTUVWXYZabcdef" +"ghijklmnopqrstuv" +"wxyz0123456789+/" + "=";
+			function encode64(input) {
+				var output = "";
+				var chr1, chr2, chr3 = "";
+				var enc1, enc2, enc3, enc4 = "";
+				var i = 0;
+				do{
+					chr1 = input.charCodeAt(i++);
+					chr2 = input.charCodeAt(i++);
+					chr3 = input.charCodeAt(i++);
+					enc1 = chr1 >> 2;
+					enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+					enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+					enc4 = chr3 & 63;
+					if (isNaN(chr2)){
+						enc3 = enc4 = 64;
+					}else if (isNaN(chr3)){
+						enc4 = 64;
+					}
+					output = output +
+					keyStr.charAt(enc1) +
+					keyStr.charAt(enc2) +
+					keyStr.charAt(enc3) +
+					keyStr.charAt(enc4);
+					chr1 = chr2 = chr3 = "";
+					enc1 = enc2 = enc3 = enc4 = "";
+				} while (i < input.length);
+				return output;
+			}
 		});
 	</script>
 </body>

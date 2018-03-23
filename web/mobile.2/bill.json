@@ -1,0 +1,37 @@
+{"success":true,"data":[
+	{"id":4069,"createdTime":1520583991,"createdBy":1628,
+		"modifiedTime":1520921633,"modifiedBy":1628,"flag":3,
+		"user":{"id":1628},
+		"merchant":{"id":1560},
+		"customer":{"id":1559},
+		"type":"QUOTE",
+		"codes":[
+			{
+				"id":24606,"code":"Summer15600000",
+				"createdTime":1520921341,"createdBy":1628,
+				"modifiedTime":1520921341,"modifiedBy":1628,
+				"flag":1,"bill":{"id":4069},
+				"quantity":1,
+				"selected":21622738,
+				"price":200.0000
+			},{
+				"id":24496,"code":"Summer1560000088",
+				"createdTime":1520921341,"createdBy":1628,
+				"modifiedTime":1520921341,"modifiedBy":1628,
+				"flag":1,"bill":{"id":4069},
+				"quantity":1,
+				"selected":21622716,
+				"price":122.0000
+			},{
+				"id":244966,"code":"Summer156000090",
+				"createdTime":1520921341,"createdBy":1628,
+				"modifiedTime":1520921341,"modifiedBy":1628,
+				"flag":1,"bill":{"id":4069},
+				"quantity":1,
+				"selected":21622716,
+				"price":122.0000
+			}
+		],
+		"status":"DRAFT"
+	}]
+}
