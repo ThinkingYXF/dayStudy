@@ -1,0 +1,15 @@
+{"success":true,"data":[{"id":4232,"createdTime":1521872566,"createdBy":1641,"flag":1,
+	"user":{"id":1641,"code":"18500220006","name":"测试用户F","createdTime":1511949942,
+		"createdBy":1,"flag":17,"ip":"2130706433"},
+		"merchant":{"id":1560,"code":"M1560","name":"测试商户B","createdTime":1510655368,
+			"createdBy":1628,"modifiedTime":1519456410,"modifiedBy":1628,
+			"flag":1,"company":"测试商户B","license":"123456789","district":"650101",
+			"address":"鼎好","phone":"18500220002","type":"MERCHANT"},
+			"type":"WECHAT_INQUIRE",
+		"codes":[{"id":25050,"code":"Summer156000005","createdTime":1521872566,
+			"createdBy":1641,"flag":1,"bill":{"id":4232},"quantity":3,"price": 123.5,"currency":"CNY"}],
+			"billExtends":[{"id":1525,"name":"WECHAT_MSGID",
+				"createdTime":1521872566,"createdBy":1641,"flag":1,"value":"6536392895798843828"},
+				{"id":1526,"name":"WECHAT_CONTENT","createdTime":1521872566,"createdBy":1641,
+					"flag":1,"value":"Summer156000005"}]}
+	]}

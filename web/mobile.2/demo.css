@@ -165,3 +165,6 @@ input{
 	width: 95%;
 	border-left: 1px solid #e5e5e5;
 }
+.weui-select-modal .weui-cells{
+	max-height: 25vh;
+}

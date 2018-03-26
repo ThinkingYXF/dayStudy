@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>询价历史</title>
+	<!-- <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css"> -->
+	<!-- <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css"> -->
+	<link rel="stylesheet" href="../../js/weui/weui.min.css">
+	<link rel="stylesheet" href="../../js/weui/jquery-weui.min.css">
+	<link rel="stylesheet" href="history.css">
+</head>
+<body>
+	<div class="paging">
+		<div id="header">
+			<h3>询价历史</h3>
+		</div>
+	</div>
+	<div class="container">
+		<div class="weui-loadmore weui-loadmore_line noMoreDataTip">
+			<span class="weui-loadmore__tips">暂无数据</span>
+		</div>
+		<div class="resultPart clone">
+			<!-- <div class="delete">x</div> -->
+			<div class="weui-form-preview">
+				<div class="weui-form-preview__hd">
+					<label class="weui-form-preview__label">总金额</label>
+					<em class="weui-form-preview__value">¥<sapn class="totalPrice">0</sapn></em>
+				</div>
+				<div class="weui-form-preview__bd">
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">客户</label>
+						<span class="weui-form-preview__value"><sapn class="merchantName"></sapn></span>
+					</div>
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">品种</label>
+						<span class="weui-form-preview__value"><sapn class="count"></sapn></span>
+					</div>
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">时间</label>
+						<span class="weui-form-preview__value"><sapn class="time"></sapn></span>
+					</div>
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">备注</label>
+						<span class="weui-form-preview__value"><sapn class="comment"></sapn></span>
+					</div>
+				</div>
+				<div class="weui-form-preview__ft">
+					<button type="button" class="weui-form-preview__btn weui-form-preview__btn_default delete">删除</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script> -->
+	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<!-- <script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.js"></script> -->
+	<script src="../../js/weui/jquery-weui.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$.getJSON('history.json',function(json){
+				if(json.success && json.data && json.data.length){
+					$.each(json.data,function(){
+						var that = this;
+						var resultPartClone = $('.container .clone').clone().removeClass('clone').show();
+						resultPartClone.find('.time').html(formatTime(this.createdTime));					//时间
+						if(this.codes){
+							resultPartClone.find('.count').html(this.codes.length);							//品种
+							var totalPrice = 0;
+							$.each(this.codes,function(){
+								if(this.price && this.quantity)
+									totalPrice+= parseFloat(this.price) * parseInt(this.quantity);
+							});
+							resultPartClone.find('.totalPrice').html(totalPrice);							//总金额
+						}
+						if(this.billExtends && this.billExtends.length){
+							$.each(this.billExtends,function(){
+								if(this.name == 'COMMENT')
+									resultPartClone.find('.comment').html(this.value);						//备注
+							});
+						}
+						if(this.customer)
+							resultPartClone.find('.merchantName').html(this.customer.name);
+						resultPartClone.find('.delete').click(function(){
+							$.confirm('确定删除当前历史?',function(){
+								$.ajax({
+									url: '/wechat/inquire/history?id=' + that.id,
+									type: 'DELETE'
+								}).success(function(){
+									resultPartClone.remove();
+								});
+							});
+							return false;
+						});
+						resultPartClone.click(function(){
+							location.href = '/wechat/inquire/replyInfo?id='+that.id;
+						})
+						$('.container').append(resultPartClone);
+					});
+				}else{
+					$('.noMoreDataTip').show();
+				}
+			})
+			//时间格式化
+			function formatTime(time) {
+				var date = new Date(time * 1000);
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				var hour = date.getHours();
+				var minute = date.getMinutes();
+				return month + '-' + formatNum(day) + ' ' + hour + ':' + formatNum(minute);
+			}
+			//数字格式化
+			function formatNum(num){
+				if(num < 10)
+					num = '0' + num;
+				return num;
+			}
+		});
+	</script>
+</body>
+</html>
