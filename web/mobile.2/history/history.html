@@ -30,6 +30,10 @@
 				</div>
 				<div class="weui-form-preview__bd">
 					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">查询历史</label>
+						<span class="weui-form-preview__value"><sapn class="searchedValue"></sapn></span>
+					</div>
+					<div class="weui-form-preview__item">
 						<label class="weui-form-preview__label">客户</label>
 						<span class="weui-form-preview__value"><sapn class="merchantName"></sapn></span>
 					</div>
@@ -47,7 +51,51 @@
 					</div>
 				</div>
 				<div class="weui-form-preview__ft">
+					<button type="button" class="weui-form-preview__btn weui-form-preview__btn_primary lookInfo">查看详情</button>
 					<button type="button" class="weui-form-preview__btn weui-form-preview__btn_default delete">删除</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="" class="weui-popup__container">
+		<div class="weui-popup__overlay"></div>
+		<div class="weui-popup__modal">
+			<div class="popupInfo clone">
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						需求编号: <span class="needPartCode"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						配件编号: <span class="partsCode"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						配件名称: <span class="partsName"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						品牌: <span class="partsBrand"></span>
+					</div>
+					<div class="weui-flex__item">
+						类别: <span class="partsType"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						数量: <span class="quantity"></span>
+					</div>
+					<div class="weui-flex__item">
+						价格: <span class="price"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						总价: <span class="totalPrice"></span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -79,6 +127,9 @@
 							$.each(this.billExtends,function(){
 								if(this.name == 'COMMENT')
 									resultPartClone.find('.comment').html(this.value);						//备注
+								else if(this.name == 'WECHAT_CONTENT'){
+									resultPartClone.find('.searchedValue').html(this.value);				//查询历史
+								}
 							});
 						}
 						if(this.customer)
@@ -94,9 +145,32 @@
 							});
 							return false;
 						});
-						resultPartClone.click(function(){
-							location.href = '/wechat/inquire/replyInfo?id='+that.id;
-						})
+						resultPartClone.find('.lookInfo').click(function(){
+							$('.weui-popup__container').prop('id', that.id);
+							$('#' + that.id).find('.weui-popup__modal').find('.popupInfo').not('.clone').remove();
+							$('#' + that.id).find('.weui-popup__modal').find('.searchHistory').remove();
+							$('#' + that.id).find('.weui-popup__modal').find('.close-popup').remove();
+							//详情内容
+							if(that.codes){
+								$.each(that.codes,function(){
+									var popupInfo = $('#' + that.id).find('.clone').clone().removeClass('clone').show();
+									popupInfo.find('.needPartCode').html(this.code);											//需求编号
+									if(this.parts){
+										popupInfo.find('.partsCode').html(this.parts.code);										//配件编号
+										popupInfo.find('.partsName').html(this.parts.name);										//配件名称
+										popupInfo.find('.partsBrand').html(this.parts.brand.name);								//配件品牌
+										popupInfo.find('.partsType').html(typeKeyToValue(this.parts.tags[1000]));				//配件类别
+									}
+									popupInfo.find('.quantity').html(this.quantity);											//数量
+									popupInfo.find('.price').html(this.price);													//价格
+									popupInfo.find('.totalPrice').html(parseInt(this.quantity) * parseFloat(this.price));		//总价
+									$('#' + that.id).find('.weui-popup__modal').append(popupInfo);
+								});
+								var closeBtn = $('<a />').addClass('weui-btn weui-btn_primary close-popup').text('关闭');
+								$('#' + that.id).find('.weui-popup__modal').append(closeBtn);
+							}
+							$('#' + that.id).popup();
+						});
 						$('.container').append(resultPartClone);
 					});
 				}else{
@@ -117,6 +191,29 @@
 				if(num < 10)
 					num = '0' + num;
 				return num;
+			}
+			function typeKeyToValue(name){
+				//PartsType  为 getPartsType.js中的变量（全局）
+				for(var key in PartsType){
+					if(name == key||name == PartsType[key]){
+						return PartsType[key];
+					}
+				}
+			}
+			var PartsType = {
+				"OE":"主机原厂件",
+				"SUPPORTOE":"配套原厂件",
+				"CIRCULATEOE":"流通原厂件",
+				"AM":"经济适用件",
+				"BRANDPARTS":"配套品牌件",
+				"AFTERMARKETBRANDPARTS":"售后品牌件",
+				"DETACHEDPARTS":"拆车回用件",
+				"RENOVATIONPARTS":"再制造件",
+				"COMMONPARTS":"通用件",
+				"CHOICESTPARTS":"精品选装件",
+				"INDUSTRIALPARTS":"工业用品",
+				"TOOLEQUIPMENT":"工具设备",
+				"OTHERS":"其他"
 			}
 		});
 	</script>

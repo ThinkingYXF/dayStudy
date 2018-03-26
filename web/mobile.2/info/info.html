@@ -59,8 +59,8 @@
 	<div class="comfirm-constract">
 		<input type="checkbox" id="constract" name="confirmConstract">
 		<label for="constract">
-			我已阅读并同意
-			<a href="/resources/contract.html" target="_blank" class="">用户协议</a>
+			阅读并同意
+			<a href="/resources/contract.html" target="_blank" class="">相关条款</a>
 		</label>
 	</div>
 	<a href="javascript:;" class="weui-btn weui-btn_default btn-confirm">确定</a>
@@ -99,7 +99,7 @@
 			});
 			$('.btn-confirm').click(function(){
 				if(!$('#constract').prop('checked')){
-					$.alert('请先阅读用户协议');
+					$.alert('请先阅读相关条款');
 					return false;
 				}
 			});

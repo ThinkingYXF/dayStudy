@@ -28,17 +28,15 @@ input{
 	max-height: 85vh;
 	overflow-y: auto;
 }
-.container .resultPart{
+.container .resultPart, .popupInfo{
 	background: #fff;
 	margin: .5em;
 	padding: .5em .5em;
 	border-radius: .3em;
 	position: relative;
 }
-/* .container .resultPart .delete{
-	position: absolute;
-	right: .5em;
-	top: 0em;
-	font-size: 16px;
-	z-index: 100;
-} */
+.searchHistory{
+	padding: .5em;
+	margin: .5em;
+	background: #fff;
+}
