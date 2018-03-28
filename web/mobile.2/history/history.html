@@ -17,6 +17,20 @@
 			<h3>询价历史</h3>
 		</div>
 	</div>
+	<div class="weui-search-bar" id="searchBar">
+		<form class="weui-search-bar__form">
+			<div class="weui-search-bar__box">
+				<i class="weui-icon-search"></i>
+				<input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索历史">
+				<a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+			</div>
+			<label class="weui-search-bar__label" id="searchText">
+				<i class="weui-icon-search"></i>
+				<span>搜索历史</span>
+			</label>
+		</form>
+		<a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+	</div>
 	<div class="container">
 		<div class="weui-loadmore weui-loadmore_line noMoreDataTip">
 			<span class="weui-loadmore__tips">暂无数据</span>
@@ -106,6 +120,7 @@
 	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 	<!-- <script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.js"></script> -->
 	<script src="../../js/weui/jquery-weui.min.js"></script>
+	<script src="../../js/debuggap.js"></script>
 	<script>
 		$(document).ready(function(){
 			$.getJSON('history.json',function(json){
@@ -176,6 +191,25 @@
 				}else{
 					$('.noMoreDataTip').show();
 				}
+
+
+				$('#searchInput').on('input',function(){
+					var searchValue = $(this).val();
+					$('.container .resultPart').hide();
+					$('.container .resultPart').not('.clone').each(function(){
+						var value = $(this).find('.searchedValue').text();
+						if(value.indexOf(searchValue) != -1){
+							$(this).show();
+						}
+					});
+				});
+				$('#searchCancel,#searchClear').click(function(){
+					$('.container .resultPart').not('.clone').show();
+					console.log('111');
+				});
+			})
+			$('h3').click(function(){
+				console.log('23123');
 			})
 			//时间格式化
 			function formatTime(time) {

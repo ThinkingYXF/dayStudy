@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/weui/jquery-weui.min.css">
+	<link rel="stylesheet" href="../js/weui/weui.min.css">
+	<title>weui</title>
+	<style>
+		.content{
+			height: 20vh;
+			overflow: auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+		你好卡计划大家开始大家卡和三等奖卡和的艰苦环境卡和的艰苦哈健康和啊开始大家看到哈健康的哈艰苦的环境可
+		啊德国哈德萨规划大概大会奖大赛共和国和大会经过三大环节国家哈工大尕斯大赛的啊的尕海嘎达三等奖韩国啊角色的尕三个
+		今尕大啊和角色广大该地区古俄国前往以瞽引瞽才把汉代速度其啊的感情聚合物共和国起外号叫俄国区文化局曹操击败年期间为俄国
+		期间和国庆晚会金额国庆晚会及俄国和加强歌剧合格后经过千万结合国情交往和感情和几位工匠故此三喜欢器物
+		啊决定关汉卿巍峨前特工由于与关于分公司解放后阶段情景韩国海军为俄国皇家更换极为俄国气候认为俄国人聚合物俄国和结构巍峨环境
+		<div class="weui-loadmore">
+			<i class="weui-loading"></i>
+			<span class="weui-loadmore__tips">正在加载</span>
+		</div>
+	</div>
+
+
+	<script src="../js/lib/jquery-3.1.1.js"></script>
+	<script src="../js/weui/jquery-weui.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			// $('.content').infinite();
+			var loading = false;  //状态标记
+			$('.content').infinite(10).on("infinite", function() {
+				// if(loading) return;
+				loading = true;
+				setTimeout(function() {
+					$(".content").append("<p> 我是新加载的内容 </p>");
+					loading = false;
+				}, 1500);   //模拟延迟
+			});
+			$('.weui-textarea').on('input',function(){
+				var length = $(this).val().length;
+				if(length > 200)
+					$('.nowCount').css('color','red');
+				else
+					$('.nowCount').css('color','#b2b2b2');
+				$('.nowCount').text(length);
+			});
+		});
+	</script>
+</body>
+</html>

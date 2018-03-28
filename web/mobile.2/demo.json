@@ -1,7 +1,7 @@
 {"success":true,"data":
 	[{"id":21622716,"createdTime":1510656913,"createdBy":1628,"modifiedTime":1519717272,"modifiedBy":1628,"flag":1,"chain":"1559,1560,",
 		"product":{"id":1008400,"code":"Summer156000007","name":"转向机总成","createdTime":1510656545,"createdBy":1628,"flag":1,
-		"parts":{"id":2326979,"code":"Summer156000007","name":"转向机总成","createdTime":1510656548,"createdBy":1628,"flag":1,
+		"parts":{"id":2326979,"code":"Summer156000007~A","name":"转向机总成","createdTime":1510656548,"createdBy":1628,"flag":1,
 		"brand":{"id":1001,"name":"大众","createdTime":1493721156,"createdBy":1,"flag":1},
 		"tags":{"1008":"1006","1014":"Summer156000007","1000":"SUPPORTOE","1017":"Summer156000007"}},
 	"originCode":{"id":24496,"code":"Summer1560000088","createdTime":1520219908,"createdBy":1628,"flag":1,"bill":{"id":4033},"quantity":1,"currency":"CNY"},

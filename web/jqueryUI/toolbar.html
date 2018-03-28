@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/weui/jquery-weui.min.css">
+	<link rel="stylesheet" href="../js/weui/weui.min.css">
+	<title>weui</title>
+	<style>
+		body{
+			height: 100vh;
+		}
+	</style>
+</head>
+<body>
+	<div class="weui-tab">
+		<div class="weui-tab__bd">
+			<div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+				<h1>页面一</h1>
+			 </div>
+			<div id="tab2" class="weui-tab__bd-item">
+				<h1>页面二</h1>
+			</div>
+			<div id="tab3" class="weui-tab__bd-item">
+				<h1>页面三</h1>
+			</div>
+			<div id="tab4" class="weui-tab__bd-item">
+				<h1>页面四</h1>
+			</div>
+		</div>
+		<div class="weui-tabbar">
+			<a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
+				<span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>
+				<div class="weui-tabbar__icon">
+					<img src="./images/icon_nav_button.png" alt="">
+				</div>
+				<p class="weui-tabbar__label">微信</p>
+			</a>
+			<a href="#tab2" class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="./images/icon_nav_msg.png" alt="">
+				</div>
+				<p class="weui-tabbar__label">通讯录</p>
+			</a>
+			<a href="#tab3" class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="./images/icon_nav_article.png" alt="">
+				</div>
+				<p class="weui-tabbar__label">发现</p>
+			</a>
+			<a href="#tab4" class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="./images/icon_nav_cell.png" alt="">
+				</div>
+				<p class="weui-tabbar__label">我</p>
+			</a>
+		</div>
+	</div>
+
+	<script src="../js/lib/jquery-3.1.1.js"></script>
+	<script src="../js/weui/jquery-weui.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('.weui-textarea').on('input',function(){
+				var length = $(this).val().length;
+				if(length > 200)
+					$('.nowCount').css('color','red');
+				else
+					$('.nowCount').css('color','#b2b2b2');
+				$('.nowCount').text(length);
+			});
+		});
+	</script>
+</body>
+</html>

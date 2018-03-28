@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/weui/jquery-weui.min.css">
+	<link rel="stylesheet" href="../js/weui/weui.min.css">
+	<title>weui</title>
+	<style>
+		body{
+			height: 150vh;
+		}
+	</style>
+</head>
+<body>
+	<div class="weui-pull-to-refresh__layer">
+		<div class='weui-pull-to-refresh__arrow'></div>
+		<div class='weui-pull-to-refresh__preloader'></div>
+		<div class="down">下拉刷新</div>
+		<div class="up">释放刷新</div>
+		<div class="refresh">正在刷新</div>
+	</div>
+
+
+	<div class="weui-cells__title">文本域</div>
+	<div class="weui-cells weui-cells_form">
+	<div class="weui-cell">
+		<div class="weui-cell__bd">
+		<textarea class="weui-textarea" placeholder="请输入文本" rows="3"></textarea>
+		<div class="weui-textarea-counter"><span class="nowCount">0</span>/200</div>
+		</div>
+	</div>
+	</div>
+
+	<script src="../js/lib/jquery-3.1.1.js"></script>
+	<script src="../js/weui/jquery-weui.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$(document.body).pullToRefresh(function () {
+				setTimeout(function(){
+					$(document.body).pullToRefreshDone();
+				},2000);
+				// 下拉刷新触发时执行的操作放这里。
+				// 从 v1.1.2 版本才支持回调函数，之前的版本只能通过事件监听
+			});
+			$('.weui-textarea').on('input',function(){
+				var length = $(this).val().length;
+				if(length > 200)
+					$('.nowCount').css('color','red');
+				else
+					$('.nowCount').css('color','#b2b2b2');
+				$('.nowCount').text(length);
+			});
+		});
+	</script>
+</body>
+</html>

@@ -40,7 +40,7 @@
 				<!--需求部分-->
 				<div class="weui-cell weui-cell_swiped needPartContainer">
 					<div class="weui-cell__bd" style="transform: translate3d(0px, 0px, 0px);height:5em;overflow:hidden">
-						<div class="previous"><</div>
+						<div class="previous"></div>
 						<div class="needPart">
 							<div class="weui-cell__ft">
 								需求编号: <span class="needPartsCode">ABC12344</span>
@@ -55,7 +55,7 @@
 							</div>
 
 						</div>
-						<div class="next">></div>
+						<div class="next"></div>
 					</div>
 
 					<div class="weui-cell__ft">
@@ -294,7 +294,7 @@
 								resultPartClone.attr('productId',this.id);
 								resultPartClone.find('.merchantName').html(this.supplier.name);
 								resultPartClone.find('.productCode').html(this.product.code);
-								resultPartClone.find('.partsCode').html(this.product.parts.code);
+								resultPartClone.find('.partsCode').html(formatPartsCode(this.product.parts.code));
 								resultPartClone.find('.partsName').html(this.product.parts.name);
 								resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
 								resultPartClone.find('.partsType').attr('tags',(this.product.parts.tags[1000]));
@@ -375,7 +375,7 @@
 								resultPartClone.attr('productId',this.id);
 								resultPartClone.find('.merchantName').html(this.supplier.name);
 								resultPartClone.find('.productCode').html(this.product.code);
-								resultPartClone.find('.partsCode').html(this.product.parts.code);
+								resultPartClone.find('.partsCode').html(formatPartsCode(this.product.parts.code));
 								resultPartClone.find('.partsName').html(this.product.parts.name);
 								resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
 								resultPartClone.find('.partsType').attr('tags',(this.product.parts.tags[1000]));
@@ -418,7 +418,7 @@
 								var resultPartClone = containerDivClone.find('.resultPart').eq(0).clone();
 								resultPartClone.find('.merchantName').html(this.supplier.name);
 								resultPartClone.find('.productCode').html(this.product.code);
-								resultPartClone.find('.partsCode').html(this.product.parts.code);
+								resultPartClone.find('.partsCode').html(formatPartsCode(this.product.parts.code));
 								resultPartClone.find('.partsName').html(this.product.parts.name);
 								resultPartClone.find('.partsType').html(typeKeyToValue(this.product.parts.tags[1000]));
 								resultPartClone.find('.partsBrand').html(this.product.parts.brand.name);
@@ -648,7 +648,7 @@
 				}
 				console.log(params);
 				var billId = '1321';
-				location.href = 'info/info.html?id=' + encode64(billId);
+				// location.href = 'info/info.html?id=' + encode64(billId);
 				return false;
 				$.ajax({
 					url: '/wechat/inquire/save',
@@ -719,6 +719,11 @@
 					enc1 = enc2 = enc3 = enc4 = "";
 				} while (i < input.length);
 				return output;
+			}
+
+			function formatPartsCode(code){
+				var partsCode = code.replace(/\~.+$/g, '');
+				return partsCode;
 			}
 		});
 	</script>

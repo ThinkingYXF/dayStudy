@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.pre, .next{
+			position: relative;
+			width: 2em;
+			height: 3em;
+			overflow: hidden;
+			background: #ccc;
+			margin-top: 50px;
+		}
+		.pre::after{
+			transform: skew(-130deg, -0deg);
+			left: 55%;
+			top: 50%;
+		}
+		.pre::before{
+			transform: skew(130deg, -0deg);
+			left: 55%;
+			top: 0;
+		}
+		.next::after{
+			transform: skew(-50deg, -0deg);
+			left: 20%;
+			top: 50%;
+		}
+		.next::before{
+			transform: skew(50deg, -0deg);
+			left: 20%;
+			top: 0;
+		}
+		.pre::after, .pre::before, .next::after, .next::before{
+			content: ' ';
+			position: absolute;
+			width: 20%;
+			height: 50%;
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="pre"></div>
+	<div class="next"></div>
+	<!-- <button>按钮</button> -->
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script>
+		$.fn.add = function(){
+			$(this).click(function(){
+				console.log('add');
+			})
+		}
+		$('button').add();
+	</script>
+</body>
+</html>
