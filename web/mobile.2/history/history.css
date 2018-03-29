@@ -20,7 +20,7 @@ input{
 	height: 5vh;
 	line-height: 5vh;
 }
-.clone, .noMoreDataTip{
+.clone, .noMoreDataTip, .noMoreDataInfoTip{
 	display: none;
 }
 .container{

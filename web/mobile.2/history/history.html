@@ -74,6 +74,9 @@
 	<div id="" class="weui-popup__container">
 		<div class="weui-popup__overlay"></div>
 		<div class="weui-popup__modal">
+			<div class="weui-loadmore weui-loadmore_line noMoreDataInfoTip">
+				<span class="weui-loadmore__tips">暂无数据</span>
+			</div>
 			<div class="popupInfo clone">
 				<div class="weui-flex">
 					<div class="weui-flex__item">
@@ -120,7 +123,7 @@
 	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 	<!-- <script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.js"></script> -->
 	<script src="../../js/weui/jquery-weui.min.js"></script>
-	<script src="../../js/debuggap.js"></script>
+	<!-- <script src="../../js/debuggap.js"></script> -->
 	<script>
 		$(document).ready(function(){
 			$.getJSON('history.json',function(json){
@@ -129,7 +132,7 @@
 						var that = this;
 						var resultPartClone = $('.container .clone').clone().removeClass('clone').show();
 						resultPartClone.find('.time').html(formatTime(this.createdTime));					//时间
-						if(this.codes){
+						if(this.codes && this.codes.length){
 							resultPartClone.find('.count').html(this.codes.length);							//品种
 							var totalPrice = 0;
 							$.each(this.codes,function(){
@@ -137,7 +140,8 @@
 									totalPrice+= parseFloat(this.price) * parseInt(this.quantity);
 							});
 							resultPartClone.find('.totalPrice').html(totalPrice);							//总金额
-						}
+						}else
+							$('.noMoreDataInfoTip').show();
 						if(this.billExtends && this.billExtends.length){
 							$.each(this.billExtends,function(){
 								if(this.name == 'COMMENT')
