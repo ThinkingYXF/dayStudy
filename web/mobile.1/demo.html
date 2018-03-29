@@ -81,6 +81,32 @@
 	<input type="hidden" class="code" value="${id!}">
 	<input type="hidden" class="openId" value="${openId!}">
 
+<<<<<<< Updated upstream
+=======
+
+	<div class="modal" id="modalTip" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">提示</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-primary">确定</button> -->
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+
+>>>>>>> Stashed changes
 	<!-- <script src="/resources/vendor/jquery-2.2.4.min.js"></script> -->
 	<script src="../js/lib/jquery-1.11.1.js"></script>
 	<!-- <script src="/resources/vendor/jquery-mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
@@ -90,12 +116,16 @@
 	<script src="../js/resources/vendor/mustache.js-2.3.0/mustache.min.js"></script>
 	<script src="modal.js"></script>
 	<script>
+<<<<<<< Updated upstream
 		var openId = $('.openId').val();
 		function getData(str,callback,customerId){
+=======
+		function getData(callback,customerId){
+>>>>>>> Stashed changes
 			var code = $('.code').val();
 			var customerId = customerId || 0;
 			// $.getJSON('/wechat/info/inquire/replymodify?customerId='+ customerId +'&id=' + code + "&openId=" + openId,function(json){
-			$.getJSON(str,function(json){
+			$.getJSON('demo.json',function(json){
 				if(callback && $.isFunction(callback))
 					callback(json);
 			});
@@ -103,7 +133,7 @@
 		var totalPrice = 0,
 			totalQuantity = 0,
 			count = 0;
-		getData('demo.json',function(data){
+		getData(function(data){
 			if(data.data.length){
 				//分组
 				var productsObj = {};
@@ -178,7 +208,7 @@
 												'<p>配件编号: '+product.product.parts.code+'</p>'+
 												'<p>配件名称: '+product.product.parts.name+'</p>'+
 												'<p>类别: '+typeKeyToValue(product.product.parts.tags[1000])+' 品牌: '+product.product.parts.brand.name+'</p>'+
-												'<p>库存: '+product.product.inventory+'<span class="price"> 价格: <input type="number" jump="true" class="partsPrice" value="'+product.price+'" ></span></p>'+
+												'<p>库存: '+product.product.inventory+'<span class="price"> 价格: <input type="number" class="partsPrice" value="'+product.price+'" ></span></p>'+
 											'</div></div>';
 							resultStr += str;
 						});
@@ -188,6 +218,7 @@
 					}
 					pagesNum++;
 				});
+
 
 				count = 0;
 				var selectValue = '999';
@@ -298,6 +329,7 @@
 					// 		params['codes['+paramsNum+'].code'] = productObj.product.code;
 					// 		params['codes['+paramsNum+'].name'] = productObj.product.name;
 					// 		// params['codes[0].price'] = productObj.price;
+<<<<<<< Updated upstream
 					// 		params['codes['+paramsNum+'].price'] = price;
 					// 		params['codes['+paramsNum+'].quantity'] = productObj.product.inventory;
 					// 		params['codes['+paramsNum+'].type'] = productObj.product.parts.tags[1000];
@@ -306,6 +338,26 @@
 					// 		params['codes['+paramsNum+'].selected'] = productObj.id;
 					// 		paramsNum++;
 					// 	}
+=======
+					// 		params['codes['+k+'].price'] = price;
+					// 		params['codes['+k+'].quantity'] = productObj.product.inventory;
+					// 		params['codes['+k+'].type'] = productObj.product.parts.tags[1000];
+					// 		params['codes['+k+'].brand.id'] = productObj.product.parts.brand.id;
+					// 		params['codes['+k+'].originId'] = productObj.product.originCode.id;
+					// 		params['codes['+k+'].selected'] = productObj.id;
+					// 	// }
+					// });
+					// $.ajax({
+					// 	url: '/wechat/info/inquire/reply',
+					// 	method: 'POST',
+					// 	data: params
+					// }).success(function(json){
+					// 	// $('#modalTip .modal-body p').html(json.message);
+					// 	// $('#modalTip').modal('show');
+					// 	// $('#modalTip').on('hidden.bs.modal', function () {
+					// 		location.href = '/wechat/inquire/replyInfo?id='+code + '&openId=' + $('.openId').val();
+					// 	// })
+>>>>>>> Stashed changes
 					// });
 					if(ids.length == 0){
 						alert('请选择商品','warning');
@@ -391,6 +443,7 @@
 						// });
 					});
 				});
+<<<<<<< Updated upstream
 
 				// $('input[type=number]').focus(function(){
 				// 	var scrollTop = $('#page' + count).find('.container').scrollTop();
@@ -417,6 +470,19 @@
 						var option = "<option value='"+val.merchant.id+"'>"+val.merchant.name+"</option>";
 						if(val.merchant.id==999){
 							select.prepend(option);
+=======
+			}
+		});
+
+		function changeMerchant(merchantId){
+			getData(function(data){
+				if(data.data.length){
+					//分组
+					var productsObj = {};
+					$.each(data.data,function(j){
+						if(!productsObj[this.product.originCode.code]){
+							productsObj[this.product.originCode.code] = [this];
+>>>>>>> Stashed changes
 						}
 						else{
 							select.append(option);

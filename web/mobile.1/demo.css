@@ -56,12 +56,19 @@ input{
 }
 .resultPart{
 	/* border: 1px solid #ccc; */
-	margin: 2rem 2rem 2rem 4rem;
+	margin: 2rem 2rem 2rem 5rem;
 	padding: 2rem;
 	/* border-radius: 5px; */
 	overflow: hidden;
 	border-bottom: 1px solid #ccc;
 }
+<<<<<<< Updated upstream
+=======
+.resultPart p{
+	/* float: left; */
+	/* margin-right: 2vw; */
+}
+>>>>>>> Stashed changes
 .resultPart .price{
 	position: relative;
 }
