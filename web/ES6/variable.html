@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>variable</title>
+</head>
+<body>
+
+	<script>
+		window.onload = function(){
+			var length = 3,
+				callbacks = [];
+			function a(){
+				for(var i = 0; i < length; i++){
+					(function(i){
+						callbacks[i] = function(){
+							return i;
+						}
+					})(i);
+				}
+				for(var j = 0; j < callbacks.length; j++){
+					console.log(callbacks[j]());
+				}
+			}
+			function b(){
+				for(var i = 0; i < length; i++){
+					callbacks[i] = function(){
+						return i;
+					}
+				}
+				for(var j = 0; j < callbacks.length; j++){
+					console.log(callbacks[j]());
+				}
+			}
+			function c(){
+				for(let i = 0; i < length; i++){
+					callbacks[i] = function(){
+						return i;
+					}
+				}
+				for(var j = 0; j < callbacks.length; j++){
+					console.log(callbacks[j]());
+				}
+			}
+			a();		// 0,1,2
+			b();		// 3,3,3
+			c();		// 0,1,2
+
+
+
+			function foo() {
+				console.log( a ); // 2 in Lexical Scope ，But 3 in Dynamic Scope
+			}
+			function bar() {
+				var a = 3;
+				foo();
+			}
+			var a = 2;
+			bar();		//2
+
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.tab a{
+			cursor: pointer;
+		}
+		.tab .active{
+			color: red;
+		}
+		.tabContainer div{
+			display: none;
+		}
+		.tabContainer .active{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="tab">
+			<a href="#first">第一</a>
+			<a href="#second">第二</a>
+		</div>
+		<div class="tabContainer">
+			<div id="first" class="active">第一页</div>
+			<div id="second">第二页</div>
+		</div>
+	</div>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('.tab a').click(function(){
+				var href = this.hash;
+				$('.tab a').removeClass('active');
+				$(this).addClass('active');
+				$('.tabContainer div').removeClass('active');
+				$(href).addClass('active');
+			});
+		});
+	</script>
+</body>
+</html>

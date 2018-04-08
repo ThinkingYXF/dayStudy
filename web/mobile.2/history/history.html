@@ -120,7 +120,7 @@
 	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 	<!-- <script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.js"></script> -->
 	<script src="../../js/weui/jquery-weui.min.js"></script>
-	<script src="../../js/debuggap.js"></script>
+	<!-- <script src="../../js/debuggap.js"></script> -->
 	<script>
 		$(document).ready(function(){
 			$.getJSON('history.json',function(json){
@@ -197,7 +197,7 @@
 					var searchValue = $(this).val();
 					$('.container .resultPart').hide();
 					$('.container .resultPart').not('.clone').each(function(){
-						var value = $(this).find('.searchedValue').text();
+						var value = $.trim($(this).find('.searchedValue').text());
 						if(value.indexOf(searchValue) != -1){
 							$(this).show();
 						}

@@ -101,8 +101,8 @@
                         return name in receiver ? receiver[name] : `Hello, ${name}`;
                     }
                 });
-                console.log(proxy.foo, proxy.world);  // Welcome, foo   Hello, world
-                console.log(proxy.foo, proxy.foo);  // Welcome, foo   Welcome, foo
+                console.log(proxy.foo, proxy.world);    // Welcome, foo   Hello, world
+                console.log(proxy.foo, proxy.welcome);  // Welcome, foo   Hello, Welcome
             });
         </script>
     </body>

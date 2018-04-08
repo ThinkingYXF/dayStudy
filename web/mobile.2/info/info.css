@@ -35,13 +35,13 @@ input{
 	border-radius: .3em;
 }
 .btn-confirm{
-	position: fixed;
+	position: absolute;
 	bottom: 10vh;
 	width: 98%;
 	font-size: 14px;
 }
 .weui-footer{
-	position: fixed;
+	position: absolute;
 	bottom: 2vh;
 	width: 100%;
 }
