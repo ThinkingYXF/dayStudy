@@ -16,7 +16,7 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			title: 'Output Management'
+			title: 'webpack demo'
 		}),
 		new CleanWebpackPlugin(['dist']),
 		new webpack.NamedModulesPlugin(),

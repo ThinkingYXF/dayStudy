@@ -11,62 +11,69 @@
 	<title>询价回复详情</title>
 </head>
 <body ontouchstart>
-	<div class="paging">
-		<div id="header">
-			<h3>询价回复详情</h3>
-		</div>
-	</div>
-	<div class="container">
-		<div class="resultPart clone">
-			<div class="weui-flex">
-				<div class="weui-flex__item">
-					需求编号: <span class="needPartCode"></span>
-				</div>
-			</div>
-			<div class="weui-flex">
-				<div class="weui-flex__item">
-					配件编号: <span class="partsCode"></span>
-				</div>
-			</div>
-			<div class="weui-flex">
-				<div class="weui-flex__item">
-					配件名称: <span class="partsName"></span>
-				</div>
-			</div>
-			<div class="weui-flex">
-				<div class="weui-flex__item">
-					数量: <span class="quantity"></span>
-				</div>
-				<div class="weui-flex__item">
-					价格: <span class="price"></span>
-				</div>
-			</div>
-			<div class="weui-flex">
-				<div class="weui-flex__item">
-					配件类别: <span class="partsType"></span>
-				</div>
-				<div class="weui-flex__item">
-					配件品牌: <span class="partsBrand"></span>
-				</div>
-			</div>
-			<div class="weui-flex">
-				<div class="weui-flex__item">
-					总价: <span class="totalPrice"></span>
-				</div>
+	<div class="pageContainer">
+		<div class="paging">
+			<div id="header">
+				<h3>询价回复详情</h3>
 			</div>
 		</div>
+		<div class="container">
+			<div class="resultPart clone">
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						需求编号: <span class="needPartCode"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						配件编号: <span class="partsCode"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						配件名称: <span class="partsName"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						数量: <span class="quantity"></span>
+					</div>
+					<div class="weui-flex__item">
+						价格: <span class="price"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						配件类别: <span class="partsType"></span>
+					</div>
+					<div class="weui-flex__item">
+						配件品牌: <span class="partsBrand"></span>
+					</div>
+				</div>
+				<div class="weui-flex">
+					<div class="weui-flex__item">
+						总价: <span class="totalPrice"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="comfirm-constract">
+			<input type="checkbox" id="constract" name="confirmConstract">
+			<label for="constract">
+				阅读并同意
+			</label>
+			<a href="/resources/contract.html" target="_blank" class="">相关条款</a>
+		</div>
+		<a href="javascript:;" class="weui-btn weui-btn_default btn-confirm">确定</a>
+		<div class="weui-footer">
+			<p class="weui-footer__text">Copyright © 2017-2018 北京微重力 All rights reserved.</p>
+			<p class="weui-footer__text">京ICP备17023267号   京公网安备 11010802023299号</p>
+		</div>
 	</div>
-	<div class="comfirm-constract">
-		<input type="checkbox" id="constract" name="confirmConstract">
-		<label for="constract">
-			阅读并同意
-		</label>
-		<a href="/resources/contract.html" target="_blank" class="">相关条款</a>
-	</div>
-	<a href="javascript:;" class="weui-btn weui-btn_default btn-confirm">确定</a>
-	<div class="weui-footer">
-		<p class="weui-footer__text">Copyright © 2017-2018 北京微重力 All rights reserved.</p>
-		<p class="weui-footer__text">京ICP备17023267号   京公网安备 11010802023299号</p>
+	<div class="noData">
+		<div class="weui-loadmore weui-loadmore_line">
+			<span class="weui-loadmore__tips">页面已过期,暂无数据</span>
+		</div>
 	</div>
 	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.js"></script>
@@ -80,6 +87,7 @@
 			}
 			var code = getValue('id');
 			$.getJSON('info.json',function(json){
+				$('.pageContainer').show();
 				if(json.success && json.data && json.data.length){
 					if(json.data[0].codes.length){
 						$.each(json.data[0].codes,function(){
@@ -95,6 +103,9 @@
 							$('.container').append(resultPartClone);
 						});
 					}
+				}else{
+					$('.pageContainer').hide();
+					$('.noData').show();
 				}
 			});
 			$('.btn-confirm').click(function(){

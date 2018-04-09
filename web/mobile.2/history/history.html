@@ -165,6 +165,7 @@
 							$('#' + that.id).find('.weui-popup__modal').find('.popupInfo').not('.clone').remove();
 							$('#' + that.id).find('.weui-popup__modal').find('.searchHistory').remove();
 							$('#' + that.id).find('.weui-popup__modal').find('.close-popup').remove();
+							$('#' + that.id).find('.weui-popup__modal').find('.editBtn').remove();
 							//详情内容
 							if(that.codes){
 								$.each(that.codes,function(){
@@ -181,8 +182,12 @@
 									popupInfo.find('.totalPrice').html(parseInt(this.quantity) * parseFloat(this.price));		//总价
 									$('#' + that.id).find('.weui-popup__modal').append(popupInfo);
 								});
-								var closeBtn = $('<a />').addClass('weui-btn weui-btn_primary close-popup').text('关闭');
-								$('#' + that.id).find('.weui-popup__modal').append(closeBtn);
+								var editBtn = $('<a />').addClass('weui-btn weui-btn_primary editBtn').text('编辑');
+								var closeBtn = $('<a />').addClass('weui-btn weui-btn_default close-popup').text('关闭');
+								editBtn.click(function(){
+									console.log('aaa');
+								});
+								$('#' + that.id).find('.weui-popup__modal').append(editBtn).append(closeBtn);
 							}
 							$('#' + that.id).popup();
 						});
@@ -198,7 +203,8 @@
 					$('.container .resultPart').hide();
 					$('.container .resultPart').not('.clone').each(function(){
 						var value = $.trim($(this).find('.searchedValue').text());
-						if(value.indexOf(searchValue) != -1){
+						var comment = $.trim($(this).find('.comment').text());
+						if(value.indexOf(searchValue) != -1 || comment.indexOf(searchValue) != -1){
 							$(this).show();
 						}
 					});

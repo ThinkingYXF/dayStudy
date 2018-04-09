@@ -40,3 +40,15 @@ input{
 	margin: .5em;
 	background: #fff;
 }
+a.close-popup, a.editBtn{
+	width: 47%;
+}
+a.editBtn{
+	float: left;
+	margin-top: 15px;
+	margin-left: 1.5%;
+}
+a.close-popup{
+	float: right;
+	margin-right: 1.5%;
+}

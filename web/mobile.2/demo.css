@@ -1,9 +1,13 @@
+html{
+	min-height: 100vh;
+}
 body{
 	margin: 0;
 	padding: 0 .2em;
 	background: #f4f4f4;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
+	min-height: 100vh;
 }
 input{
 	outline: none;
@@ -40,15 +44,23 @@ input{
 	padding-left: .5em;
 	position: relative;
 }
-.select input{
+.select input, .select #merchantPicker{
 	height: 1.5em;
 	border: 1px solid #ccc;
 	/* font-size: 16px; */
-	max-width: 30vw;
+	/* max-width: 30vw; */
+	width: 30vw;
 	padding: .2em .5em;
+	margin: .5em;
+	float: left;
+	line-height: 1.5em;
 }
 .merchantStrategy{
 	margin: 0;
+	overflow: hidden;
+}
+.merchantStrategy label{
+	float: left;
 }
 .addPart, .deletePart{
 	position: absolute;

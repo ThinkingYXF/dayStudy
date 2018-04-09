@@ -20,12 +20,16 @@
 				<h3>询价回复</h3>
 			</header>
 			<div class="select">
-				<p class="merchantStrategy">
-					<label >商户策略:</label>
-					<input type="text" id="merchantPicker" />
-				</p>
+				<div class="merchantStrategy">
+					<label>商户策略:</label>
+					<div id="merchantPicker"></div>
+					<!-- <input type="text" id="merchantPicker" readonly> -->
+					<!-- <select name="" id="merchantPicker"></select> -->
+				</div>
 				<div class="addPart">+</div>
-				<div class="deletePart">x</div>
+				<div class="deletePart">
+					<i class="weui-icon-delete"></i>
+				</div>
 			</div>
 		</div>
 		<div class="container">
@@ -140,6 +144,31 @@
 	<script src="../js/weui/jquery-weui.min.js"></script>
 	<script>
 		$(document).ready(function(){
+			function ismobile(test){
+				var u = navigator.userAgent, app = navigator.appVersion;
+				if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
+					if(window.location.href.indexOf("?mobile")<0){
+						try{
+							if(/iPhone|mac|iPod|iPad/i.test(navigator.userAgent)){
+								return '0';
+							}else{
+								return '1';
+							}
+						}catch(e){}
+					}
+				}else if( u.indexOf('iPad') > -1){
+						return '0';
+				}else{
+					return '1';
+				}
+			};
+			// if(ismobile() == 1){
+			// 	alert('Android')
+			// }else{
+			// 	alert('iphone');
+			// }
+
+
 			var code = $('.code').val();
 			//获取策略商户列表
 			$.getJSON('customers.json',function(customers){
@@ -150,6 +179,10 @@
 						customersObj['title'] = this.merchant.name;
 						customersObj['value'] = this.merchant.id;
 						customersArr.push(customersObj);
+						// if(this.merchant.id == 999){
+							// var option = $('<option />').val(this.merchant.id).text(this.merchant.name);
+							// $('#merchantPicker').append(option);
+						// }
 						if(this.merchant.id == 999)
 							$('#merchantPicker').val(this.merchant.name).attr('data-values',this.merchant.id);
 					});
@@ -157,6 +190,7 @@
 						title: '请选择策略商户',
 						items: customersArr,
 						onClose: function (obj) {
+							$('#merchantPicker').text(obj.data.titles);
 							changeMerchant(obj.data.values);
 						}
 					});
@@ -227,7 +261,9 @@
 						if(hasCustomer){
 							// $.getJSON('/data/merchant/' + billInfo.data[0].customer.id,function(merchantInfo){
 								// $('#merchantPicker').val(merchantInfo.name).attr('data-values',billInfo.data[0].customer.id);
-								$('#merchantPicker').val('测试商户A').attr('data-values',billInfo.data[0].customer.id);
+								// $('#merchantPicker').val('测试商户A').attr('data-values',billInfo.data[0].customer.id);
+								$('#merchantPicker').text('测试商户A').attr('data-values',billInfo.data[0].customer.id);
+								// $('#merchantPicker').val(billInfo.data[0].customer.id);
 							// });
 							$.each(billInfo.data[0].codes,function(codeInfo){
 								var isHasSelected = false;
