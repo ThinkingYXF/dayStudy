@@ -49,3 +49,22 @@ input{
 	margin-top: 1em;
 	text-align: center;
 }
+.noData{
+	margin-top: 10vh;
+	overflow: hidden;
+}
+.noData .noDataImg{
+	width: 160px;
+	height: 151px;
+	float: left;
+	background-image: url('../../images/error.png');
+	margin-right: 2em;
+}
+.noData .noDataInfo{
+	margin: 2em 1em 0 0;
+}
+.noDataHref > p{
+	cursor: pointer;
+	margin-top: 1em;
+	color: #06c;
+}

@@ -1,0 +1,57 @@
+.header{
+    min-height: 50px;
+    background: #233343;
+    line-height: 50px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.header .container {
+    background: #233343;
+    color: #fff;
+}
+.header img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+.header span{
+    padding-left: 10px;
+}
+
+.box{
+    width: 100%;
+    margin: auto;
+    min-height: 300px;
+    padding: 0 20px;
+  }
+.myForm{
+    padding: 10px;
+    margin: auto;
+    width: 100%;
+}
+.input-container {
+    border: 1px solid rgb(190,193,196);
+    background-color: #fff;
+    padding: 5px;
+}
+.form-container {
+    margin-top: 20px;
+}
+.input-container label {
+    color: rgb(101,172,235);
+    width: 100%;
+    font-weight: 400;
+    margin: 0;
+}
+.input-container input {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    color: rgb(115,115,115);
+}
+.btn-login, .btn-register{
+    width: 80px;
+    height: 30px;
+    margin-top: 20px;
+}

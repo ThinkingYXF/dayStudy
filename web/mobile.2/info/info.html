@@ -71,8 +71,12 @@
 		</div>
 	</div>
 	<div class="noData">
-		<div class="weui-loadmore weui-loadmore_line">
-			<span class="weui-loadmore__tips">页面已过期,暂无数据</span>
+		<div class="noDataImg"></div>
+		<div class="noDataInfo">
+			<h3>你访问的页面不存在,可能为链接失效了</h3>
+			<div class="noDataHref">
+				<p><span>返回微信</span></p>
+			</div>
 		</div>
 	</div>
 	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
@@ -110,8 +114,9 @@
 			});
 			$('.btn-confirm').click(function(){
 				if(!$('#constract').prop('checked')){
-					$.alert('请先阅读相关条款');
-					return false;
+					// $.alert('请先阅读相关条款');
+					WeixinJSBridge.call('closeWindow');
+					// return false;
 				}
 			});
 			//复制链接
@@ -127,6 +132,9 @@
 			});
 			clipboard.on('error', function(e) {
 				$.alert('复制链接失败');
+			});
+			$('.noDataHref p span').click(function(){
+				WeixinJSBridge.call('closeWindow');
 			});
 
 			function typeKeyToValue(name){
