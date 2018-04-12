@@ -71,11 +71,11 @@
 		</div>
 	</div>
 	<div class="noData">
-		<div class="noDataImg"></div>
+		<img class="noDataImg" src="../../images/error.png">
 		<div class="noDataInfo">
 			<h3>你访问的页面不存在,可能为链接失效了</h3>
 			<div class="noDataHref">
-				<p><span>返回微信</span></p>
+				<span>返回微信</span>
 			</div>
 		</div>
 	</div>
@@ -133,7 +133,7 @@
 			clipboard.on('error', function(e) {
 				$.alert('复制链接失败');
 			});
-			$('.noDataHref p span').click(function(){
+			$('.noDataHref span').click(function(){
 				WeixinJSBridge.call('closeWindow');
 			});
 
