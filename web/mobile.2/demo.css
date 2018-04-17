@@ -79,7 +79,7 @@ input{
 }
 .needPartContainer{
 	position: relative;
-	height: 5em;
+	/* height: 5em; */
 	border-bottom: 1px solid #ccc;
 	overflow: hidden;
 }
@@ -216,4 +216,18 @@ input{
 }
 .weui-select-modal .weui-cells{
 	max-height: 25vh;
+}
+
+.addNewPart{
+	padding: 4px 6px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	height: 2em;
+	width: 80%;
+	margin-top: 10px;
+	outline: 0;
+	color: inherit;
+	font-size: inherit;
+	line-height: 1.47058824;
+	background-color: transparent;
 }

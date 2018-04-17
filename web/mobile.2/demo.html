@@ -43,10 +43,10 @@
 				</div>
 				<!--需求部分-->
 				<div class="weui-cell weui-cell_swiped needPartContainer">
-					<div class="weui-cell__bd" style="transform: translate3d(0px, 0px, 0px);height:5em;overflow:hidden">
+					<div class="weui-cell__bd" style="transform: translate3d(0px, 0px, 0px);padding-bottom: 1em;overflow:hidden">
 						<div class="previous"></div>
 						<div class="needPart">
-							<div class="weui-cell__ft">
+							<div class="weui-cell__ft" style="width:80%;word-break: break-all">
 								需求编号: <span class="needPartsCode">ABC12344</span>
 							</div>
 							<div class="weui-cell__ft">
@@ -202,15 +202,22 @@
 					title: '请输入配件编号',
 					// text: '文本',
 					// input: '配件编号',
-					// empty: false,
+					empty: null,
 					onOK: function(value){
 						console.log(value);
-                        addNewPart(value);
+						if(value.length < 4){
+
+							return false;
+						}
+						addNewPart(value);
 					},
 					onCancel: function(){
 
 					}
 				});
+				// $('#weui-prompt-input').remove();
+				var input = $('<input />').addClass('addNewPart').prop('type','text');
+				// $(".weui-dialog__bd").append(input);
 			});
 			//删除配件
 			$('.deletePart').click(function(){
