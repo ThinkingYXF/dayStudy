@@ -1,0 +1,107 @@
+<style>
+	.product-table{
+		padding-bottom: 30px;
+		/* opacity: 0.7; */
+		/* transition: all .4s ease-in-out; */
+	}
+	.product-table:hover{
+		/* opacity: 1; */
+	}
+	.product-table .product-header{
+		position: relative;
+		background: #34495e;
+		padding: 22px;
+		text-align: center;
+		border-top-right-radius: 4px;
+		border-top-left-radius: 4px;
+	}
+	.product-table .product-header .product-title{
+		color: #fff;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-size: 24px;
+		text-align: center;
+		font-weight: 700;
+	}
+	.product-table .product-header .product-price{
+		font-size: 70px;
+		color: #fff;
+		position: relative;
+		text-align: center;
+	}
+	.product-table .product-header .product-price sup{
+		font-size: 24px;
+		position: relative;
+		top: -30px;
+		color: #bdc3c7;
+	}
+	.product-table .product-header .product-price span{
+		font-size: 16px;
+		color: #bdc3c7;
+		text-transform: uppercase;
+	}
+	.product-table .product-info{
+		padding: 20px 0 40px 0;
+		background: #fff;
+		border: 1px solid #e3e3e3;
+	}
+	.product-table .product-info ul{
+		padding: 0;
+		display: table;
+		margin: 0 auto;
+	}
+	.product-table .product-info ul li{
+		list-style: none;
+		border-bottom: 1px solid #eaeceb;
+		color: #bdc3c7;
+		font-size: 16px;
+		line-height: 42px;
+	}
+	.product-table .product-info ul li span{
+		color: #34495e;
+	}
+	.product-table .product-info ul li b{
+		font-weight: normal;
+	}
+</style>
+{{#data}}
+<div class="col-md-4 col-sm-12 col-xs-12">
+	<div class="product-table">
+		<div class="product-header">
+			<p class="product-title">{{product.code}}</p>
+			<p class="product-price"><sup>RMB</sup>{{product.price}}<span>/个</span></p>
+		</div>
+		<div class="product-info">
+			<ul>
+				<li><span>商品编号: </span>{{product.code}}</li>
+				<li><span>商品名称: </span>{{product.name}}</li>
+				<li><span>配件编号: </span>{{product.parts.code}}</li>
+				<li><span>配件名称: </span>{{product.parts.name}}</li>
+				<li><span>配件品牌: </span>{{product.parts.brand.name}}</li>
+				<li><span>配件类别: </span><b>{{product.parts.tags.TYPE}}</b></li>
+				<li><span>库&emsp;&emsp;存: </span>{{product.inventory}}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{{/data}}
+<script src="../js/getPartsType.js"></script>
+<script>
+	function typeToValue(type){
+		if(!type)
+			return '';
+		var value = '';
+		for(let key in partsType){
+			if(key == type || partsType[key] == type){
+				value = partsType[key];
+				break;
+			}
+		}
+		return value;
+	}
+	var products = document.getElementsByClassName('product-info');
+	for(let j = 0; j < products.length; j++){
+		var ele = products[j].getElementsByTagName('ul')[0].getElementsByTagName('b')[0];
+		ele.innerHTML = typeToValue(ele.innerHTML);
+	}
+</script>

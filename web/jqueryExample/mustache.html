@@ -4,9 +4,19 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
 	<title>Document</title>
 	<style>
-		table{
+		body{
+			margin: 0;
+			padding: 1em 0;
+			font-size: 14px;
+			background: url('../images/background.jpeg');
+		}
+		.page-header{
+			color: #fff;
+		}
+		/*table{
 			border: 1px solid #ccc;
 		}
 		table td, table th{
@@ -20,82 +30,33 @@
 		ul li{
 			border: 1px solid #ccc;
 			padding: 0 15px;
-			/* margin-bottom: -1px; */
 			margin: 10px 1em;
-			/* display: inline-block; */
 		}
+		h2{
+			text-align: center;
+			margin: 0;
+		} */
 	</style>
 </head>
 <body>
-	<div class="first">
-
+	<div class="container">
+		<h1 class="page-header">商品信息列表</h1>
 	</div>
 
 	<script src="../js/lib/jquery-1.11.1.js"></script>
 	<script src="../js/mustache.js"></script>
 	<script>
 		$(document).ready(function(){
-			var data = {
-				success: true,
-				data: [{
-					product: {
-						name: '螺丝',
-						code: 'ABC111',
-						price: 102,
-						parts:{
-							tags:{
-								TYPE:'主机原厂件'
-							},
-							brand: {
-								id: 1000,
-								name: '大众'
-							}
-						}
-					}
-				},{
-					product: {
-						name: '轮胎',
-						code: 'ABC222',
-						price: 222,
-						parts:{
-							tags:{
-								TYPE:'主机原厂件'
-							},
-							brand: {
-								id: 1001,
-								name: '雪佛兰'
-							}
-						}
-					}
-				},{
-					product: {
-						name: '车窗',
-						code: 'ABC333',
-						price: 333,
-						parts:{
-							tags:{
-								TYPE:'主机原厂件'
-							},
-							brand: {
-								id: 1002,
-								name: '别克'
-							}
-						}
-					}
-				}],
-				name: 'hello',
-				lists:['zhao','qian','sun']
-			}
-			var teplateName = 'second';
+			var teplateName = 'grey';
 			$.ajax({
 				url: '../modal/' + teplateName + '.html',
 				method: 'GET',
 				cache: true,
 				dataType: 'html'
 			}).done(function(html) {
-				$.get('../data/product.json',function(json){
+				$.get('../data/product1.json',function(json){
 					var rendered = Mustache.render(html, json);
-					$('.first').append(rendered);
+					$('.container').append(rendered);
 				});
 			});
 		});
