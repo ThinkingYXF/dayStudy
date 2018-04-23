@@ -1,0 +1,16 @@
+{"success":true,"data":
+	[{"id":21622420,"createdTime":1510656545,"createdBy":1628,
+		"modifiedTime":1510656545,"modifiedBy":1628,"flag":1,"chain":"1560,",
+		"product":{"id":1008404,"code":"Summer156000008","name":"转向机总成",
+			"createdTime":1510656545,"createdBy":1628,"flag":1,
+		"parts":{"id":2326983,"code":"Summer156000008"},
+		"merchant":{"id":1560},"inventory":107,"minOrderQuantity":1},
+		"merchant":{"id":1560}},
+	{"id":21622382,"createdTime":1510656545,"createdBy":1628,
+		"modifiedTime":1510656545,"modifiedBy":1628,"flag":1,"chain":"1560,",
+		"product":{"id":1008366,"code":"Summer156000029","name":"转向机总成",
+			"createdTime":1510656545,"createdBy":1628,"flag":1,
+		"parts":{"id":2326945,"code":"Summer156000029"},
+		"merchant":{"id":1560},"inventory":128,"minOrderQuantity":1},
+		"merchant":{"id":1560}}
+	]}

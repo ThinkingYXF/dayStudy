@@ -1,0 +1,15 @@
+<h2>商品信息</h2>
+<div class="wrapper">
+	<ul>
+		{{#data}}
+		<li>
+			<p>配件编号: {{product.code}}</p>
+			<p>配件名称: {{product.name}}</p>
+			<p>价格: {{product.price}}</p>
+			<p>品牌: {{product.parts.brand.name}}</p>
+			<p>类别: {{product.parts.tags.TYPE}}</p>
+		</li>
+		{{/data}}
+	</ul>
+</div>
+cn.microgravity.weparts.entity.product.Supplying@48f441ae,cn.microgravity.weparts.entity.product.Supplying@692e4588

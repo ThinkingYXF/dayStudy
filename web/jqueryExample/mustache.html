@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		table{
+			border: 1px solid #ccc;
+		}
+		table td, table th{
+			padding: 5px;
+		}
+		ul{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		ul li{
+			border: 1px solid #ccc;
+			padding: 0 15px;
+			/* margin-bottom: -1px; */
+			margin: 10px 1em;
+			/* display: inline-block; */
+		}
+	</style>
+</head>
+<body>
+	<div class="first">
+
+	</div>
+
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/mustache.js"></script>
+	<script>
+		$(document).ready(function(){
+			var data = {
+				success: true,
+				data: [{
+					product: {
+						name: '螺丝',
+						code: 'ABC111',
+						price: 102,
+						parts:{
+							tags:{
+								TYPE:'主机原厂件'
+							},
+							brand: {
+								id: 1000,
+								name: '大众'
+							}
+						}
+					}
+				},{
+					product: {
+						name: '轮胎',
+						code: 'ABC222',
+						price: 222,
+						parts:{
+							tags:{
+								TYPE:'主机原厂件'
+							},
+							brand: {
+								id: 1001,
+								name: '雪佛兰'
+							}
+						}
+					}
+				},{
+					product: {
+						name: '车窗',
+						code: 'ABC333',
+						price: 333,
+						parts:{
+							tags:{
+								TYPE:'主机原厂件'
+							},
+							brand: {
+								id: 1002,
+								name: '别克'
+							}
+						}
+					}
+				}],
+				name: 'hello',
+				lists:['zhao','qian','sun']
+			}
+			var teplateName = 'second';
+			$.ajax({
+				url: '../modal/' + teplateName + '.html',
+				method: 'GET',
+				cache: true,
+				dataType: 'html'
+			}).done(function(html) {
+				$.get('../data/product.json',function(json){
+					var rendered = Mustache.render(html, json);
+					$('.first').append(rendered);
+				});
+			});
+		});
+		//else{
+			//$.each(dt.data(), function(row, data) {
+			//		data['DT_RowId'] = row;
+			//	});
+			//	$.msgBox('商品编号与配件编号不能同时为空','warning');
+		//	}
+	</script>
+</body>
+</html>

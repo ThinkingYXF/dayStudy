@@ -12,6 +12,9 @@ body{
 input{
 	outline: none;
 }
+.paging{
+	height: 90vh;
+}
 #header{
 	background: #fff;
 	border-radius: 5px 5px 0 0;
@@ -159,7 +162,7 @@ input{
 }
 .resultPartContainer{
 	font-size: 14px;
-	max-height: 60vh;
+	height: 53vh;
 	overflow-y: auto;
 }
 .resultPartContainer .noDataTip, .container .noMoreDataTip{
@@ -209,7 +212,7 @@ input{
 }
 .inquireComment{
 	background: #fff;
-	position: fixed;
+	/* position: fixed; */
 	bottom: 0;
 	width: 95%;
 	border-left: 1px solid #e5e5e5;
@@ -230,4 +233,19 @@ input{
 	font-size: inherit;
 	line-height: 1.47058824;
 	background-color: transparent;
+}
+
+.weui-footer{
+	height: 8vh;
+	/* position: fixed; */
+	bottom: 0;
+	width: 100%;
+	padding-top: .5em;
+	border-top: 1px solid #ccc;
+}
+.weui-footer__text{
+	text-align: center;
+	font-size: 12px;
+	color: #999;
+	margin-bottom: 5px;
 }

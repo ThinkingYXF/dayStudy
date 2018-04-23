@@ -1,0 +1,31 @@
+<!-- <div class="wrapper">
+	<h1>{{name}}</h1>
+	<ul>
+		{{#lists}}
+			<li>{{.}}</li>
+		{{/lists}}
+	</ul>
+</div> -->
+<h2>商品信息</h2>
+<table border="1px" cellspacing='0' cellpadding='0'>
+	<thead>
+		<tr>
+			<th>商品编号</th>
+			<th>商品名称</th>
+			<th>品牌</th>
+			<th>类别</th>
+			<th>价格</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#data}}
+		<tr>
+			<td>{{product.code}}</td>
+			<td>{{product.name}}</td>
+			<td>{{product.parts.brand.name}}</td>
+			<td>{{product.parts.tags.TYPE}}</td>
+			<td>{{product.price}}</td>
+		</tr>
+		{{/data}}
+	</tbody>
+</table>

@@ -135,6 +135,10 @@
 		<i class="weui-loading"></i>
 		<span class="weui-loadmore__tips">正在加载</span>
 	</div>
+	<div class="weui-footer">
+		<p class="weui-footer__text">Copyright © 2017-2018 北京微重力 All rights reserved.</p>
+		<p class="weui-footer__text">京ICP备17023267号   京公网安备 11010802023299号</p>
+	</div>
 	<div class="loadingTip"></div>
 	<input type="hidden" class="code" value="${id!}">
 
@@ -198,26 +202,55 @@
 			});
 			//添加配件
 			$('.addPart').click(function(){
-				$.prompt({
-					title: '请输入配件编号',
-					// text: '文本',
-					// input: '配件编号',
-					empty: null,
-					onOK: function(value){
-						console.log(value);
-						if(value.length < 4){
-
-							return false;
+				$.modal({
+					title: "请输入配件编号(至少四位)",
+					text: "<input type='text' class='addNewPart' placeholder='关键字' />",
+					autoClose: false,
+					buttons: [{
+							text: "取消",
+							className: 'default',
+							onClick: function(){
+								$.closeModal();
+							}
+						},{
+							text: "确定",
+							onClick: function(){
+								var value = $.trim($('.addNewPart').val());
+								if(value.length < 4){
+									$('.addNewPart').css('borderColor','red');
+									$('.addNewPart').focus(function(){
+										$(this).css('borderColor','#ccc');
+									})
+									return false;
+								}
+								addNewPart(value);
+								$.closeModal();
+							}
 						}
-						addNewPart(value);
-					},
-					onCancel: function(){
-
-					}
+					]
 				});
-				// $('#weui-prompt-input').remove();
-				var input = $('<input />').addClass('addNewPart').prop('type','text');
-				// $(".weui-dialog__bd").append(input);
+				$('.addNewPart').focus();
+
+
+
+
+				// $.prompt({
+				// 	title: '请输入配件编号',
+				// 	// text: '文本',
+				// 	// input: '配件编号',
+				// 	empty: null,
+				// 	onOK: function(value){
+				// 		console.log(value);
+				// 		if(value.length < 4){
+
+				// 			return false;
+				// 		}
+				// 		addNewPart(value);
+				// 	},
+				// 	onCancel: function(){
+
+				// 	}
+				// });
 			});
 			//删除配件
 			$('.deletePart').click(function(){
@@ -640,10 +673,10 @@
 
 				//
 				$('.resultPart .weui-input').focus(function(){
-					$('.resultPartContainer').css('paddingBottom','30vh');
+					// $('.resultPartContainer').css('paddingBottom','30vh');
 				});
 				$('.resultPart .weui-input').blur(function(){
-					$('.resultPartContainer').css('paddingBottom','0');
+					// $('.resultPartContainer').css('paddingBottom','0');
 				});
 			}
 

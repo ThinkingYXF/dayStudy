@@ -42,6 +42,12 @@
 		<button class="btn btn-default btn-sm btn-register">立即注册</button>
     </div>
 
+    <div class="weui-footer">
+			<p class="weui-footer__text">Copyright © 2017-2018 北京微重力 All rights reserved.</p>
+			<p class="weui-footer__text">京ICP备17023267号   京公网安备 11010802023299号</p>
+		</div>
+
+
     <div class="modal" id="modalTip" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -62,11 +68,15 @@
         </div>
       </div>
 	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 	<script src="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
 	  <!-- <script src="/resources/js/binding.js"></script> -->
 	  <script>
 		  $(document).ready(function(){
 			$('.btn-login').click(function(){
+        wx.closeWindow();
+        alert(location.href);
+        return false;
 				var userName = $('#username').val();
 				var password = $('#password').val();
 				var openid = $('#openid').val();
