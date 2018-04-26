@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../js/resources/jquery_fullPage/jquery.fullpage.min.css">
+	<title>Document</title>
+	<style>
+		body{
+			width: 100vw;
+			height: 100vh;
+			margin: 0;
+			display: none;
+		}
+		.product-container{
+			/* position: absolute; */
+			width: 100%;
+			height: 100%;
+			/* position: relative; */
+			/* display: none; */
+		}
+		ul li.animate{
+			animation: myAnimate 2s;
+			/* -moz-animation: myAnimate 5s; */
+			-webkit-animation: myAnimate 2s;
+			/* -o-animation: myAnimate 5s; */
+		}
+		ul li{
+			/* transition: padding 3s; */
+			/* transform: rotateZ(360deg); */
+			position: relative;
+			list-style: none;
+		}
+		@keyframes myAnimate{
+			0% {transform: rotate(0deg)}
+			/* 25% {top: 750px;}
+			50% {top: 500px;}
+			75% {top: 250px;} */
+			100% {transform: rotate(360deg)}
+		}
+		@-moz-keyframes myAnimate{
+			0% {top: 1000px;}
+			25% {top: 750px;}
+			50% {top: 500px;}
+			75% {top: 250px;}
+			100% {top: 0px;}
+		}
+		@-webkit-keyframes myAnimate{
+			0% {transform: rotate(0deg)}
+			/* 25% {top: 750px;}
+			50% {top: 500px;}
+			75% {top: 250px;} */
+			100% {transform: rotate(360deg)}
+		}
+		@-o-keyframes myAnimate{
+			0% {top: 1000px;}
+			25% {top: 750px;}
+			50% {top: 500px;}
+			75% {top: 250px;}
+			100% {top: 0px;}
+		}
+	</style>
+</head>
+<body>
+	<div class="fullPage">
+		<div class="section product-container">
+			<div class="product-info">
+				<ul>
+					<li><span>商品编号1: </span>{{product.code}}</li>
+					<li><span>商品名称1: </span>{{product.name}}</li>
+					<li><span>配件编号: </span>{{product.parts.code}}</li>
+					<li><span>配件名称: </span>{{product.parts.name}}</li>
+					<li><span>配件品牌: </span>{{product.parts.brand.name}}</li>
+					<li><span>配件类别: </span><b>{{product.parts.tags.TYPE}}</b></li>
+					<li><span>库&emsp;&emsp;存: </span>{{product.inventory}}</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="section product-container">
+			<div class="product-info">
+				<ul>
+					<li><span>商品编号: </span>{{product.code}}</li>
+					<li><span>商品名称: </span>{{product.name}}</li>
+					<li><span>配件编号: </span>{{product.parts.code}}</li>
+					<li><span>配件名称: </span>{{product.parts.name}}</li>
+					<li><span>配件品牌: </span>{{product.parts.brand.name}}</li>
+					<li><span>配件类别: </span><b>{{product.parts.tags.TYPE}}</b></li>
+					<li><span>库&emsp;&emsp;存: </span>{{product.inventory}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/resources/jquery_fullPage/jquery.fullpage.min.js"></script>
+	<script src="../js/resources/jquery_fullPage/jquery.easings.min.js"></script>
+	<script>
+		window.onload = function(){
+			// document.getElementsByClassName('product-container')[0].style.display = 'block';
+			$('body').show();
+			$('.fullPage').fullpage({
+				navigation:'true',
+				css3: true,
+				easing: 'ease-out',
+				easingcss3: 'ease-out',
+				onLeave: function(){
+					var nowSection = $(this);
+					nowSection.find('ul li').removeClass('animate');
+					// nowSection.next('section').find('ul li').hide();
+					// nowSection.prev('section').find('ul li').hide();
+				},
+				afterLoad: function(){
+					var nowSection = $(this);
+					nowSection.find('ul li').addClass('animate');
+					// nowSection.find('ul li').show();
+				}
+			});
+		}
+	</script>
+</body>
+</html>

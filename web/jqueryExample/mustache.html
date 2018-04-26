@@ -4,7 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../js/resources/jquery_fullPage/jquery.fullpage.min.css">
+	<!-- <link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css"> -->
 	<title>Document</title>
 	<style>
 		body{
@@ -15,6 +16,11 @@
 		}
 		.page-header{
 			color: #fff;
+			padding-bottom: 9px;
+			margin: 20px 0;
+			border-bottom: 1px solid #eee;
+			font-size: 36px;
+			font-weight: 500;
 		}
 		/*table{
 			border: 1px solid #ccc;
@@ -40,10 +46,14 @@
 </head>
 <body>
 	<div class="container">
-		<h1 class="page-header">商品信息列表</h1>
+	<!--<h1 class="page-header">商品信息列表</h1>-->
+		<div class="product-container">
+
+		</div>
 	</div>
 
 	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script src="../js/resources/jquery_fullPage/jquery.fullpage.min.js"></script>
 	<script src="../js/mustache.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -56,7 +66,8 @@
 			}).done(function(html) {
 				$.get('../data/product1.json',function(json){
 					var rendered = Mustache.render(html, json);
-					$('.container').append(rendered);
+					$('.product-container').append(rendered);
+					$('.product-container').fullpage();
 				});
 			});
 		});

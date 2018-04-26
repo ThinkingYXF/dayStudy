@@ -1,0 +1,25 @@
+<style>
+	.product-container{
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+	ul li{
+		list-style: none;
+	}
+</style>
+{{#data}}
+<div class="product-container">
+	<div class="product-info">
+		<ul>
+			<li><span>商品编号: </span>{{product.code}}</li>
+			<li><span>商品名称: </span>{{product.name}}</li>
+			<li><span>配件编号: </span>{{product.parts.code}}</li>
+			<li><span>配件名称: </span>{{product.parts.name}}</li>
+			<li><span>配件品牌: </span>{{product.parts.brand.name}}</li>
+			<li><span>配件类别: </span><b>{{product.parts.tags.TYPE}}</b></li>
+			<li><span>库&emsp;&emsp;存: </span>{{product.inventory}}</li>
+		</ul>
+	</div>
+</div>
+{{/data}}

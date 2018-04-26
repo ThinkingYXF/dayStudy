@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- <link rel="stylesheet" href="/web/js/resources/jquery_fullPage/jquery.fullpage.min.css"> -->
+	<link rel="stylesheet" href="../resources/jquery_fullPage/jquery.fullpage.min.css">
+	<link rel="stylesheet" href="demo.css">
+	<!-- <link rel="stylesheet" href="/web/"> -->
+	<title>demo</title>
+</head>
+<body>
+	<div class="container">
+		<!-- <h1 class="page-header">商品信息列表</h1> -->
+		<div class="section col-md-4 col-sm-12 col-xs-12">
+			<div class="product-table">
+				<div class="product-header">
+					<p class="product-title"></p>
+					<p class="product-price"><sup>RMB</sup>100<span>/个</span></p>
+				</div>
+				<div class="product-info">
+					<ul>
+						<li><span>商品编号: </span></li>
+						<li><span>商品名称: </span></li>
+						<li><span>配件编号: </span></li>
+						<!-- <li><span>配件名称: </span></li> -->
+						<!-- <li><span>配件品牌: </span></li> -->
+						<!-- <li><span>配件类别: </span><b></b></li> -->
+						<li><span>库&emsp;&emsp;存: </span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="section col-md-4 col-sm-12 col-xs-12">
+			<div class="product-table">
+				<div class="product-header">
+					<p class="product-title"></p>
+					<p class="product-price"><sup>RMB</sup>100<span>/个</span></p>
+				</div>
+				<div class="product-info">
+					<ul>
+						<li><span>商品编号: </span></li>
+						<li><span>商品名称: </span></li>
+						<li><span>配件编号: </span></li>
+						<!-- <li><span>配件名称: </span></li> -->
+						<!-- <li><span>配件品牌: </span></li> -->
+						<!-- <li><span>配件类别: </span><b></b></li> -->
+						<li><span>库&emsp;&emsp;存: </span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <script src="/web/js/lib/jquery-1.11.1.js"></script> -->
+	<script src="../resources/jquery-1.11.1.js"></script>
+	<!-- <script src="/web/js/resources/jquery_fullPage/jquery.fullpage.min.js"></script> -->
+	<script src="../resources/jquery_fullPage/jquery.fullpage.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('body').show();
+			$('.container').fullpage({
+				navigation: true
+			});
+		});
+		function typeToValue(type){
+			if(!type)
+				return '';
+			var value = '';
+			for(let key in partsType){
+				if(key == type || partsType[key] == type){
+					value = partsType[key];
+					break;
+				}
+			}
+			return value;
+		}
+		// }
+	</script>
+</body>
+</html>

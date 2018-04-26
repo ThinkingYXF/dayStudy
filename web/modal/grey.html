@@ -1,4 +1,36 @@
 <style>
+	.col-md-4, .col-sm-12, .col-xs-12{
+		position: relative;
+		min-height: 1px;
+		padding-right: 15px;
+		padding-left: 15px;
+		max-height: 80vh;
+	}
+	.container{
+		padding-right: 15px;
+		padding-left: 15px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	@media (min-width: 768px){
+		.container{
+			width: 750px;
+		}
+	}
+	@media (min-width: 992px){
+		.col-md-4{
+			width: 33.3333%;
+			float: left;
+		}
+		.container{
+			width: 970px;
+		}
+	}
+	@media (min-width: 1200px){
+		.container{
+			width: 1170px;
+		}
+	}
 	.product-table{
 		padding-bottom: 30px;
 		/* opacity: 0.7; */
@@ -24,7 +56,7 @@
 		font-weight: 700;
 	}
 	.product-table .product-header .product-price{
-		font-size: 70px;
+		font-size: 50px;
 		color: #fff;
 		position: relative;
 		text-align: center;
@@ -65,7 +97,7 @@
 	}
 </style>
 {{#data}}
-<div class="col-md-4 col-sm-12 col-xs-12">
+<div class="section col-md-4 col-sm-12 col-xs-12">
 	<div class="product-table">
 		<div class="product-header">
 			<p class="product-title">{{product.code}}</p>
