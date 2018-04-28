@@ -4,18 +4,18 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="./../js/resources/jquery_fullPage/jquery.fullpage.min.css">
-	<link rel="stylesheet" href="./list.css">
+	<link rel="stylesheet" href="/microgravity-public/dev/commercial_temp/list/jquery.fullpage.min.css">
+	<link rel="stylesheet" href="/microgravity-public/dev/commercial_temp/list/list.css">
 	<title>demo</title>
 </head>
 <body>
 	<div class="container">
 		<!-- <h1 class="page-header">商品信息列表</h1> -->
 		{{#data}}
-		<div class="section col-md-4 col-sm-12 col-xs-12">
+		<div class="section col-md-4 col-sm-12 col-xs-12 animate">
 			<div class="product-table">
 				<div class="product-header">
-					<p class="product-title">{{productCode}}</p>
+					<!-- <p class="product-title">{{productCode}}</p> -->
 					<p class="product-price"><sup>RMB</sup>{{redPrice}}<span>/个</span></p>
 				</div>
 				<div class="product-info">
@@ -33,8 +33,8 @@
 		</div>
 		{{/data}}
 	</div>
-	<script src="./../js/lib/jquery-1.11.1.js"></script>
-	<script src="./../js/resources/jquery_fullPage/jquery.fullpage.min.js"></script>
-	<script src="./list.js"></script>
+	<script src="/microgravity-public/dev/commercial_temp/list/jquery.min.js"></script>
+	<script src="/microgravity-public/dev/commercial_temp/list/jquery.fullpage.min.js"></script>
+	<script src="/microgravity-public/dev/commercial_temp/list/list.js"></script>
 </body>
 </html>

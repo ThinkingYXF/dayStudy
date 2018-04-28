@@ -1,0 +1,43 @@
+body{
+	margin: 0;
+}
+.box {
+	width: 100vw; height: 100vh;
+	transform-style: perserve-3d;
+	position: relative;
+}
+.box img{
+	width:600px; position: absolute;
+	top: 60px; transition:all .3s linear;
+}
+.box section{
+	width: 50vw; position: absolute; top: 0;
+	transition:all .3s linear;
+	height: 66.67vh;
+}
+.box section:nth-child(1){
+	background: red;
+}
+.box section:nth-child(2){
+	background: green;
+}
+.box section:nth-child(3){
+	background: blue;
+}
+
+.box:hover .btn{opacity: 1;}
+
+.front {left: 0;}
+.back {right: 0;}
+.active {left: 20px; transform: scale(1.5); z-index: 10;}
+
+.btns .btn {
+	width: 60px; height: 60px;
+	display: block; position: absolute;
+	background-color: rgba(0,0,0,.5);
+	font-size: 50px; font-family: "微软雅黑"; color:rgba(255,255,255,.5);
+	line-height: 55px; text-align: center; cursor: pointer;
+	z-index: 100; opacity: 0; transition:opacity .3s linear;
+}
+.btns .btn:first-child {top: 125px;}
+.btns .btn:last-child {top: 125px; right: 0px;}

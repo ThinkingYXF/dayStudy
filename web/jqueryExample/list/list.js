@@ -5,13 +5,12 @@ window.onload = function(){
 	"RENOVATIONPARTS":"再制造件","COMMONPARTS":"通用件","CHOICESTPARTS":"精品选装件",
 	"INDUSTRIALPARTS":"工业用品","TOOLEQUIPMENT":"工具设备","OTHERS":"其他"};
 
-	document.body.style.display = 'block';
-	//$('body').show();
-	/*$('.container').fullpage({
+	// document.body.style.display = 'block';
+	$('body').show();
+	$('.container').fullpage({
 		navigation: true,
 		onLeave: function(){
-			var nowSection = $(this);
-			nowSection.removeClass('animate');
+			$('.container > div').removeClass('animate');
 		},
 		afterLoad: function(){
 			var nowSection = $(this);
@@ -23,7 +22,6 @@ window.onload = function(){
 		var b = $(this).find('ul li b');
 		b.html(typeToValue(b.html()));
 	});
-	*/
 
 	function typeToValue(type){
 		if(!type)

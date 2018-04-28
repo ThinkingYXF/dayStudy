@@ -7,32 +7,27 @@
     <title>Document</title>
 </head>
 <body>
-    
+
     <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script src="../js/global.js"></script>
     <script>
         $(document).ready(function(){
-            $.ajaxSetup({
-                contents: {
-                    mycustometype: '/mycustomtype/'
-                },
-                converters: {
-                    'text mycustometype': true,
-                    'mycustometype json': function(result){
-                        return result;
-                    }
-                }
-            });
+            $.get('../json/data.json',function(){
 
-            var request = $.ajax({
-                url: '../json/data.json',
-                type: 'GET',
-                beforeSend: function(){
-                    
-                }
-            });
-            request.success(function(json){
-                console.log(json)
-            });
+            })
+            // var request = $.ajax({
+            //     url: '../json/data.json',
+            //     type: 'GET',
+            //     data: {
+            //         age: 123
+            //     },
+            //     beforeSend: function(){
+
+            //     }
+            // });
+            // request.success(function(json){
+            //     console.log(json)
+            // });
         });
     </script>
 </body>

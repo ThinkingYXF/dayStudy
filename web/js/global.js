@@ -1,3 +1,18 @@
+$.ajaxSetup({
+    contents: {
+        mycustometype: '/mycustomtype/'
+    },
+    converters: {
+        'text mycustometype': true,
+        'mycustometype json': function(result){
+            return result;
+        }
+    },
+    data: {name: '123'}
+    // beforeSend: function(xhr){
+
+    // }
+});
 $.mask = function(){
     if(!$('.mask').length){
         var mask = $('<div />').addClass('mask');
@@ -32,7 +47,7 @@ $.dateSelected = function(dom, callback){
     $(dom).datepicker({
         autoclose: true,
         dateFormat: "yy-mm-dd",
-		dayNamesMin: ['日','一','二','三','四','五','六'],
+        dayNamesMin: ['日','一','二','三','四','五','六'],
         monthNames: [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月" ]
     }).on('hide',function(e){
         var selectedTime = parseInt(new Date(e.date).getTime()/1000);
