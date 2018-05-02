@@ -2,7 +2,7 @@ var http = require('http');
 var fs = require('fs');
 var qs = require('querystring');
 var sUrl = require('url');
-var documentRoot = '/home/yangxuefeng/Documents/work/study/';
+var documentRoot = '/home/yangxuefeng/Documents/work/study/dayStudy';
 //var documentRoot = '/home/yangxuefeng/Documents/work/nodeSocket/nodejs-socketio-chat/'
 var server = http.createServer(function(req,res){
 	//设置请求头,允许所有域名访问 防止跨域
