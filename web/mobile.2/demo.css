@@ -249,3 +249,6 @@ input{
 	color: #999;
 	margin-bottom: 5px;
 }
+.weui-cells{
+	background: #ccc;
+}

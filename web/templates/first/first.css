@@ -1,0 +1,75 @@
+@keyframes product-animate-next{
+	0% {bottom: 0vh; opacity: 1;}
+	50% {bottom: 10vh; opacity: 0.5;}
+	100% {bottom: 0; opacity: 1;}
+}
+@-webkit-keyframes product-animate-next{
+	0% {bottom: 0vh; opacity: 1;}
+	50% {bottom: 10vh; opacity: 0.5;}
+	100% {bottom: 0; opacity: 1;}
+}
+@-moz-keyframes product-animate-next{
+	0% {bottom: 0vh; opacity: 1;}
+	50% {bottom: 10vh; opacity: 0.5;}
+	100% {bottom: 0; opacity: 1;}
+}
+@-o-keyframes product-animate-next{
+	0% {bottom: 0vh; opacity: 1;}
+	50% {bottom: 10vh; opacity: 0.5;}
+	100% {bottom: 0; opacity: 1;}
+}
+@keyframes product-animate-pre{
+	0% {bottom: 0vh; opacity: 1;}
+	50% {bottom: -10vh; opacity: 0.5;}
+	100% {bottom: 0; opacity: 1;}
+}
+@-webkit-keyframes product-animate-pre{
+	0% {bottom: 0vh; opacity: 1;}
+	50% {bottom: -10vh; opacity: 0.5;}
+	100% {bottom: 0; opacity: 1;}
+}
+@-moz-keyframes product-animate-pre{
+	0% {bottom: 0vh; opacity: 1;}
+	50% {bottom: 10vh; opacity: 0.5;}
+	100% {bottom: 0; opacity: 1;}
+}
+@-o-keyframes product-animate-pre{
+	0% {bottom: 0vh; opacity: 1;}
+	50% {bottom: 10vh; opacity: 0.5;}
+	100% {bottom: 0; opacity: 1;}
+}
+body{
+	background: url('./car.png') no-repeat center;
+	background-size: 100% 100vh;
+	color: #b16;
+	display: none;
+}
+.product-info{
+	background: lavender;
+	width: 80%;
+	height: 50vh;
+	position: absolute;
+	bottom: 5vh;
+	left: 10%;
+	border-radius: .5em;
+	padding: .5em;
+}
+.section{
+	position: relative;
+	left: 0;
+	bottom: 0;
+}
+.animate-pre{
+	animation: product-animate-pre 1s;
+}
+.animate-next{
+	animation: product-animate-next 1s;
+}
+.product-info h3{
+	margin-left: 1em;
+}
+.product-info ul li{
+	list-style: none;
+	margin-bottom: 1em;
+	word-break: break-all;
+}
