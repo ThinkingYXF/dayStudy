@@ -39,7 +39,8 @@
 	100% {bottom: 0; opacity: 1;}
 }
 body{
-	background: url('./car.png') no-repeat center;
+	background: url('/microgravity-public/dev/commercial_temp/first/car.png') no-repeat center;
+	/* background: url('./car.png') no-repeat center; */
 	background-size: 100% 100vh;
 	color: #b16;
 	display: none;
@@ -47,7 +48,7 @@ body{
 .product-info{
 	background: lavender;
 	width: 80%;
-	height: 50vh;
+	height: 60vh;
 	position: absolute;
 	bottom: 5vh;
 	left: 10%;

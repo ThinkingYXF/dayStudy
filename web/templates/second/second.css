@@ -28,7 +28,8 @@ body{
 	color: #ef0;
 }
 .product{
-	background: url('./car.jpeg') no-repeat center;
+	background: url('/microgravity-public/dev/commercial_temp/second/car.jpeg') no-repeat center;
+	/* background: url('./car.jpeg') no-repeat center; */
 }
 .product .product-info{
 	width: 80%;

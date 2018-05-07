@@ -2,29 +2,10 @@ body{
 	margin: 0;
 	padding: 1em 0 !important;
 	font-size: 14px;
-	/* background: url('/microgravity-public/dev/commercial_temp/list/background.jpeg'); */
-	background: url('./background.jpeg');
+	background: url('/microgravity-public/dev/commercial_temp/list/background.jpeg') no-repeat center;
+	/* background: url('./background.jpeg') no-repeat center; */
 	display: none;
-}
-@keyframes headerAnimate{
-	0% { transform: rotate(0deg)}
-	100% { transform: rotate(360deg)}
-}
-@-webkit-keyframes headerAnimate{
-	0% { transform: rotate(0deg)}
-	100% { transform: rotate(360deg)}
-}
-@keyframes productAnimate{
-	0% { transform: rotate(0deg)}
-	30% { transform: rotate(45deg)}
-	60% { transform: rotate(-45deg)}
-	100% { transform: rotate(0deg)}
-}
-@-webkit-keyframes productAnimate{
-	0% { transform: rotate(0deg)}
-	30% { transform: rotate(45deg)}
-	60% { transform: rotate(-45deg)}
-	100% { transform: rotate(0deg)}
+	background-size: auto 100%;
 }
 .page-header{
 	animation: headerAnimate 2s;
@@ -35,9 +16,6 @@ body{
 	border-bottom: 1px solid #eee;
 	font-size: 36px;
 	font-weight: 500;
-}
-.animate{
-	/* animation: productAnimate 2s; */
 }
 .col-md-4, .col-sm-12, .col-xs-12{
 	position: relative;
@@ -75,9 +53,6 @@ body{
 	/* opacity: 0.7; */
 	/* transition: all .4s ease-in-out; */
 }
-.product-table:hover{
-	/* opacity: 1; */
-}
 .product-table .product-header{
 	position: relative;
 	background: #34495e;
@@ -93,12 +68,14 @@ body{
 	font-size: 24px;
 	text-align: center;
 	font-weight: 700;
+	margin: 15px 0;
 }
 .product-table .product-header .product-price{
 	font-size: 40px;
 	color: #fff;
 	position: relative;
 	text-align: center;
+	margin: 10px 0;
 }
 .product-table .product-header .product-price sup{
 	font-size: 24px;
