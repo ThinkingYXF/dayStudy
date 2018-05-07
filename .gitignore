@@ -2,4 +2,4 @@
 .vscode/
 .idea/
 #test
-index.html
+node_modules/

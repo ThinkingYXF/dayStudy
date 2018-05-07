@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.wrapper{
+			width: 500px;
+			height: 500px;
+			border: 1px solid #ccc;
+			padding: 10px;
+		}
+		.wrapper .left{
+			width: 200px;
+			height: 100%;
+			border-right: 1px solid #ccc;
+			float: left;
+			margin-right: 20px;
+		}
+		.wrapper .right{
+			width: 200px;
+			height: 100%;
+			float: right;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="left">
+			A
+			<input type="text" class="leftInput">
+			<button class="leftBtn">send</button>
+		</div>
+		<div class="right">
+			B
+			<input type="text" class="rightInput">
+			<button class="rightBtn">send</button>
+		</div>
+	</div>
+
+	<script src="../web/js/lib/jquery-1.11.1.js"></script>
+	<script>
+		var ws = new WebSocket('ws://127.0.0.1:8083');
+		ws.onopen = function(){
+			console.log('client success!');
+			// ws.send('hello');
+		}
+		$('.leftBtn').click(function(){
+			var value = $('.leftInput').val();
+			ws.send('1000:'+value);
+		});
+		$('.rightBtn').click(function(){
+			var value = $('.rightInput').val();
+			ws.send('1001'+value);
+		});
+	</script>
+</body>
+</html>
