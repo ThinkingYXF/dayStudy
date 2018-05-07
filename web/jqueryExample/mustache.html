@@ -65,18 +65,28 @@
 				dataType: 'html'
 			}).done(function(html) {
 				$.get('../data/product1.json',function(json){
+					json['path'] = 'hehe';
 					var rendered = Mustache.render(html, json);
 					$('.product-container').append(rendered);
 					$('.product-container').fullpage();
 				});
 			});
 		});
-		//else{
-			//$.each(dt.data(), function(row, data) {
-			//		data['DT_RowId'] = row;
-			//	});
-			//	$.msgBox('商品编号与配件编号不能同时为空','warning');
-		//	}
+		//"{
+			// supplyingIds: '21622420',
+			// merchantID: 1560,
+			// userId: 1628,
+			// templateName: 'list',
+			// templatePath: '/microgravity-public/dev/commercial_temp/list' }"
+
+		// let messages = {
+		// 	'Records': [{
+		// 		'Sns': {
+		// 			'Message': {
+		// 				'page_id': 1015
+		// 			}
+		// 		}
+		// 	}]};"
 	</script>
 </body>
 </html>
