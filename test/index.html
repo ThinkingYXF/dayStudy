@@ -5,81 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="./bootstrap.min.css">
+	<link rel="stylesheet" href="./index.css">
 	<title>work</title>
-	<style>
-		body{
-			margin: 0;
-			padding: 0;
-		}
-		.container{
-			border: 1px solid #ccc;
-			margin-top: 20px;
-			padding: 0;
-			position: relative;
-		}
-		header{
-			height: 80px;
-		}
-		header > div{
-			padding: 0 !important;
-		}
-		header > div:nth-child(1){
-			font-size: 20px;
-			line-height: 80px;
-			text-align: center;
-			border-right: 1px solid #ccc;
-			background: burlywood;
-			color: #fff;
-		}
-		header > div:nth-child(2) > p{
-			line-height: 40px;
-			text-align: center;
-		}
-		header > div:nth-child(2) > p span{
-			cursor: pointer;
-		}
-		header > div:nth-child(2) > p:nth-child(1){
-			border-bottom: 1px solid #ccc;
-		}
-		.nav-tabs > li{
-			width: 20%;
-			text-align: center;
-		}
-		.title{
-			background: greenyellow;
-			color: forestgreen;
-			height: 20px;
-			float: left;
-			width: 100%;
-		}
-		.homeUserCard > img{
-			width: 100%;
-			height: 150px;
-		}
-		.homeHotCard > *{
-			float: left;
-			width: 100%;
-		}
-		.homeHotDiv .homeHotDivleft{
-			float: left;
-			width: 50%;
-			height: 100px;
-		}
-		.homeHotDivRight{
-			float: right;
-			width: 50%;
-		}
-		.homeHotDivRight>p{
-			text-align: center;
-		}
-		.homeHotDivTitle{
-			text-align: center;
-			margin: 10px 0;
-		}
-		.creatAuctionDiv > div{
-			overflow: hidden;
-		}
-	</style>
 </head>
 <body>
 	<div class="container">
@@ -302,8 +229,8 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">你的照片</label>
-							<div class="col-sm-8">
-								<input type="file" class="form-control" name="image">
+							<div class="col-sm-8 registerImage">
+								<input type="file" id="registerFile" class="form-control" name="image">
 							</div>
 						</div>
 						<div class="form-group">
@@ -320,8 +247,14 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">验证码</label>
-							<div class="col-sm-8">
-								<input type="button" class="form-control" value="发送验证码" name="cardcode">
+							<div class="col-sm-6">
+
+							</div>
+							<div class="col-md-2">
+								<button class="btn btn-sm btn-default verificationCodeInput">已发送</button>
+							</div>
+							<div class="col-sm-8 verificationCodeDiv">
+								<input type="button" class="form-control verificationCodeInput" value="发送验证码" name="cardcode">
 							</div>
 						</div>
 						<div class="form-group">
@@ -350,6 +283,21 @@
 	<script src="./bootstrap.min.js"></script>
 	<script>
 		$(function(){
+			$('#registerFile').on('change',function(e){
+				var that = this;
+				var files = e.target.files;
+				var file = files[0];
+				var reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = function(result){
+					var base64 = result.target.result;
+					var img = $('<img />').prop('src', base64);
+					if($('.registerImage img').length){
+						$('.registerImage img').remove();
+					}
+					img.insertAfter($(that));
+				};
+			});
 			//登录
 			$('.btn-login').click(function(){
 				$('#modal-login').modal('show');

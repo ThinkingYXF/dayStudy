@@ -1,0 +1,77 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+.container{
+	border: 1px solid #ccc;
+	margin-top: 20px;
+	padding: 0;
+	position: relative;
+}
+header{
+	height: 80px;
+}
+header > div{
+	padding: 0 !important;
+}
+header > div:nth-child(1){
+	font-size: 20px;
+	line-height: 80px;
+	text-align: center;
+	border-right: 1px solid #ccc;
+	background: burlywood;
+	color: #fff;
+}
+header > div:nth-child(2) > p{
+	line-height: 40px;
+	text-align: center;
+}
+header > div:nth-child(2) > p span{
+	cursor: pointer;
+}
+header > div:nth-child(2) > p:nth-child(1){
+	border-bottom: 1px solid #ccc;
+}
+.nav-tabs > li{
+	width: 20%;
+	text-align: center;
+}
+.title{
+	background: greenyellow;
+	color: forestgreen;
+	height: 20px;
+	float: left;
+	width: 100%;
+}
+.homeUserCard > img{
+	width: 100%;
+	height: 150px;
+}
+.homeHotCard > *{
+	float: left;
+	width: 100%;
+}
+.homeHotDiv .homeHotDivleft{
+	float: left;
+	width: 50%;
+	height: 100px;
+}
+.homeHotDivRight{
+	float: right;
+	width: 50%;
+}
+.homeHotDivRight>p{
+	text-align: center;
+}
+.homeHotDivTitle{
+	text-align: center;
+	margin: 10px 0;
+}
+.creatAuctionDiv > div{
+	overflow: hidden;
+}
+/*注册css*/
+.registerImage > img{
+	max-width: 100%;
+	max-height: 200px;
+}
