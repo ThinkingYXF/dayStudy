@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>解析二维码</title>
+</head>
+<body>
+	<input type="file" id="upload">
+	<script src="deqrcode.js"></script>
+	<script>
+		var input_file = document.getElementById('upload');
+		input_file.onchange = function(e){
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(event){
+				var result = event.target.result;
+				qrcode.decode(result);
+				qrcode.callback = function(msg){
+					console.log(msg);
+				}
+			}
+		}
+	</script>
+</body>
+</html>

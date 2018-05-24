@@ -13,6 +13,10 @@
         .canvas{
             border: 1px solid #000;
         }
+        img{
+            width: 300px;
+            border: 1px solid red;
+        }
     </style>
 </head>
 <body>
@@ -22,6 +26,7 @@
     <p>
         <button class="clear">清除</button>
         <button class="print">打印预览</button>
+        <button class="toImg">生成图片</button>
     </p>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script>
@@ -42,7 +47,7 @@
                     if(isMouseDown){
                         clientX = e.clientX - 10;
                         clientY = e.clientY - 10;
-                        cxt.lineTo(clientX,clientY); 
+                        cxt.lineTo(clientX,clientY);
                         cxt.stroke();
                     }
                 });
@@ -55,7 +60,7 @@
             $('.clear').click(function(){
                 var clone = $('.canvas').clone();
                 $('.canvas').replaceWith(clone);
-                
+
                 canvas();
             });
 
@@ -63,6 +68,15 @@
             $('.print').click(function(){
                 window.print();
             });
+            //生成图片
+            $('.toImg').click(function(){
+                var canvas = document.getElementById('canvas');
+                var base64 = canvas.toDataURL();
+                if(!$('img').length)
+                    $('<img />').prop('src', base64).appendTo('body');
+                else
+                    $('img').prop('src', base64);
+            })
         });
     </script>
 </body>

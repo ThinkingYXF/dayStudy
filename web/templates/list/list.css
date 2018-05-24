@@ -40,9 +40,11 @@
 	}
 }
 .product-table{
-	padding-bottom: 30px;
+	padding-bottom: 10px;
 	/* opacity: 0.7; */
 	/* transition: all .4s ease-in-out; */
+	/* margin-bottom: 60px; */
+	margin-top: -50px;
 }
 .product-table .product-header{
 	position: relative;
@@ -101,4 +103,13 @@
 }
 .product-table .product-info ul li b{
 	font-weight: normal;
+}
+.contact {
+	line-height: 50px;
+	color: #fff;
+}
+.contact > img{
+	width: 50px;
+	height: 50px;
+	float: right;
 }

@@ -101,7 +101,7 @@
 	<div class="product-table">
 		<div class="product-header">
 			<p class="product-title">{{product.code}}</p>
-			<p class="product-price"><sup>RMB</sup>{{product.price}}<span>/个</span></p>
+			{{#product.price}}<p class="product-price"><sup>RMB</sup>{{product.price}}<span>/个</span></p>{{/product.price}}
 		</div>
 		<div class="product-info">
 			<ul>

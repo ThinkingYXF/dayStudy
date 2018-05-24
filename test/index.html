@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="./bootstrap.min.css">
+	<title>work</title>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			border: 1px solid #ccc;
+			margin-top: 20px;
+			padding: 0;
+			position: relative;
+		}
+		header{
+			height: 80px;
+		}
+		header > div{
+			padding: 0 !important;
+		}
+		header > div:nth-child(1){
+			font-size: 20px;
+			line-height: 80px;
+			text-align: center;
+			border-right: 1px solid #ccc;
+			background: burlywood;
+			color: #fff;
+		}
+		header > div:nth-child(2) > p{
+			line-height: 40px;
+			text-align: center;
+		}
+		header > div:nth-child(2) > p span{
+			cursor: pointer;
+		}
+		header > div:nth-child(2) > p:nth-child(1){
+			border-bottom: 1px solid #ccc;
+		}
+		.nav-tabs > li{
+			width: 20%;
+			text-align: center;
+		}
+		.title{
+			background: greenyellow;
+			color: forestgreen;
+			height: 20px;
+			float: left;
+			width: 100%;
+		}
+		.homeUserCard > img{
+			width: 100%;
+			height: 150px;
+		}
+		.homeHotCard > *{
+			float: left;
+			width: 100%;
+		}
+		.homeHotDiv .homeHotDivleft{
+			float: left;
+			width: 50%;
+			height: 100px;
+		}
+		.homeHotDivRight{
+			float: right;
+			width: 50%;
+		}
+		.homeHotDivRight>p{
+			text-align: center;
+		}
+		.homeHotDivTitle{
+			text-align: center;
+			margin: 10px 0;
+		}
+		.creatAuctionDiv > div{
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<div class="col-md-5">
+				时间拍卖
+			</div>
+			<div class="col-md-7">
+				<p><span class="btn-login">登录</span>  <span class="btn-register">注册</span></p>
+				<p>&nbsp;</p>
+			</div>
+		</header>
+		<div class="box">
+			<div class="box-body">
+				<div class="nav-tabs-custom">
+					<ul class="nav nav-tabs">
+						<li class="single-prod active"><a href="#home" data-toggle="tab" aria-expanded="true">首页</a></li>
+						<li class="single-prod"><a href="#discovery" data-toggle="tab" aria-expanded="true">发现</a></li>
+						<li class="single-prod"><a href="#creatAuction" data-toggle="tab" aria-expanded="true">创建拍卖</a></li>
+						<li class="single-prod"><a href="#personalCenter" data-toggle="tab" aria-expanded="true">个人中心</a></li>
+						<li class="single-prod"><a href="#messageBoard" data-toggle="tab" aria-expanded="true">留言版</a></li>
+					</ul>
+				</div>
+				<div class="tab-content">
+					<div class="tab-pane active" id="home">
+						<p class="title">大咖</p>
+						<div class="col-md-12">
+							<div class="col-md-1"></div>
+							<div class="col-md-4 homeUserCard">
+								<img src="./img1.jpg" alt="">
+								<p>刘德华</p>
+								<p>卡活动家卡红色的航空器很快花开花期巍峨</p>
+							</div>
+							<div class="col-md-2"></div>
+							<div class="col-md-4 homeUserCard">
+								<img src="./img2.jpg" alt="">
+								<p>张学友</p>
+								<p>人口全国和外科和气候巍峨金口河区客户群科技局纪检简介将计就计将计就计将计就计将</p>
+							</div>
+							<div class="col-md-1"></div>
+						</div>
+						<p class="title">热拍</p>
+						<div class="col-md-12">
+							<div class="col-md-1"></div>
+							<div class="col-md-5 homeHotCard">
+								<div class="homeHotDiv">
+									<img src="./img1.jpg" alt="" class="homeHotDivleft">
+									<div class="homeHotDivRight">
+										<p>张三</p>
+										<p>男</p>
+										<p>20</p>
+									</div>
+								</div>
+								<p class="homeHotDivTitle">拍卖主题</p>
+								<p style="width: 50%">当前价格: ￥300</p>
+								<p style="width: 50%">剩余时间: 20 小时 11 分</p>
+								<p>&emsp;底价: ￥190</p>
+								<p style="text-align: center">
+									<button style="float: left;" class="btn">了解Ta</button>
+									<button class="btn btn-success">参与竞拍</button>
+									<button style="float: right;" class="btn btn-danger">关注</button>
+								</p>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-5 homeHotCard">
+								<div class="homeHotDiv">
+									<img src="./img2.jpg" alt="" class="homeHotDivleft">
+									<div class="homeHotDivRight">
+										<p>小红</p>
+										<p>女</p>
+										<p>29</p>
+									</div>
+								</div>
+								<p class="homeHotDivTitle">拍卖主题</p>
+								<p style="width: 50%">当前价格: ￥100</p>
+								<p style="width: 50%">剩余时间: 1 小时 35 分</p>
+								<p>&emsp;底价: ￥50</p>
+								<p style="text-align: center">
+									<button style="float: left;" class="btn">了解Ta</button>
+									<button class="btn btn-success">参与竞拍</button>
+									<button style="float: right;" class="btn btn-danger">关注</button>
+								</p>
+							</div>
+						</div>
+						<div style="clear: both"></div>
+					</div>
+					<div class="tab-pane" id="discovery">
+						discovery
+					</div>
+					<div class="tab-pane" id="creatAuction">
+						<div class="box">
+							<div class="box-body">
+								<div class="col-md-2"></div>
+								<div class="col-md-8 creatAuctionDiv">
+									<div class="form-group">
+										<label for="">创建拍卖</label>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">主题</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" name="theme">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">时间</label>
+										<div class="col-sm-4">
+											<input type="date" class="form-control" name="time">
+										</div>
+										<div class="col-sm-4">
+											<input type="date" class="form-control" name="time">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">地点</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" name="address">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">分类</label>
+										<div class="col-sm-8">
+											<select name="" id="" class="form-control">
+												<option value="">运动</option>
+												<option value="">学习</option>
+												<option value="">娱乐</option>
+												<option value="">跑腿</option>
+												<option value="">其它</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">起拍价格:</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" name="startPrice">
+										</div>
+										<label class="col-sm-2 control-label">心理价:</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" name="price">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-3"></div>
+										<div class="col-md-2">
+											<button class="btn btn-primary">发布</button>
+										</div>
+										<div class="col-md-2"></div>
+										<div class="col-md-2">
+											<button class="btn btn-primary">取消</button>
+										</div>
+										<div class="col-md-2"></div>
+									</div>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="personalCenter">
+						personalCenter
+					</div>
+					<div class="tab-pane" id="messageBoard">
+						messageBoard
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form id="form-edit" class="form-horizontal">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">登录</h4>
+					</div>
+					<div class="modal-body box-body">
+						<div class="form-group">
+							<img src="" alt="">
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">邮箱/手机号</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">密码</label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" name="password">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-12">
+								<button class="btn btn-sm btn-default">忘记密码</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">登录</button>
+						<button type="button" class="btn btn-default modal-confirm" data-dismiss="modal">注册</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form id="form-edit" class="form-horizontal">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">注册</h4>
+					</div>
+					<div class="modal-body box-body">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">姓名ID</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="id">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">你的照片</label>
+							<div class="col-sm-8">
+								<input type="file" class="form-control" name="image">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">姓名</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">手机号</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="phone">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">验证码</label>
+							<div class="col-sm-8">
+								<input type="button" class="form-control" value="发送验证码" name="cardcode">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">密码</label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" name="password">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">确认密码</label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" name="surePassword">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-default modal-confirm" data-dismiss="modal">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script src="./jquery-1.11.1.js"></script>
+	<script src="./bootstrap.min.js"></script>
+	<script>
+		$(function(){
+			//登录
+			$('.btn-login').click(function(){
+				$('#modal-login').modal('show');
+			});
+			//注册
+			$('.btn-register').click(function(){
+				$('#modal-register').modal('show');
+			});
+			$('.modal-confirm').click(function(){
+				$('#modal-register').modal('show');
+			});
+		});
+	</script>
+</body>
+</html>
