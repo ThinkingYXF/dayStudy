@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>calculater</title>
+	<style>
+		.wrapper{
+			width: 250px;
+			height: 300px;
+			font-size: 14px;
+		}
+		.result{
+			height: 30px;
+			font-size: 15px;
+			margin: 0;
+		}
+		.result .resultShow{
+			text-align: right;
+		}
+		.calcuBody{
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		.calcuBody li{
+			float: left;
+			width: 60px;
+			height: 60px;
+			border: 1px solid #ccc;
+			margin-left: -1px;
+			margin-top: -1px;
+			cursor: pointer;
+			text-align: center;
+			line-height: 60px;
+		}
+		.calcuBody li:hover{
+			background-color: aquamarine;
+		}
+		.leftNum, .type, .rightNum{
+			/* display: none; */
+		}
+	</style>
+</head>
+<body>
+	<h2>简易计算器（只支持整数加减乘除）</h2>
+	<div class="wrapper">
+		<p class="result"><span style="color: red">计算结果：</span>
+			<span class="leftNum"></span>
+			<span class="type"></span>
+			<span class="rightNum"></span>
+			<span class="resultShow"></span></p>
+		<ul class="calcuBody">
+			<li class="num">7</li>
+			<li class="num">8</li>
+			<li class="num">9</li>
+			<li class="add">+</li>
+			<li class="num">4</li>
+			<li class="num">5</li>
+			<li class="num">6</li>
+			<li class="sub">-</li>
+			<li class="num">1</li>
+			<li class="num">2</li>
+			<li class="num">3</li>
+			<li class="multi">*</li>
+			<li class="num">0</li>
+			<li class="clear">c</li>
+			<li class="equal">=</li>
+			<li class="divide">/</li>
+		</ul>
+	</div>
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function(){
+			var Calculater = function(){
+				this.leftNum = 0;
+				this.type = '';
+				this.rightNum = 0;
+				this.isCalculated = false;
+				this.isContinue = false;
+				this.result = function(){
+					if(this.type == 'add')
+						return this.leftNum + this.rightNum;
+					if(this.type == 'sub')
+						return this.leftNum - this.rightNum;
+					if(this.type == 'mul')
+						return this.leftNum * this.rightNum;
+					if(this.type == 'divide')
+						return this.leftNum / this.rightNum;
+				}
+			}
+			var calculater = new Calculater();
+			$('.num').click(function(){
+				var number = $(this).text();
+				if(!calculater.isCalculated){
+					calculater.leftNum += number;
+					calculater.leftNum = parseInt(calculater.leftNum);
+					$('.leftNum').text(calculater.leftNum);
+				}
+				else{
+					calculater.rightNum += number;
+					calculater.rightNum = parseInt(calculater.rightNum);
+					$('.rightNum').text(calculater.rightNum);
+				}
+			});
+			$('.add').click(function(){
+				if(calculater.isCalculated)
+					return false;
+				calculater.isCalculated = true;
+				$('.type').html('+');
+				calculater.type = 'add';
+			});
+			$('.sub').click(function(){
+				if(calculater.isCalculated)
+					return false;
+				calculater.isCalculated = true;
+				$('.type').html('-');
+				calculater.type = 'sub';
+			});
+			$('.multi').click(function(){
+				if(calculater.isCalculated)
+					return false;
+				calculater.isCalculated = true;
+				$('.type').html('*');
+				calculater.type = 'mul';
+			});
+			$('.divide').click(function(){
+				if(calculater.isCalculated)
+					return false;
+				calculater.isCalculated = true;
+				$('.type').html('/');
+				calculater.type = 'divide';
+			});
+			$('.equal').click(function(){
+				var result = calculater.result();
+				$('.leftNum, .type, .rightNum').html('');
+				$('.resultShow').html(result);
+			});
+			$('.clear').click(function(){
+				clear(calculater);
+			});
+			function clear(calculater){
+				calculater.leftNum = 0;
+				calculater.rightNum = 0;
+				calculater.type = '';
+				calculater.isCalculated = false;
+				$('.leftNum, .type, .rightNum, .resultShow').html('');
+			}
+		});
+	</script>
+</body>
+</html>

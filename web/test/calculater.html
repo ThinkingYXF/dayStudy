@@ -96,7 +96,7 @@
             var num = $('ul li.num');
             num.click(function(){
                 numStr += $(this).text();
-                $('.resultShow').text(parseInt(numStr));
+                $('.resultShow').text(numStr);
                 if(!isCalculate)
                     numLeft = parseInt(numStr);
                 else
@@ -105,8 +105,11 @@
 
             //点击加号
             $('.add').click(function(){
+                if(isCalculate)
+                    return false;
                 isCalculate = true;
-                numStr = '';
+                numStr = $('.resultShow').text() + '+';
+                $('.resultShow').text( numStr );
                 type = 'add';
             });
             //点击减号
