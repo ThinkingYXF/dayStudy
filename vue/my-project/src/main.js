@@ -5,7 +5,12 @@ import App from './App'
 import router from './router'
 // import { VueRouter } from 'vue-router/types/router';
 
-Vue.config.productionTip = false
+//element-ui  ui插件
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
+Vue.config.productionTip = false;
 
 // const Foo = {'template': '<div>Foo</div>'}
 // const Bar = {'template': '<div>Bar</div>'}

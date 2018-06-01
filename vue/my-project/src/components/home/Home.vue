@@ -1,26 +1,21 @@
 <template>
 	<div class="wrapper">
-		<h1>{{ title }}</h1>
-		<p>{{ content }}</p>
+		<el-tabs style="height: 200px;">
+			<el-tab-pane label="用户管理">用户管理</el-tab-pane>
+			<el-tab-pane label="配置管理">配置管理</el-tab-pane>
+			<el-tab-pane label="角色管理">角色管理</el-tab-pane>
+			<el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
+		</el-tabs>
 	</div>
 </template>
 <script>
-var obj = {
-	title: 'home',
-	content: '阿三等奖哈达和'
-}
+
 export default {
-	name: 'Home',
-	data(){
-		return obj;
-	}
-}
+
+};
 </script>
 
 <style scoped>
-	.wrapper > h1 {
-		text-align: center;
-		color: aquamarine;
-	}
+
 </style>
 
