@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Vuex from 'vuex'
+
+Vue.use(Vuex);
 // import { VueRouter } from 'vue-router/types/router';
 
 //element-ui  ui插件

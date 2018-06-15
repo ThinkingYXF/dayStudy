@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>components</title>
+	<style>
+		.my-alert{
+			position: absolute;
+			left: 40%;
+			top: 50px;
+			width: 20%;
+			padding: 20px 0;
+			background: #ccc;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<my-div></my-div>
+		<input type="text" v-model="title" placeholder="标题" />
+		<input type="text" v-model="content" placeholder="内容" />
+		<button @click="showAlert">显示</button>
+		<my-alert :title="title" :content="content" v-if="isShowAlert"></my-alert>
+	</div>
+	<script src="../node_modules/vue/dist/vue.min.js"></script>
+	<script src="../node_modules/vuex/dist/vuex.min.js"></script>
+	<script>
+		Vue.use(Vuex);
+
+		const store = new Vuex.Store({
+			state: {
+				title: null
+			},
+			mutations: {
+
+			},
+			getters: {
+
+			},
+			actions: {
+
+			}
+		})
+
+		//组件
+		const myDiv = {
+			template: `<div>
+							标题: <input type="text" v-model="title">
+						</div>`,
+			computed: {
+				title(){
+					return this.$store.state.title;
+				}
+			}
+		}
+		const myAlert = {
+			data(){
+				return {
+					isShow: true,
+					title: '',
+					content: ''
+				}
+			},
+			props: ['title', 'content'],
+			template: `<div class="my-alert">
+							<header>{{ title }}</header>
+							<p>{{ content }}</p>
+							<button @click="closeAlert">确定</button>
+						</div>`,
+			methods: {
+				closeAlert: function(){
+					app.isShowAlert = false;
+				}
+			}
+		}
+		var app = new Vue({
+			el: '#app',
+			store,
+			data(){
+				return {
+					isShowAlert: false,
+					title: null,
+					content: null
+				}
+			},
+			components: {
+				'my-div': myDiv,
+				'my-alert': myAlert
+			},
+			methods: {
+				showAlert: function(){
+					this.isShowAlert = true;
+					console.log(this.title, this.content, 1111);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

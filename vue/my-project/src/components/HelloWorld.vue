@@ -23,7 +23,7 @@
     <p>使用v-html. <span v-html="rawHtml"></span></p>
 
     <p> <input type="text" v-model="message">文字逆转,原消息:{{message}}</p>
-    <p>逆转消息:{{reverseMessage}}</p>
+    <p>逆转消息:</p>
 
     <div id="watch-example">
       <p>

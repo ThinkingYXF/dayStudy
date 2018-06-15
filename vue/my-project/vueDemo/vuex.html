@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>vuex</title>
+</head>
+<body>
+	<div id="app"></div>
+
+
+	<script src="../node_modules/vue/dist/vue.min.js"></script>
+	<script src="../node_modules/vuex/dist/vuex.min.js"></script>
+	<script>
+		Vue.use(Vuex);
+		const store = new Vuex.Store({
+			state: {
+				count: 0,
+				age: 25
+			},
+			mutations: {
+				increment(state){
+					state.count++;
+				},
+				changeAsync(state,num){
+					state.count += num;
+				}
+			},
+			getters: {
+				getAge: function(){
+					return state.age;
+				}
+			},
+			actions: {
+				add: function(context, value){
+					setTimeout(function(){
+						context.commit('changeAsync', value);
+					},1000)
+				}
+			}
+		});
+		const Counter = {
+			template: `<div>{{ count }} 年龄: {{ age }} <button @click="changeNumAsync">按钮</button></div>`,
+			computed: {
+				count(){
+					return this.$store.state.count;
+				},
+				age(){
+					return this.$store.state.age;
+				}
+			},
+			methods: {
+				changeCount: function(){
+					this.$store.commit('increment');
+				},
+				changeNumAsync: function(){
+					this.$store.dispatch('add', 10);
+				}
+			}
+		}
+		const app = new Vue({
+			el: '#app',
+			store,
+			components: { Counter },
+			template: `<div class="app">
+						<counter></counter>
+					</div>`
+		});
+	</script>
+</body>
+</html>

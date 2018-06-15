@@ -2,6 +2,8 @@ import Vue from 'vue'
 import HelloWorld from '@/components/HelloWorld'
 import {ajaxRequest} from '../../src/request.js'
 
+import { mapState } from 'vuex'
+
 Vue.component('todo-item',{
 	props: ['todo'],
 	template: '<li>{{todo.text}}</li>'
@@ -106,8 +108,8 @@ export default({
 		}
 	},
 	computed: {
-		reverseMessage: function(){
-			return this.message.split('').reverse().join('');
+		doneTodosCount () {
+			return this.$store.state.todos.filter(todo => todo.done).length
 		}
 	},
 	watch: {
