@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		body, html{
+			margin: 0;
+			padding: 0;
+			line-height: 1.6;
+		}
+		.wechat_wrapper{
+			width: 80%;
+			min-height: 600px;
+			min-width: 800px;
+			max-width: 1000px;
+			margin: 0 auto;
+			background: #ccc;
+			margin-top: 100px;
+			overflow: hidden;
+		}
+		.wechat_panel{
+			float: left;
+			width: 280px;
+			height: 100%;
+			background: #2e3238;
+			min-height: 600px;
+		}
+		.wechat_detail{
+			height: 100%;
+			background: #eee;
+		}
+		@media (max-height: 800px) {
+			.wechat_wrapper{
+				margin-top: 0;
+			}
+		}
+		.wechat_panel .wechat_info{
+			padding: 18px;
+		}
+		.wechat_panel .wechat_info .wechat_user_icon{
+			/* margin-right: 10px; */
+			display: table-cell;
+			padding-right: 10.625px;
+			vertical-align: middle;
+			word-wrap: break-word;
+			word-break: break-all;
+			white-space: nowrap;
+		}
+		.wechat_panel .wechat_info .wechat_user_icon > img{
+			height: 40px;
+			width: 40px;
+			border-radius: 2px;
+		}
+		.wechat_panel .wechat_info .wechat_user_info {
+			/* padding: 5px 0; */
+			display: table-cell;
+			vertical-align: middle;
+			word-wrap: break-word;
+			word-break: break-all;
+			width: 2000px;
+		}
+		.wechat_panel .wechat_info .wechat_user_info > h3{
+			margin: 0;
+		}
+		.wechat_panel .wechat_info .wechat_user_info > h3> span{
+			display: inline-block;
+			color: #fff;
+			font-size: 18px;
+			font-weight: normal;
+			overflow: hidden;
+			vertical-align: top;
+			line-height: 31px;
+			text-overflow: ellipsis;
+			word-wrap: normal;
+			white-space: nowrap;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="wechat_wrapper">
+		<div class="wechat_panel">
+			<header class="wechat_info">
+				<div class="wechat_user_icon">
+					<img src="./resources/images/icon.jpg" alt="">
+				</div>
+				<div class="wechat_user_info">
+					<h3><span>Thinking</span></h3>
+				</div>
+			</header>
+		</div>
+		<div class="wechat_detail">
+
+		</div>
+	</div>
+</body>
+</html>

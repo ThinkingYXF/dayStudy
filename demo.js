@@ -103,3 +103,55 @@ if($.billCodes){
 		}
 	});
 }
+
+
+//latest
+if($.billCodes){
+	var isReturn = false;
+	$.each(rows.indexes(),function(rowIndex,row){
+		var rowData = rows.row(row).data();
+		var tableCode = $.trim(rowData['request']['code']);
+		$.each($.billCodes, function(codeIndex, code){
+			var billCode = $.trim(code.code);
+			if(billCode == tableCode){
+				isReturn = true;
+				if(code.selected){
+					//删除不存在数据的组
+					if(rowData['product']['name'] == '无供应'){
+						isReturn = true;
+						selectRow( code.code,  0);
+						return false;
+					}
+					if(rowData['id'] == code.selected){
+						if(rowData['price'] == code.price){
+							selectIdx = rowIndex;
+							return false;
+						}else{
+							selectRow( code.code,  rowData['id']);
+							return false;
+						}
+					}else{
+						selectRow( code.code,  0);
+						return false;
+					}
+				}else{
+					//删除不存在数据的组
+					if(rowData['product']['name'] == '无供应'){
+						isReturn = true;
+						selectRow( code.code,  0);
+						return false;
+					}
+					selectRow( code.code,  rowData['id']);
+					return false;
+				}
+			}
+		});
+		if(isReturn)
+			return false;
+		else if(rowIndex == rows.indexes().length-1 && !isReturn){
+			selectRow( tableCode,  rowData['id']);
+		}
+	});
+}
+else if(rows.row(rows.indexes()[0]).data()['product']['name'] != '无供应')
+	selectRow( rows.row(rows.indexes()[0]).data()['request']['code'],  rows.row(rows.indexes()[0]).data()['id']);

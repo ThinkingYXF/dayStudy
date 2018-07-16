@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Q值法席位分配</title>
+	<style>
+		#container {
+			width: 40%;
+			float: left;
+		}
+		input {
+			padding: 5px;
+			outline: none;
+		}
+		#results {
+			float: left;
+			width: 60%;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<p>总席位数: <input type="text" id="allSeats"></p>
+		<p>新增席位数: <input type="text" id="addSeats"></p>
+		<button id="addArea">增加地区</button>
+		<button id="getResult">分配结果</button>
+	</div>
+	<div id="results">
+		<table>
+			<thead>
+				<th>人数</th>
+				<th>席位数</th>
+				<th>Q值</th>
+			</thead>
+			<tbody id="myTbody">
+
+			</tbody>
+		</table>
+	</div>
+	<!-- <button id="calculate">计算Q值</button> -->
+	<script src="./qWays.js"></script>
+	<script>
+		var container = document.getElementById('container');
+		var startNum = 0;
+		document.getElementById('addArea').onclick = function(){
+			startNum++;
+			var p = document.createElement('p');
+			p.className = 'areaModule';
+			var str = '地区'+ startNum +': <input type="text" class="areas" placeholder="人数" />';
+			p.innerHTML = str;
+			container.appendChild(p);
+		}
+		document.getElementById('getResult').onclick = function(){
+			var allSeats = document.getElementById('allSeats').value,
+				addSeats = document.getElementById('addSeats').value,
+				areas = document.getElementsByClassName('areaModule'),
+				personsArr = [];
+			for(let i = 0; i < areas.length; i++) {
+				let value = areas[i].getElementsByClassName('areas')[0].value;
+				personsArr.push({persons: value});
+			}
+			var result = init(allSeats, personsArr, addSeats);
+
+			document.getElementById('myTbody').innerHTML = '';
+			document.getElementById('results').style.display = 'block';
+			for(let i = 0; i < result.length; i++){
+				var tr = document.createElement('tr'),
+					td1 = document.createElement('td'),
+					td2 = document.createElement('td'),
+					td3 = document.createElement('td');
+				td1.innerText = result[i].persons;
+				td2.innerText = result[i].seats;
+				td3.innerText = result[i].qNumber;
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				document.getElementById('myTbody').appendChild(tr);
+			}
+		}
+
+	</script>
+</body>
+</html>

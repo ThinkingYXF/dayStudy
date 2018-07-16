@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Q值法</title>
+</head>
+<body>
+
+	<script>
+		//席位分配  默认 10个席位  a 30人  b 20人  c 10人
+		var seats = 10, a = 30, b = 20, c = 10; 	//30+20+10 = 60;
+
+		const lastSeat = 50;
+		//席位从10个增加到50个 如何分配
+		for(var k = seats; k < lastSeat; k++){
+			solve(k, a, b, c);
+		}
+		var arr = [a, b, c];
+		function solve(seats, a, b, c, arr){
+			function City(persons){
+				this.persons = persons;
+				this.number = Math.floor (persons / ((a + b + c)/ seats));
+				this.getQ = function(){
+					return this.persons * this.persons / (this.number * (this.number + 1));
+				}
+			}
+			var aa = new City(a);
+			var bb = new City(b);
+			var cc = new City(c);
+			// console.log(aa.number, bb.number, cc.number);
+			if((aa.number + bb.number + cc.number) < seats){
+				var lastNumber = seats - (aa.number + bb.number + cc.number);
+				for(var i = 0;i < lastNumber;i++){
+					var obj = compare(aa.getQ(), bb.getQ(), cc.getQ());
+					var index = obj['maxIndex'];
+					if(index==0)
+						aa.number++;
+					else if(index==1)
+						bb.number++;
+					else
+						cc.number++;
+					console.log(aa.number, bb.number, cc.number);
+				}
+			}else{
+				console.log(aa.number, bb.number, cc.number);
+			}
+
+			function compare(){
+				var max = 0,
+					maxIndex = 0;
+				for(var j = 0; j < arguments.length; j++){
+					if(max < arguments[j]){
+						max = arguments[j];
+						maxIndex = j;
+					}
+				}
+				return {
+					max: max,
+					maxIndex: maxIndex
+				};
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<div id="example"></div>
+
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	<script type="text/babel">
+		var style = {
+			color: 'red',
+			lineHeight: '30px'
+		}
+		var MyElement = React.createClass({
+			render: function(params) {
+				return <div style={style}>nihao {this.props.name}</div>
+			}
+		});
+		var NextElement = React.createClass({
+			render: function(){
+				return (
+					<span>这是span标签</span>
+				)
+			}
+		});
+
+		var GlobalElement = React.createClass({
+			getInitialState: function(){
+				return {
+					isShow: false
+				}
+			},
+			changeVisiable: function(){
+				// this.isShow = !this.isShow;
+				this.setState({isShow: !this.state.isShow});
+			},
+			render: function(){
+				var myStyle = this.state.isShow ? {display: 'block'} : {display: 'none'};
+				return (
+					<section>
+						<MyElement name="yxf" />
+						<NextElement />
+						<button onClick={this.changeVisiable}>切换</button>
+						<div style={myStyle}>
+							内容
+						</div>
+					</section>
+				)
+			}
+		})
+
+
+		ReactDOM.render(<GlobalElement /> ,document.getElementById('example'))
+	</script>
+</body>
+</html>
