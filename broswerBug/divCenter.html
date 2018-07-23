@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>元素居中 已知宽高</title>
+	<style>
+		html, body{
+			margin: 0;
+			padding: 0;
+		}
+
+		/*居中方法1(已知容器宽高)*/
+		/* .wrapper{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 500px;
+			height: 500px;
+			background: #ccc;
+			margin-left: -250px;
+			margin-top: -250px;
+		} */
+
+		/*居中方法2(已知容器宽高) ie6不兼容*/
+		/* .wrapper{
+			width: 200px;
+			height: 200px;
+			position: relative;
+			background: #ccc;
+		}
+		.div1{
+			width: 100px;
+			height: 100px;
+			margin: auto;
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			top: 0;
+			background: red;
+		} */
+
+		/* ie6,7不兼容 */
+		/* .wrapper{
+			width: 200px;
+			height: 200px;
+			background: #ccc;
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+		}
+		.div1{
+			display: inline-block;
+			vertical-align: middle;
+			width: 100px;
+			height: 100px;
+			background: red;
+		} */
+
+
+		/*适合移动端*/
+		/* .wrapper{
+			width: 200px;
+			height: 200px;
+			background: #ccc;
+			display: flex;
+		}
+		.div1{
+			width: 100px;
+			height: 100px;
+			margin: auto;
+			background: red;
+		} */
+
+		/*适合移动端*/
+		/* .wrapper{
+			width: 200px;
+			height: 200px;
+			background: #ccc;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.div1{
+			width: 100px;
+			height: 100px;
+			background: red;
+		} */
+	</style>
+</head>
+<body>
+
+	<div class="wrapper">
+		<div class="div1"></div>
+	</div>
+</body>
+</html>

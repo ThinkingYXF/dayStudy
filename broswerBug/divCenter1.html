@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		/* html, body{
+			margin: 0;
+			padding: 0;
+		} */
+		.table{
+			width: 200px;
+			height: 200px;
+			display: table;
+			background: #ccc;
+			float: left;
+			position: relative;
+		}
+		.table-cell{
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			position: absolute;
+			padding: 10px;
+			left: 50%;
+			top: 50%;
+		}
+		.table-content{
+			background: red;
+			position: relative;
+			left: -50%;
+			top: -50%;
+		}
+
+		/*css实现三角*/
+		.triangle{
+			width: 0;
+			height: 0;
+			border: 50px solid white;
+			float: left;
+			margin: 50px;
+			border-top-color: red;				/*上三角*/
+			/* border-right-color: red; */		/*右三角*/
+			/* border-bottom-color: red; */		/*下三角*/
+			/* border-left-color: red; */		/*左三角*/
+		}
+	</style>
+</head>
+<body>
+	<div class="table">
+		<div class="table-cell">
+			<div class="table-content">
+				<!-- <p>hello world</p> -->
+				<div style="width: 50px;height: 20px;">
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="triangle">
+
+	</div>
+</body>
+</html>

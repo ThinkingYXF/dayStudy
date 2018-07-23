@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>IndexedDB</title>
+</head>
+<body>
+
+	<script>
+		var request = indexedDB.open('library');
+		request.onupgradeneeded = function(){
+			var db = request.result;
+			var store = db.createObjectStore('books', {keyPath: 'isbn'});
+			var titleIndex = store.createIndex('by_title', 'title', {unique: true});
+			var authorIndex = store.createIndex('by_author', 'author');
+
+			store.put({title: 'Qara Adhq', author: 'Fread', isbn: 123456});
+			store.put({title: 'Chrown Blust', author: 'Town', isbn: 123455});
+			store.put({title: 'Nick Zero', author: 'Monky', isbn: 111111});
+
+			request.onsuccess = function(){
+				db = request.result;
+			}
+			// var tx = db.transaction('books', 'readonly');
+		}
+	</script>
+</body>
+</html>

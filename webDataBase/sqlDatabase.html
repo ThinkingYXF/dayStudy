@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>web sql database</title>
+</head>
+<body>
+	<table>
+		<tbody>
+			<tr>
+				<td>姓名: </td>
+				<td><input type="text" id="usrName"></td>
+			</tr>
+			<tr>
+				<td>年龄: </td>
+				<td><input type="number" id="usrAge"></td>
+			</tr>
+			<tr>
+				<td>性别: </td>
+				<td>
+					<select name="" id="usrSex">
+						<option value="0">男</option>
+						<option value="1">女</option>
+					</select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<button id="insertData">插入数据</button>
+	<button id="showData">显示数据</button>
+	<script>
+		window.onload = function(){
+			initDatabase();
+			var insertBtn = document.getElementById('insertData');
+			insertBtn.onclick = function(){
+				var name = document.getElementById('usrName').value;
+				var age = document.getElementById('usrAge').value;
+				var sex = document.getElementById('usrSex').value;
+				console.log(name, age, sex);
+				var db = getCurrentDB();
+				db.transaction(function(trans){
+					trans.executeSql('insert into myDemo(usrName, usrAge, usrSex)values(?, ?, ?)', [name, age, sex], function(ts, data){
+
+					}, function(ts, message){
+						console.log(message);
+					})
+				});
+			}
+			var showBtn = document.getElementById('showData');
+			showBtn.onclick = function(){
+				var db = getCurrentDB();
+				db.transaction(function(trans){
+					trans.executeSql('select * from myDemo', [], function(ts, data){
+						if(data){
+							console.log(data);
+						}
+					}, function(ts, message){
+						console.log(message);
+					})
+				})
+			}
+		}
+
+		function initDatabase(){
+			var db = getCurrentDB();	//初始化数据库
+			if(!db) {alert("您的浏览器不支持HTML5本地数据库");return;}
+			db.transaction(function(trans){
+				trans.executeSql('create table if not exists myDemo(usrName text null, usrAge int(10) null, usrSex int(4) null)', [],function(ts, data){
+
+				}, function(ts, message){
+					console.log(message);
+				})
+			});
+		}
+		function getCurrentDB(){
+			var db = openDatabase('db_demo', '1.0', 'my demo web database', 1024*1024);
+			return db;
+		}
+	</script>
+</body>
+</html>

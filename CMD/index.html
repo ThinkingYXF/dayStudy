@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<script src="./sea.js"></script>
+	<script>
+		//seajs 配置
+		seajs.config({
+			alias: {
+				'jquery': 'https://cdn.bootcss.com/jquery/3.3.1/jquery.js'	//引入路径过长 放到alias
+			},
+			paths: {
+				'jquery1': 'https://cdn.bootcss.com/jquery/3.3.1/jquery.js'	//目录比较深时
+			},
+			vars: {
+				locale: 'zh-cn'
+			},
+			// map: [
+				// ['.js', '.json']	//将忽略的后缀默认加载js改为加载json
+			// ]，
+			preload: [
+				'./a'		//加载普通模块前先加载jquery  需要先  npm install seajs/seajs-preload
+			]
+		});
+		seajs.use('index', function(){
+			// console.log();
+		});
+	</script>
+</body>
+</html>
