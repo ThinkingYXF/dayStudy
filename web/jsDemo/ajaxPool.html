@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<button id="begin">开始</button>
+
+	<script>
+		var AjaxPool = function(){
+			var taskList = [],
+				taskBufferList = [],
+				maxNumber = 5;
+			return {
+				sendAjax: function(type, url, data, callback){
+					if(taskBufferList.length < maxNumber){
+						var request = new XMLHttpRequest();
+						request.open(type, url, true);
+						request.send();
+						request.onreadystatechange = function(){
+							if(request.readyState == 4 && request.status == 200){
+								var response = request.responseText;
+								if(callback && typeof callback == 'function')
+									callback(response);
+								taskBufferList.shift();
+								if(taskList.length > 0){
+									var task = taskList.shift();
+									AjaxPool.sendAjax(task.method, task.url, task.data, task.callback);
+								}
+							}
+						}
+						taskBufferList.push(request);
+					}else{
+						var task = {
+							method: type,
+							url: url,
+							data: data,
+							callback: callback
+						}
+						taskList.push(task);
+					}
+				}
+			}
+		}();
+	</script>
+</body>
+</html>

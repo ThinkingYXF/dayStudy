@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<div id="example"></div>
+
+
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+	<script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+	<script type="text/babel">
+		function showTime(params) {
+			var MyElement = (
+				<div>
+					<p>现在的时间: {new Date().toLocaleTimeString()}</p>
+				</div>
+			)
+			ReactDOM.render(MyElement, document.getElementById('example'));
+		}
+
+		class Welcome extends React.Component {
+			render(){
+				return <h1>hello world</h1>
+			}
+		}
+
+		// ReactDOM.render(new Welcome().render(), document.getElementById('example'));
+		// setInterval(showTime, 1000);
+
+		//显示当前时间
+		class Clock extends React.Component {
+			constructor(props){
+				super(props);
+				this.state = {date: new Date()};
+			}
+
+			componentDidMount(){
+				this.timerID = setInterval(()=>this.tick(), 1000);
+			}
+			componentWillUnMount(){
+				clearInterval(this.timerID);
+			}
+
+			tick(){
+				this.setState({
+					date: new Date()
+				})
+			}
+			render(){
+				return (
+					<div>
+						<p>现在的时间: {this.state.date.toLocaleTimeString()}</p>
+					</div>
+				)
+			}
+		}
+
+		//按钮切换
+		class ButtonExchange extends React.Component{
+			constructor(props){
+				super(props);
+				this.state = {isButtonOn: true};
+				this.handleClick = this.handleClick.bind(this);
+			}
+			handleClick(params, e){
+				console.log(params);
+				this.setState((prevState)=>({
+					isButtonOn: !prevState.isButtonOn
+				}))
+			}
+			render(){
+				return (
+					<div>
+						<button onClick={this.handleClick.bind(this, 'hello')}> {this.state.isButtonOn? 'on' : 'off' } </button>
+					</div>
+				)
+			}
+		}
+
+		//show list
+		function NumbersList(props){
+			const numbers = props.numbers;
+			const listItems = numbers.map((number) =>
+				<li key={number.toString()}>{number}</li>
+			);
+			return (
+				<ul>{listItems}</ul>
+			)
+		}
+		const numbers = [1,2,3,4,5];
+
+		//form submit
+		class NameForm extends React.Component{
+			constructor(props){
+				super(props);
+				this.state = {value: ''};
+				this.handleChange = this.handleChange.bind(this);
+				this.handleSubmit = this.handleSubmit.bind(this);
+			}
+			handleChange(event){
+				this.setState({
+					value: event.target.value
+				})
+			}
+			handleSubmit(e){
+				e.preventDefault();
+				console.log('A name was submited: ' + this.state.value);
+			}
+			render(){
+				return (
+					<form onSubmit={this.handleSubmit}>
+						<label>
+							name:
+							<input type="text" value={this.state.value} onChange={this.handleChange} />
+						</label>
+						<input type="submit" value="submit" />
+					</form>
+				)
+			}
+		}
+
+		//more input
+		class Reservation extends React.Component{
+			constructor(props){
+				super(props);
+				this.state = {
+					isGoing: true,
+					numberOfGuests: 2
+				}
+				this.handleInputChange = this.handleInputChange.bind(this);
+				this.handleSubmit = this.handleSubmit.bind(this);
+			}
+			handleInputChange(e){
+				const target = e.target;
+				const value = target.type === 'checkbox' ? target.checked : target.value;
+				const name = target.name;
+
+				this.setState({
+					[name]: value
+				})
+			}
+			handleSubmit(e){
+				e.preventDefault();
+				console.log('state: ' + this.state.isGoing + ', number: ' + this.state.numberOfGuests);
+			}
+			render(){
+				return (
+					<form onSubmit={this.handleSubmit}>
+						<label>
+							Is Going:
+							<input name="isGoing" type="checkbox" checked={this.state.checked} onChange={this.handleInputChange} />
+						</label>
+						<br />
+						<label>
+							Number of Guest:
+							<input type="number" name='numberOfGuests' value={this.state.numberOfGuests} onChange={this.handleInputChange} />
+						</label>
+						<input type="submit" value="submit" />
+					</form>
+				)
+			}
+		}
+
+		//根据用户输入显示不同内容
+		function WaterContent(props){
+			return <p>{ props.celsius>=100? '温度不低于100': '温度低于100' }</p>
+		}
+		const scaleNames = {
+			c: 'Celsius',
+			f: 'Fahrenheit'
+		}
+		function toCelsius(fahrenheit){
+			return (fahrenheit - 32) * 5 / 9;
+		}
+		function toFahrenheit(celsius){
+			return (celsius * 9 / 5 ) + 32;
+		}
+		function tryConvert(temperture, convert){
+			var input = parseFloat(temperture);
+			if(Number.isNaN(input)){
+				return '';
+			}
+			var output = convert(input);
+			var result = Math.round(output * 1000) / 1000;
+			return result.toString();
+		}
+		class JudgeTemperture extends React.Component{
+			constructor(props){
+				super(props);
+				this.state = {
+					temperture: '',
+					scale: 'c'
+				}
+				this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+				this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
+			}
+			handleCelsiusChange(e){
+				this.setState({
+					scale: 'c',
+					temperture
+				});
+			}
+			handleFahrenheitChange(){
+				this.setState({
+					scale: 'f',
+					temperture
+				})
+			}
+			render(){
+				const temperture = this.state.temperture;
+				const scale = this.state.scale;
+				const celsius = scale === 'f' ? tryConvert(temperture, toCelsius) : temperture;
+				const fahrenheit = scale === 'c' ? tryConvert(temperture, toFahrenheit) : temperture;
+				return (
+					<fieldset>
+						<legend>输入一个 {scaleNames[scale]} 温度</legend>
+						<input value={temperture} onChange={this.handleChange} />
+						<WaterContent celsius={parseFloat(temperture)} />
+					</fieldset>
+				)
+			}
+		}
+
+
+		/**
+		 * 1. 实时显示当前时间
+		 * 2. 按钮切换
+		 * 3. 显示 list
+		 * 4. form submit
+		 * 5. more input submit
+		 * 6.
+		*/
+		function App(){
+			return (
+				<div>
+					<Clock />
+					<ButtonExchange />
+					<NumbersList numbers={numbers} />
+					<NameForm />
+					<Reservation />
+					<JudgeTemperture scale="c" />
+					<JudgeTemperture scale="f" />
+				</div>
+			)
+		}
+
+		ReactDOM.render(
+			// <Clock />,
+			<App />,
+			document.getElementById('example')
+		)
+	</script>
+</body>
+</html>
