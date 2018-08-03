@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		textarea{
+			width: 1000px;
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<button class="generate">生成密钥</button>
+	<br>
+	私钥:
+	<textarea name="" id="privateKey" cols="30" rows="10" readonly></textarea>
+	<br>
+	公钥:
+	<textarea name="" id="publicKey" cols="30" rows="10"></textarea>
+	<button class="upload_privateKey">下载私钥</button>
+
+
+
+	<p>使用本地私钥进行签名</p>
+	<input type="file" class="test_file" value="私钥">
+	<input type="text" class="test_text">
+	<button class="encript">签名</button>
+	<p>签名结果: <span class="result"></span></p>
+	<script src="./resources/jquery.js"></script>
+	<script src="./resources/jsencrypt.min.js"></script>
+	<script src="./resources/fileSave.js"></script>
+	<script>
+		$(document).ready(function(){
+			//生成密钥对
+			$('.generate').click(function(){
+				var crypt = new JSEncrypt(),
+					publicKey = crypt.getPublicKey(),
+					privateKey = crypt.getPrivateKey();
+				$('#privateKey').val(privateKey);
+				$('#publicKey').val(publicKey);
+			});
+			//保存私钥到本地
+			$('.upload_privateKey').click(function(){
+				var privateKey = $('#privateKey').val();
+				var blob = new Blob([privateKey], {type: "text/plain;charset=utf-8"});
+				saveAs(blob, "privateKey.pem");
+			});
+			$('.test_file').change(function(){
+				var text = $.trim($('.test_text').val());
+				var file = this.files[0];
+				var reader = new FileReader();
+				reader.readAsText(file);
+				reader.onload = function(e){
+					var result = e.target.result;
+					var crypt = new JSEncrypt();
+					crypt.setPrivateKey(result);
+					var output_text = crypt.encrypt(text);
+					if(output_text == 'false'){
+						alert('加密失败(可能为私钥文件出错)');
+						return;
+					}
+					$('.result').html(output_text);
+				}
+				$(this).val('');
+			});
+		});
+	</script>
+</body>
+</html>
