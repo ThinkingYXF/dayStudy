@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+
+	<script src="./resources/ecc.min.js"></script>
+	<script>
+		/*	github demo address*/
+		//	https://github.com/jpillora/eccjs
+
+
+		function encrypt(){
+			// Generate (or load) encryption/decryption keys
+			var keys = ecc.generate(ecc.ENC_DEC);
+			// => { dec: "192e35a51dc....", enc: "192037..." }
+			console.log(keys);
+			// A secret message
+			var plaintext = "hello world!";
+
+			// Encrypt message
+			var cipher = ecc.encrypt(keys.enc, plaintext);
+			// => {"iv":[1547037338,-736472389,324... }
+			console.log(cipher);
+			// Decrypt message
+			var result = ecc.decrypt(keys.dec, cipher);
+
+			console.log(result, plaintext === result);
+		}
+		encrypt();
+
+		function sign(){
+			// Generate (or load) sign/verify keys
+			var keys = ecc.generate(ecc.SIG_VER);
+			// => { sig: "192e35a51dc....", ver: "192037..." }
+			console.log(keys);
+			// An important message
+			var message = "hello world!";
+
+			// Create digital signature
+			var signature = ecc.sign(keys.sig, message);
+			console.log(signature);
+			// Verify matches the text
+			var result = ecc.verify(keys.ver, signature, message);
+
+			console.log(result); // => true
+		}
+		sign();
+	</script>
+</body>
+</html>
