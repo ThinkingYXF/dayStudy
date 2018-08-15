@@ -11,9 +11,8 @@
 
 	<script src="./resources/ecc.min.js"></script>
 	<script>
-		/*	github demo address*/
+		/*	github demo address 第一种方法*/
 		//	https://github.com/jpillora/eccjs
-
 
 		function encrypt(){
 			// Generate (or load) encryption/decryption keys
@@ -51,6 +50,22 @@
 			console.log(result); // => true
 		}
 		sign();
+
+
+		function dosomething(){
+			var keys = ecc.generate(ecc.ENC_DEC);
+			keys.dec = "y3nnoToqm0S/g3zX+9KUJ5ElPtSdGUQ33yX23vYXYnc=";
+			keys.enc = "BJvdrYXGsULopZRsHDqBnCXsOWkuhJ9ZjBaVSCXHqLW3BmUiQJbW2k7p8/ak0hVOiImk5pq7Cs3CQ0UTvsPX//g=";
+			var cipher = "RxcyhajXNB5ely/GdyhjhKSga/c5Z7EnOEKD3OzulNY=";
+			var result = ecc.decrypt(keys.dec, cipher);
+			console.log(result);
+		}
+		// dosomething();
+
+
+
+		/*github address 第二种方法*/
+		//https://github.com/EOSIO/eosjs-ecc
 	</script>
 </body>
 </html>
