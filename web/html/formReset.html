@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<form action="" id="myForm">
+		姓名：<input type="text" required name="user_name" id="myName">
+		年龄：<input type="number" name="user_age" id="myAge">
+		电话：<input type="text" name="user_phone" id="myPhone">
+		邮箱：<input type="email">
+		<button>提交</button>
+	</form>
+	<button id="reset">重置</button>
+</body>
+	<script>
+		var form = document.getElementById('myForm');
+		var btn = document.getElementById('reset');
+		btn.onclick = function(){
+			form.reset();
+		}
+	</script>
+</html>
