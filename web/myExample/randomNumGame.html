@@ -32,7 +32,8 @@
 				if(number > 100 || number < 0){
 					tip.innerHTML = '让你输入1-100的数，怎么不听话呢----';
 					return false;
-				}
+				}else if(number == '')
+					tip.innerHTML = '输点东西吧, 别这么懒';
 				else if(number > random)
 					tip.innerHTML = '大了!';
 				else if(number < random)
@@ -51,6 +52,8 @@
 				preNum.innerHTML = '';
 				document.getElementById('number').value = '';
 				tip.innerHTML = '';
+				button.removeAttribute('disabled');
+				document.getElementById('number').removeAttribute('disabled');
 			}
 		}
 	</script>

@@ -9,13 +9,25 @@
         body{
             margin: 0;
         }
+        .snakeContainer{
+            position: relative;
+            width: 631px;
+            height: 421px;
+            margin: 10px auto;
+        }
         #myUl{
             list-style: none;
-            margin: 0;
-            width: 800px;
+            width: 631px;
+            height: 420px;
             overflow: hidden;
             border-top: 1px solid #000;
             padding: 0;
+        }
+        .food {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background: #346eec;
         }
         .cell{
             float: left;
@@ -34,47 +46,216 @@
             height: 20px;
             position: absolute;
             background: #346eec;
-            border-right: 1px solid #346eec;
-            border-bottom: 1px solid #346eec;
+            /* border-right: 1px solid #346eec; */
+            /* border-bottom: 1px solid #346eec; */
             left: 0;
         }
         .snakeDiv .first{
             background: #0603b4;
         }
+        .startGame{
+            position: absolute;
+            left: -300px;
+            top: 120px;
+        }
+        .levelDiv{
+            position: absolute;
+            left: -300px;
+            top: 10px;
+        }
     </style>
 </head>
 <body>
-    <ul id="myUl"></ul>
-    <div class="snakeDiv">
-        <div class="snakeCell first"></div>
-        <div class="snakeCell"></div>
-        <div class="snakeCell"></div>
-        <div class="snakeCell"></div>
+    <div class="snakeContainer">
+        <button class="startGame">开始游戏</button>
+        <div class="levelDiv">
+            <p>等级选择</p>
+            <p>
+                简单<input type="radio" name="level" value="1" checked>
+                中级<input type="radio" name="level" value="2">
+                困难<input type="radio" name="level" value="3">
+                地狱<input type="radio" name="level" value="4">
+            </p>
+        </div>
+        <ul id="myUl"></ul>
+        <div class="snakeDiv"></div>
     </div>
-    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+            //难度
+            var level = 0;
+            var timeInterVal = 500;
+            //地图为  30 x 20
+            var mapDiv = $('.snakeDiv');
+            //方格子
             var li = $('<li />').addClass('cell');
-            for(i = 0; i < 988; i++){
+            for(i = 0; i < 1000; i++){
                 li.clone().appendTo($('#myUl'));
             }
-
-            var snakeMove = function(){
-                this.x = 0;
-                this.y = 0;
-
-                this.right = function(dom){
-                    $.each(dom,function(k,v){
-                        $(this).animate({'left':'+=21'},100);
-                        var that = this;
-                        setInterval(function(){
-                            $(that).animate({'left':'+=21'},500);
-                        },0)
-                    });
+            //定时器
+            var timer;
+            //随机出现的格子
+            var Food = function(){
+                //位置
+                this.location = {x: 0, y: 0};
+                //显示
+                this.display = function(){
+                    this.random();
+                    var foodDiv = $('<div />').addClass('food');
+                    foodDiv.css('left', this.location.x * 21 + 1);
+                    foodDiv.css('top', this.location.y * 21 + 1);
+                    $('.snakeContainer').append(foodDiv);
+                }
+                this.random = function(){
+                    var randomX = parseInt(Math.random()*29),
+                        randomY = parseInt(Math.random()*19);
+                    this.location.x = randomX;
+                    this.location.y = randomY;
+                    for(let i = 0; i < snake.cells.length; i++){
+                        if(snake.cells[i].x == this.location.x && snake.cells[i].y == this.location.y){
+                            this.random();
+                            break;
+                        }
+                    }
                 }
             }
-            var snake = new snakeMove();
-            snake.right($('.snakeCell'));
+            //蛇的构成与移动
+            var Snake = function(){
+                //x 范围 0-29  y范围0-19
+                //显示
+                this.display = function(){
+                    this.direction = 'right';
+                    this.cells = [
+                        {x: 2, y: 0},
+                        {x: 1, y: 0},
+                        {x: 0, y: 0}
+                    ];
+                    mapDiv.html('');
+                    //初始为3段
+                    for(let i = 0; i < this.cells.length; i++){
+                        var div = $('<div />').addClass('snakeCell');
+                        this.location(div, this.cells[i].x, this.cells[i].y)
+                        mapDiv.append(div);
+                    }
+                }
+                this.location = function(dom, x, y){
+                    dom.css('left', x * 21 + 1);
+                    dom.css('top', y * 21 + 1);
+                }
+                //移动
+                this.move = function(){
+                    //后一块跟随前一块移动
+                    for(let i = this.cells.length-1; i > 0; i--){
+                        this.cells[i].x = this.cells[i-1].x;
+                        this.cells[i].y = this.cells[i-1].y;
+                        this.location($('.snakeCell').eq(i), this.cells[i].x, this.cells[i].y);
+                    }
+                    //蛇头移动
+                    switch (this.direction){
+                        case 'right':
+                        this.cells[0].x++;
+                        break;
+                        case 'down':
+                        this.cells[0].y++;
+                        break;
+                        case 'left':
+                        this.cells[0].x--;
+                        break;
+                        case 'up':
+                        this.cells[0].y--;
+                        break;
+                    }
+                    this.location($('.snakeCell').eq(0), this.cells[0].x, this.cells[0].y);
+
+                    //吃掉方块
+                    if(this.cells[0].x === food.location.x && this.cells[0].y === food.location.y){
+                        this.cells.push({x: this.cells[0].x, y: this.cells[0].y});
+                        var newDiv = $('<div />').addClass('snakeCell');
+                        this.location(newDiv, this.cells[0].x, this.cells[0].y);
+                        mapDiv.append(newDiv);
+                        //删除之前随机格子
+                        $('.food').remove();
+                        //重新刷新格子
+                        food.display();
+                        //增加难度
+                        level+=5;
+                        return false;
+                    }
+
+                    //判断是否出界
+                    if(this.cells[0].x > 29 || this.cells[0].x < 0 ||
+                        this.cells[0].y < 0 || this.cells[0].y > 19){
+                        gameRestart();
+                        return false;
+                    }
+
+                    //撞到自己  当蛇身超过四个时才可能撞到自己
+                    if(this.cells.length > 4){
+                        for(let i = 1; i < this.cells.length; i++){
+                            if(this.cells[i].x === this.cells[0].x &&
+                            this.cells[i].y === this.cells[0].y){
+                                gameRestart();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            //重开游戏
+            function gameRestart(){
+                clearInterval(timer);
+                alert('游戏结束，将重新开始');
+                $('.food').remove();
+                snake.display();
+                food.display();
+                timeInterVal = 500;
+                level = 0;
+            }
+            //键盘操控
+            $(document).keydown(function(e){
+                switch (e.keyCode){
+                    //向左
+                    case 37:
+                    if(snake.direction != 'right')
+                        snake.direction = 'left';
+                    break;
+                    //向上
+                    case 38:
+                    if(snake.direction != 'down')
+                        snake.direction = 'up';
+                    break;
+                    //向右
+                    case 39:
+                    if(snake.direction != 'left')
+                        snake.direction = 'right';
+                    break;
+                    //向下
+                    case 40:
+                    if(snake.direction != 'up')
+                        snake.direction = 'down';
+                    break;
+                }
+            });
+            var snake = new Snake();
+            snake.display();
+            var food = new Food();
+            food.display();
+
+            $('.startGame').click(function(){
+                var level = $('input[name="level"]:checked').val();
+                if(level == 1)
+                    timeInterVal = 500;
+                else if(level ==2 )
+                    timeInterVal = 200;
+                else if(level == 3)
+                    timeInterVal = 100;
+                else
+                    timeInterVal = 50;
+                timer = setInterval(function(){
+                    snake.move();
+                }, timeInterVal - level);
+            });
         });
     </script>
 </body>

@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/another-module.js"],"names":["console","log","lodash__WEBPACK_IMPORTED_MODULE_0___default","a","join"],"mappings":"2HAEAA,QAAAC,IACAC,EAAAC,EAAAC,MAAA","file":"another.f11b33d879dd8e0c3714.js","sourcesContent":["import _ from 'lodash';\r\n\r\nconsole.log(\r\n\t_.join(['Another', 'Module', 'loaded!', ' '])\r\n);\r\n"],"sourceRoot":""}

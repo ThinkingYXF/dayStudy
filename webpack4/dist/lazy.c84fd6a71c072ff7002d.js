@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{aM86:function(n,e,t){"use strict";t.r(e);var a=t("LvDl"),d=t.n(a);document.body.appendChild(function(){var n=document.createElement("div"),e=document.createElement("button");return e.innerHTML="lazy-load",n.innerHTML=d.a.join(["This","is a","lazy module"]," "),n.appendChild(e),e.onclick=(n=>t.e(5).then(t.bind(null,"Yv/z")).then(n=>{(0,n.default)()})),n}())}},[["aM86",1,0]]]);
+//# sourceMappingURL=lazy.c84fd6a71c072ff7002d.js.map

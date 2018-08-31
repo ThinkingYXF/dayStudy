@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{"Yv/z":function(o,e,l){"use strict";l.r(e),console.log("The lazy module has loaded!"),e.default=(()=>{console.log("Button clicked!")})}}]);
+//# sourceMappingURL=5.a171570f63602a7f41c7.js.map
