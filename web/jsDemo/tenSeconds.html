@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>10秒游戏</title>
+</head>
+<body>
+	<h2>10秒游戏</h2>
+	<button id="start">开始</button>
+	<button id="stop">停止</button>
+	<p id="content">0.00</p>
+	<script>
+		var timer;						//定时器
+		var s,s1,s2						//s 代表秒，s1代表百毫秒，s2代表十毫秒
+		//开始游戏
+		document.getElementById('start').onclick = function(){
+			clearInterval(timer);
+			s = s1 = s2 = 0;
+			// var time = 0;
+			timer = setInterval(function(){
+				s2++;
+				if(s2 > 9){
+					s2 = 0;
+					s1++;
+					if(s1 > 9){
+						s1 = 0;
+						s++;
+					}
+				}
+				document.getElementById('content').innerHTML = s + '.' + s1 + s2;
+			},10);
+			//结束游戏
+			document.getElementById('stop').onclick = function(){
+				clearInterval(timer);
+				if(s == 10 && s1 == 0 && s2 == 0){
+					alert('恭喜你成功了！');
+				}
+			}
+		}
+	</script>
+</body>
+</html>

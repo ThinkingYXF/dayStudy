@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>质数</title>
+</head>
+<body>
+
+	<script>
+		//质数判断
+		function judgePrime(number){
+			var code = true;
+			for(let i=2;i<number;i++){
+				if(number % i == 0){
+					code = false;
+					break;
+				}
+			}
+			return code;
+		}
+		//质数  只能被1和本身整除的数
+		function getPrimeNum(maxNum){
+			var str = '2,';
+			for(let i = 1; i < maxNum; i++){
+				for(let j = 2; j < i; j++){
+					if(i % j == 0){
+						break;
+					}else if (j == i-1){
+						str += (i + ',')
+					}
+				}
+			}
+			console.log(str);
+		}
+		getPrimeNum(100);
+
+		//因式分解
+		function factorization(number){
+			var num1, num2;
+			for(let i = 2; i < number; i++){
+				if(number % i == 0){
+					num1 = i;
+					num2 = number / i;
+					break;
+				}
+			}
+			console.log(number + "因式分解为: " + num1 + '*' + num2);
+		}
+		factorization(9998000099);
+	</script>
+</body>
+</html>

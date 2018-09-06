@@ -24,7 +24,7 @@
 		<p><button ng-click="btnClick()">按钮</button></p>
 		<p>
 			过滤器
-			<input type="text" ng-modal="filterText">
+			<input type="text" ng-model="filterText">
 			<ul>
 				<li ng-repeat="i in items | myFilter:filterText">{{i}}</li>
 			</ul>
@@ -51,8 +51,10 @@
 				if(!text)
 					return items;
 				var arr = [];
+				text = text.toLowerCase();
 				for(var i = 0; i < items.length; i++){
-					if(items[i].indexOf(text) != -1){
+					var lowerItems = items[i].toLowerCase();
+					if(lowerItems.indexOf(text) != -1){
 						arr.push(items[i]);
 					}
 				}

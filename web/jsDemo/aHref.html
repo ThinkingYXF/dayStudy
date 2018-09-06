@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		ul{
+			position: fixed;
+			left: 400px;
+		}
+		p{
+			height: 400px;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><a href="#one" class="scroll">one</a></li>
+		<li><a href="#two" class="scroll">two</a></li>
+		<li><a href="#three" class="scroll">three</a></li>
+	</ul>
+	<div id="one">第一步</div>
+	<p>哈哈哈啊哈</p>
+	<div id="two">第二步</div>
+	<p>将会减少跨行金钱和未婚妻危机恶化</p>
+	<div id="three">第三步</div>
+	<p>ahd1</p>
+	<p></p>
+	<p></p>
+</body>
+<script src="../js/lib/jquery-1.11.1.js"></script>
+<script>
+	$(".scroll").click(function(event){
+		event.preventDefault();
+		$('html,body').animate({
+			scrollTop:$(this.hash).offset().top
+		},500);
+	});
+</script>
+</html>
