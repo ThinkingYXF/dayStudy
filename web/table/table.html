@@ -6,6 +6,11 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.css">
 	<title>Document</title>
+	<style>
+		th, td {
+			white-space: nowrap;
+		}
+	</style>
 </head>
 <body>
 	<script src="../js/lib/jquery-1.11.1.js"></script>
@@ -26,7 +31,7 @@
 				"quantity": 10
 				},{
 					"product": {
-						"code": "<script>alert('a')/script>ABC1001",
+						"code": "ABC1001",
 						"name": "后挡风镜",
 						"parts": {
 							"code": "ABC1001",
@@ -90,6 +95,12 @@
 			},{
 				title: '数量',
 				data: 'quantity'
+			},{
+				title: '阿卡丽had',
+				data: ''
+			},{
+				title: '阿萨德回家啊',
+				data: ''
 			}];
 			$('<table />').prop('id','myTable').appendTo($('body'));
 			var table = $('#myTable').addClass('table able-bordered table-striped').css('width','100%').DataTable({

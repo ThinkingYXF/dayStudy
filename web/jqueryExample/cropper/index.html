@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./cropper.css">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 400px;
+        }
+        .myImg{
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="./picture.jpg" alt="" class="myImg" data-img2blob="./picture.jpg">
+    </div>
+    <button class="crop">裁剪</button>
+    <button class="getCrop">获取</button>
+    <button class="watermark">水印</button>
+    <button class="remark">备注</button>
+    <button class="zoom" data-zoom="0.8">缩小</button>
+    <button class="zoom" data-zoom="1.2">放大</button>
+    <button class="rotate" data-rotate="90">顺时针旋转</button>
+    <button class="rotate" data-rotate="-90">逆时针旋转</button>
+    <button class="reset">重置</button>
+    <div class="canvas">
+
+    </div>
+
+    <script src="../../js/lib/jquery-1.11.1.js"></script>
+    <!-- 裁剪 -->
+    <script src="./cropper.js"></script>
+    <!-- 水印 -->
+    <script src="../watermark/img2blob.js"></script>
+    <script>
+        var $image = $('.myImg');
+        
+        //裁剪
+        $('.crop').click(function(){
+            var width = $image.width(),
+                height = $image.height();
+            $image.cropper({
+                aspectRatio: width/height ,
+                // aspectRatio: NaN,
+                crop: function(e){
+                    // console.log(e);
+                }
+            });
+        });
+        //获取裁剪后图片
+        $('.getCrop').click(function(e){
+            e.stopPropagation();
+            var imgurl = $image.cropper("getCroppedCanvas");
+            $('.canvas').html(imgurl);
+            imgurl = imgurl.toDataURL();    //图片base64路径
+            
+        });
+        //旋转
+        $('.rotate').click(function(e){
+            e.stopPropagation();
+            var rotate = $(this).attr('data-rotate');
+            $image.cropper('rotate', rotate);
+        });
+        //添加水印
+        $('.watermark').click(function(){
+            $(".myImg").img2blob({
+                watermark: '@bachors',      //文字
+                fontStyle: 'Arial',         //字体样式
+                fontSize: '30',             // px
+                fontColor: '#333', // default 'black'
+                fontX: 50, // The x coordinate where to start painting the text
+                fontY: 50 // The y coordinate where to start painting the text
+            });
+        });
+        //缩放
+        $('.zoom').click(function(){
+            var img = $('.myImg');
+            var width = img.width(),
+                height = img.height();
+            var zoom = $(this).attr('data-zoom');
+            img.width(width * zoom);
+            img.height(height * zoom);
+        });
+        //重置
+        $('.reset').click(function(){
+            $image.cropper("destroy");
+        });
+    </script>
+</body>
+</html>

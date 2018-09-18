@@ -32,7 +32,7 @@
 			height: 100%;
 			background: #eee;
 		}
-		@media (max-height: 800px) {
+		@media (max-height: 600px) {
 			.wechat_wrapper{
 				margin-top: 0;
 			}
@@ -97,5 +97,20 @@
 
 		</div>
 	</div>
+
+	<script>
+		function suitWindow(){
+			var windowHeight = window.innerHeight;
+			var wrapperHeight = document.getElementsByClassName('wechat_wrapper')[0].offsetHeight;
+			if(windowHeight > wrapperHeight){
+				var marginTop = parseInt((windowHeight - wrapperHeight) / 2) + 'px';
+				document.getElementsByClassName('wechat_wrapper')[0].style.marginTop = marginTop;
+			}
+		}
+		suitWindow();
+		window.onresize = function(){
+			suitWindow();
+		}
+	</script>
 </body>
 </html>
