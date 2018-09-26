@@ -4,61 +4,265 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../js/plugins/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./cropper.css">
     <title>Document</title>
     <style>
+        p, h1,h2,h3,h4,h5,body, html{
+            margin: 0;
+            padding: 0;
+        }
         .container{
-            width: 400px;
+            /* width: 400px; */
+            float: left;
         }
         .myImg{
-            width: 400px;
+            /* width: 400px; */
+        }
+        .cropperTool{
+            float: left;
+            margin-left: 50px;
+            width: 240px;
+            background: #ddd;
+            display: none;
+            font-size: 13px;
+        }
+        .cropperSize{
+            height: 100px;
+            background: #ccc;
+            padding: 10px 20px;
+        }
+        .cropperSize h4, .cropperProportion h4{
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+        .cropperSize p{
+            margin: 10px 0;
+        }
+        .cropperSize p input{
+            width: 60px;
+            padding: 2px 4px;
+        }
+        .cropperSize button{
+            display: block;
+            margin: 0 auto;
+            padding: 5px 20px;
+            color: #fff;
+            background: #0099cc;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .proporContainer{
+            float: left;
+            padding: 10px 10px 5px 10px;
+            margin-left: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .choosed{
+            border: 1px solid #0099cc;
+            color: #0099cc;
+        }
+        .proporContainer > span{
+            display: block;
+            text-align: center;
+        }
+        .cropperProportion{
+            padding: 10px 20px;
+        }
+        .proportion{
+            overflow: hidden;
+        }
+        .propor{
+            width: 50px;
+            height: 50px;   
+            background: #888;
+            border: 1px solid #888;
+        }
+        .btn{
+            padding: 6px 12px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .btn-default{
+            color: #333;
+            background-color: #fff;
+            border-color: #ccc;
+        }
+        .btn-group{
+            margin: 20px 0 30px 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="./picture.jpg" alt="" class="myImg" data-img2blob="./picture.jpg">
+        <img src="./picture.jpg" alt="" class="myImg">
     </div>
-    <button class="crop">裁剪</button>
+    <div class="cropperTool">
+        <div class="cropperSize">
+            <h4>修改尺寸</h4>
+            <p>
+                <input type="text" class="cropperWidth"> 宽 &nbsp;
+                <input type="text" class="cropperHeight"> 高
+            </p>
+            <button class="sureSize">确定</button>
+        </div>
+        <div class="cropperProportion">
+            <h4>比例</h4>
+            <div class="proportion">
+                <div class="proporContainer" data-size="NaN">
+                    <div class="propor" style="background: #ddd; border: 1px dashed #333"></div>
+                    <span>自定义</span>
+                </div>
+                <div class="proporContainer" data-size="1">
+                    <div class="propor"></div>
+                    <span>正方形</span>
+                </div>
+                <div class="proporContainer" data-size="1.3333">
+                    <div class="propor"></div>
+                    <span>4:3</span>
+                </div>
+                <div class="proporContainer" data-size="1.7777">
+                    <div class="propor"></div>
+                    <span>16:9</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="btn-group">
+        <a href="#" class="btn btn-default crop" title="裁剪">
+            <i class="fa fa-crop"></i>
+        </a>
+        <a href="#" class="btn btn-default getCrop">
+            <i class="fa fa-check"></i>
+        </a>
+        <a href="#" class="btn btn-default watermark1">
+            <i class="fa fa-tint"></i>
+        </a>
+        <a href="#" class="btn btn-default zoom" data-zoom="0.8">
+            <i class="fa fa-search-minus"></i>
+        </a>
+        <a href="#" class="btn btn-default zoom" data-zoom="1.2">
+            <i class="fa fa-search-plus"></i>
+        </a>
+        <a href="#" class="btn btn-default rotate" data-rotate="90">
+            <i class="fa fa-repeat"></i>
+        </a>
+        <a href="#" class="btn btn-default rotate" data-rotate="-90">
+            <i class="fa fa-undo"></i>
+        </a>
+        <a href="#" class="btn btn-default reset">
+            <i class="fa fa-refresh"></i>
+        </a>
+    </div>
+    <!-- <button class="crop">裁剪</button>
     <button class="getCrop">获取</button>
     <button class="watermark">水印</button>
+    <button class="watermark1">水印1</button>
     <button class="remark">备注</button>
     <button class="zoom" data-zoom="0.8">缩小</button>
     <button class="zoom" data-zoom="1.2">放大</button>
     <button class="rotate" data-rotate="90">顺时针旋转</button>
     <button class="rotate" data-rotate="-90">逆时针旋转</button>
-    <button class="reset">重置</button>
+    <button class="reset">重置</button> -->
     <div class="canvas">
-
+        位置： 
+        <select name="" id="location">
+            <option value="upperLeft">左上角</option>
+            <option value="lowerLeft">左下角</option>
+            <option value="upperRight">右上角</option>
+            <option value="lowerRight">右下角</option>
+        </select>
     </div>
+    <input type="file" accept="image/*" id="upload_file">
 
     <script src="../../js/lib/jquery-1.11.1.js"></script>
     <!-- 裁剪 -->
     <script src="./cropper.js"></script>
     <!-- 水印 -->
     <script src="../watermark/img2blob.js"></script>
+    <script src="../watermark/watermark.js"></script>
     <script>
-        var $image = $('.myImg');
-        
-        //裁剪
-        $('.crop').click(function(){
+
+        $(function(){
             var width = $image.width(),
                 height = $image.height();
+        })
+
+        var $image = $('.myImg');
+
+        $('.proporContainer').click(function(){
+            $('.proporContainer').removeClass('choosed');
+            $(this).addClass('choosed');
+            var ratio = $(this).data('size');
+            $image.cropper('destroy');
             $image.cropper({
-                aspectRatio: width/height ,
+                aspectRatio: parseFloat(ratio) ,
                 // aspectRatio: NaN,
                 crop: function(e){
-                    // console.log(e);
+                    refreshCrop();
                 }
             });
         });
+        
+        //裁剪
+        $('.crop').click(function(){
+            $('.cropperTool').show();
+            var width = $image.width(),
+                height = $image.height();
+            $image.cropper({
+                // aspectRatio: 1/1 ,
+                // aspectRatio: NaN,
+                crop: function(e){
+                    refreshCrop();
+                }
+            });
+            refreshCrop();
+            
+            //
+            $('.sureSize').unbind().click(function(){
+                if($('.cropper-container').length == 0){
+                    alert('未在裁剪状态下');
+                    return false;
+                }
+                var width = $('.cropperWidth').val();
+                var height = $('.cropperHeight').val();
+                var data = $image.cropper('getData');
+                data['width'] = parseInt(width);
+                data['height'] = parseInt(height);
+                $image.cropper('setData',data);
+                // $('.cropper-face.cropper-move').width(width);
+                // $('.cropper-face.cropper-move').height(height);
+            })
+        });
+        function refreshCrop(){
+            var width = $('.cropper-face.cropper-move').width();
+            var height = $('.cropper-face.cropper-move').height();
+            $('.cropperWidth').val(width);
+            $('.cropperHeight').val(height);
+        }
         //获取裁剪后图片
         $('.getCrop').click(function(e){
             e.stopPropagation();
-            var imgurl = $image.cropper("getCroppedCanvas");
-            $('.canvas').html(imgurl);
-            imgurl = imgurl.toDataURL();    //图片base64路径
-            
+            if($('.cropper-container').length == 0){
+                return false;
+            }
+            var url = $image.cropper('getImage');
+            var canvas = $image.cropper('getCroppedCanvas', {width: 550});
+            var imgurl = canvas.toDataURL();
+            // $('.canvas').html(imgurl);
+            // imgurl = imgurl.toDataURL();    //图片base64路径
+            $image.prop('src', imgurl);
+            $image.data('img2blob', imgurl);
+            $image.cropper('destroy');
         });
         //旋转
         $('.rotate').click(function(e){
@@ -68,6 +272,10 @@
         });
         //添加水印
         $('.watermark').click(function(){
+            if($('.cropper-container').length != 0){
+                alert('请裁剪结束后再添加水印');
+                return false;
+            }
             $(".myImg").img2blob({
                 watermark: '@bachors',      //文字
                 fontStyle: 'Arial',         //字体样式
@@ -89,6 +297,79 @@
         //重置
         $('.reset').click(function(){
             $image.cropper("destroy");
+        });
+        
+        var originImg = $image.prop('src'),
+            originImgWidth = $image.width(),
+            originImgHeight = $image.height();
+        $('.watermark1').click(function(){
+            var action = null;
+            $.each(watermark.text, function(k, v){
+                if(k == 'lowerLeft'){
+                    action = v;
+                }
+            });
+
+            var location = $('#location').val();
+            var locationY = null;
+            if(location.indexOf('upper') != -1){
+                locationY = 50;
+            }
+            action = watermark.text[location];
+            // var locationX, locationY;
+            // switch (location){
+            //     case 'upperLeft':
+            //     locationX = originImgWidth / 20;
+            //     locationY = originImgHeight / 10;
+            //     break;
+            //     case 'upperRight':
+            //     locationX = originImgWidth - originImgWidth / 10;
+            //     locationY = originImgHeight / 20;
+            //     break;
+            //     case 'lowerLeft':
+            //     locationX = originImgWidth / 20;
+            //     locationY = originImgHeight - originImgHeight / 10;
+            //     break;
+            //     case 'lowerRight':
+            //     locationX = originImgWidth - originImgWidth / 10;
+            //     locationY = originImgHeight - originImgHeight / 10;
+            //     break;
+            //     default:
+            //     break;
+            // }
+
+
+            var x = function(){
+                return locationX;
+            }
+            var y = function(){
+                return locationY;
+            }
+            watermark([originImg])
+            // .image(watermark.text.atPos(x, y,'watermark.js', '50px Josefin Slab', '#000', 0.5))
+            .dataUrl(action('watermark.js', '50px Josefin Slab', '#000', 0.5, locationY))
+            .then(function (img) {
+                // document.getElementById('lower-right').appendChild(img);
+                // img.width = 400;
+                // $('body').append(img);
+                $image.prop('src', img);
+            });
+        });
+        
+
+        //图片水印
+        $('#upload_file').change(function(e){
+            var file = e.target.files[0];
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            var location = $('#location').val();
+            var action = watermark.image[location];
+            fileReader.onload = function(ev){
+                var result = ev.target.result;
+                watermark([originImg, result]).dataUrl(action(0.5)).then(function(img){
+                    $image.prop('src', img);
+                });
+            }
         });
     </script>
 </body>

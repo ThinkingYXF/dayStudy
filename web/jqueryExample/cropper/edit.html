@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="width" class="width">
+    <input type="text" placeholder="height" class="height">
+    <input type="file" class="upload" accept="image/*">
+    <canvas id="canvas" style="display: none"></canvas>
+    <script src="../../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $('.upload').on('change', function(e){
+            var width = $('.width').val(),
+                height = $('.height').val();
+            var reader = new FileReader();
+            var file = e.target.files[0];
+            reader.readAsDataURL(file);
+            reader.onload = function(ev){
+                var picUrl = ev.target.result;
+                var canvas = document.getElementById('canvas');
+                var ctx = canvas.getContext('2d');
+            
+                var img = new Image();
+                img.src = picUrl;//图片url
+                img.onload = function(){
+                    var imageWidth = img.width,
+                        imageHeight = img.height;
+                        if(width)
+                            height = parseInt(width) * (imageHeight/imageWidth);
+                        else if(height)
+                            width = parseInt(height) * (imageWidth/imageHeight);
+                        else{
+                            width = img.width;
+                            height = img.height;
+                        }
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    var url = canvas.toDataURL();
+                    var image = new Image();
+                    image.src = url;
+                    $('body').append(image);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

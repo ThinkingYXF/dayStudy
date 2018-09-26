@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./cropper.css">
+    <title>Document</title>
+    <style>
+        .cropperTool{
+            float: left;
+            margin-left: 50px;
+            width: 240px;
+            background: #ddd;
+            display: none;
+            font-size: 13px;
+        }
+        .cropperSize{
+            height: 100px;
+            background: #ccc;
+            padding: 10px 20px;
+        }
+        .cropperSize h4, .cropperProportion h4{
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+        .cropperSize p{
+            margin: 10px 0;
+        }
+        .cropperSize p input{
+            width: 60px;
+            padding: 2px 4px;
+        }
+        .cropperSize button{
+            display: block;
+            margin: 0 auto;
+            padding: 5px 20px;
+            color: #fff;
+            background: #0099cc;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .proporContainer{
+            float: left;
+            padding: 10px 10px 5px 10px;
+            margin-left: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .choosed{
+            border: 1px solid #0099cc;
+            color: #0099cc;
+        }
+        .proporContainer > span{
+            display: block;
+            text-align: center;
+        }
+        .cropperProportion{
+            padding: 10px 20px;
+        }
+        .proportion{
+            overflow: hidden;
+        }
+        .propor{
+            width: 50px;
+            height: 50px;   
+            background: #888;
+            border: 1px solid #888;
+        }
+    </style>
+</head>
+<body>
+    <img src="./picture.jpg" alt="" class="demoImg">
+    <div class="cropperTool">
+        <div class="cropperSize">
+            <h4>修改尺寸</h4>
+            <p>
+                <input type="text" class="cropperWidth"> 宽 &nbsp;
+                <input type="text" class="cropperHeight"> 高
+            </p>
+            <button class="resetSize">重置</button>
+        </div>
+        <div class="cropperProportion">
+            <h4>比例</h4>
+            <div class="proportion">
+                <div class="proporContainer" data-size="NaN">
+                    <div class="propor" style="background: #ddd; border: 1px dashed #333"></div>
+                    <span>自定义</span>
+                </div>
+                <div class="proporContainer" data-size="1">
+                    <div class="propor"></div>
+                    <span>正方形</span>
+                </div>
+                <div class="proporContainer" data-size="1.3333">
+                    <div class="propor"></div>
+                    <span>4:3</span>
+                </div>
+                <div class="proporContainer" data-size="1.7777">
+                    <div class="propor"></div>
+                    <span>16:9</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/lib/jquery-1.11.1.js"></script>
+    <script src="./cropper.js"></script>
+    <script>
+        var image = $('.demoImg');
+        function cropperTool(ImgElement){
+            $('.cropperTool').show();
+            $(ImgElement).cropper({
+                crop: refreshCrop
+            });
+            
+            //更改宽
+            $('.cropperWidth').on('change', function(){
+                if($('.cropper-container').length == 0){
+                    alert('未在裁剪状态下');
+                    return false;
+                }
+                var width = $('.cropperWidth').val();
+                var data = $(ImgElement).cropper('getData');
+                data['width'] = parseInt(width);
+                $(ImgElement).cropper('setData', data);
+            });
+            //更改高
+            $('.cropperHeight').on('change', function(){
+                if($('.cropper-container').length == 0){
+                    alert('未在裁剪状态下');
+                    return false;
+                }
+                var height = $('.cropperHeight').val();
+                var data = $(ImgElement).cropper('getData');
+                data['height'] = parseInt(height);
+                $(ImgElement).cropper('setData', data);
+            });
+
+            //重置裁剪宽高
+            $('.resetSize').unbind().click(function(){
+                if($('.cropper-container').length == 0){
+                    alert('未在裁剪状态下');
+                    return false;
+                }
+                $(ImgElement).cropper('destroy');
+                $(ImgElement).cropper({crop: refreshCrop});
+            });
+            
+            //选择尺寸
+            $('.proporContainer').unbind().click(function(){
+                $('.proporContainer').removeClass('choosed');
+                $(this).addClass('choosed');
+                var ratio = $(this).data('size');
+                $(ImgElement).cropper('destroy');
+                $(ImgElement).cropper({
+                    aspectRatio: parseFloat(ratio) ,
+                    crop: refreshCrop
+                });
+            });
+
+            //实时显示宽高
+            function refreshCrop(){
+                var width = $('.cropper-face.cropper-move').width();
+                var height = $('.cropper-face.cropper-move').height();
+                $('.cropperWidth').val(width);
+                $('.cropperHeight').val(height);
+            }
+        }
+        cropperTool(image);
+    </script>
+</body>
+</html>
