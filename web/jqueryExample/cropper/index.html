@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <link rel="stylesheet" href="../../js/plugins/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./cropper.css">
     <title>Document</title>
@@ -103,7 +104,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="./picture.jpg" alt="" class="myImg">
+        <!-- <img src="./picture.jpg" alt="" class="myImg"> -->
     </div>
     <div class="cropperTool">
         <div class="cropperSize">
@@ -196,8 +197,14 @@
             var width = $image.width(),
                 height = $image.height();
         })
-
-        var $image = $('.myImg');
+        var img = new Image();
+        img.crossOrigin = "Anonymous";
+        // img.crossOrigin = "*";
+        // img.src = './picture.jpg';
+        img.src = 'http://47.93.232.133/resources/banner1.jpeg';
+        console.log(img);
+        $('.container').append(img);
+        var $image = $(img);
 
         $('.proporContainer').click(function(){
             $('.proporContainer').removeClass('choosed');

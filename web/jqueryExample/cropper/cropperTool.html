@@ -146,10 +146,14 @@
                 }
                 $(ImgElement).cropper('destroy');
                 $(ImgElement).cropper({crop: refreshCrop});
+                $('.proporContainer').removeClass('choosed');
             });
             
             //选择尺寸
             $('.proporContainer').unbind().click(function(){
+                if($(this).hasClass('choosed')){
+                    return false;
+                }
                 $('.proporContainer').removeClass('choosed');
                 $(this).addClass('choosed');
                 var ratio = $(this).data('size');

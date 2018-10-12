@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button class="btn">aa</button>
+    <button class="btn1">hello1</button>
+    <button class="btn2">hello2</button>
+    <button class="btn3">hello3</button>
+
+
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $('.btn').click(function(){
+            $('body').unbind().on('click', '.btn1', function(){
+                console.log(11);
+            });
+            $('body').on('click', '.btn2', function(){
+                console.log(22);
+            });
+            $('body').on('click', '.btn3', function(){
+                console.log(33);
+            });
+        })
+        
+    </script>
+</body>
+</html>

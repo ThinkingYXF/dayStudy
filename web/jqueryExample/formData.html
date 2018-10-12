@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #myImg{
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <form action="" id="myForm">
+        <input type="file">
+        <input type="submit" value="提交">
+    </form>
+    <input type="file" class="uploadFile">
+    <img src="./cropper/picture.jpg" alt="" id="myImg">
+    <canvas id="canvas"></canvas>
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(function(){
+            $('.uploadFile').on('change', function(e){
+                var file = e.target.files[0];
+                console.log(file);
+                // return false;
+                var formData = new FormData();
+                formData.append('file', file);
+                formData.append('fileName', "asdad.mp3");
+                formData.append('fileType', "mp3");
+                $.ajax({
+                    url: 'heeqa',
+                    method: 'post',
+                    data: formData,
+                    processData: false,
+                    contentType: 'application/x-www-form-urlencoded',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(data){
+                        console.log(data);
+                    }
+                });
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST",'asda', true);
+                xhr.send(formData);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        console.log(xhr);
+                    }
+                }
+            })
+            
+            var canvas = document.getElementById('canvas');
+            var img = document.getElementById('myImg');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx  = canvas.getContext('2d');
+            ctx.drawImage(img,0,0,canvas.width, canvas.height);
+            canvas.toBlob(function(blob){
+                console.log(blob);
+            });
+
+            var imgSrc = $('#myImg').prop('src');
+            var imgName = imgSrc.replace(/^.*[\\\/]/, '');
+            console.log(imgName);
+
+            var url = canvas.toDataURL();
+            var result = dataURLtoFile(url, 'hello.jpg');
+            console.log(result);
+            function dataURLtoFile(dataurl, filename) {
+                var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+                while(n--){
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                return new File([u8arr], filename, {type:mime});
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<style>
+    body, html, ul, p, h1, h2, h3, h4, h5{
+        margin: 0;
+        padding: 0;
+    }
+    .watermarkTool{
+        padding: 20px;
+    }
+    ul{
+        list-style: none;
+        overflow: hidden;
+    }
+    ul li{
+        float: left;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    .markcontent{
+        display: none;
+        padding: 5px 10px;
+    }
+    .choosed{
+        display: block;
+    }
+    .markGroup{
+        padding: 5px 0;
+    }
+    .markGroup input, .markGroup select {
+        width: 150px;
+        padding: 5px;
+    }
+    .markGroup label{
+        margin-right: 10px;
+    }
+</style>
+<div class="watermarkTool">
+    <ul>
+        <li data-name="textmark">添加文字水印</li>
+        <li data-name="imgmark">添加图片水印</li>
+        <li data-name="markswitch">水印开关</li>
+    </ul>
+
+    <div class="markcontent textmark choosed">
+        <p class="markGroup">
+            <label for="">水印文字:</label>
+            <input type="text">
+        </p>
+        <p class="markGroup">
+            <label for="">&emsp;&emsp;字体:</label>
+            <select name="" id="fontFamily">
+                <option value="">宋体</option>
+                <option value="">楷体</option>
+                <option value="">微软雅黑</option>
+            </select>
+        </p>
+        <p class="markGroup">
+            <label for="">&emsp;&emsp;字号:</label>
+            <select name="" id="fontSize"></select>
+        </p>
+        <p class="markGroup">
+            <label for="">&emsp;透明度:</label>
+
+        </p>
+        <p class="markGroup">
+            <label for="">&emsp;&emsp;样式:</label>
+            <button class="blod">B</button>
+            <button class="italic">I</button>
+            <button class="underline">U</button>
+        </p>
+        <p class="markGroup">
+            <label for="">&emsp;&emsp;颜色:</label>
+            <input type="color">
+        </p>
+        <p class="markGroup">
+            <label for="">&emsp;基准点:</label>
+            
+        </p>
+    </div>
+    <div class="markcontent imgmark">
+        图片水印
+    </div>
+    <div class="markcontent markswitch">
+        水印开关
+    </div>
+</div>
+
+
+<script src="../../js/lib/jquery-1.11.1.js"></script>
+<script>
+    $('ul li').click(function(){
+        var name = $(this).data('name');
+        $('.markcontent').removeClass('choosed');
+        $('.' + name).addClass('choosed');
+    });
+    //字号
+    for(let i = 12; i < 70; i++){
+        var option = $('<option />').val(i + 'px').text(i);
+        $('#fontSize').append(option);
+    }
+</script>

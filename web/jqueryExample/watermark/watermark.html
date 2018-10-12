@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <title>Document</title>
     <style>
         .container{
@@ -28,7 +28,7 @@
 </head>
 <body>
     <div class="container ui-widget-content">
-        <img src="../cropper/picture.jpg" alt="" class="originImg">
+        <img src="" alt="" class="originImg">
     </div>
     添加水印照片<input type="file" class="upload">
     <input type="text" placeholder="width" class="width">
@@ -39,58 +39,61 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="./watermark.js"></script>
     <script>
-        var naturalWidth,naturalHeight;
-        $('.originImg').load(function(e){
-            naturalWidth = e.target.naturalWidth;
-            naturalHeight = e.target.naturalHeight;
-        })
-        $('.upload').on('change', function(e){
-            var originImg = $('.originImg').prop('src');
-            var file = e.target.files[0];
-            var fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-            var location = 'upperLeft';
-            var action = watermark.image[location];
-            fileReader.onload = function(ev){
-                var result = ev.target.result;
-                var image = new Image();
-                image.className = 'watermarkImg';
-                image.src = result;
-                if($('.width').val())
-                    image.width = $('.width').val();
-                if($('.height').val())
-                    image.height = $('.height').val();
-                image.onload = function(){
-                    if(naturalWidth > 400){
-                        image.width = image.width * (400 / naturalWidth);
-                    }else if(naturalHeight > 225){
-                        image.height = image.height * (225 / naturalHeight);
+        $(function(){
+            var naturalWidth,naturalHeight;
+            $('.originImg').prop('src', '../cropper/picture.jpg');
+            $('.originImg').load(function(e){
+                naturalWidth = e.target.naturalWidth;
+                naturalHeight = e.target.naturalHeight;
+            })
+            $('.upload').on('change', function(e){
+                var originImg = $('.originImg').prop('src');
+                var file = e.target.files[0];
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                var location = 'upperLeft';
+                var action = watermark.image[location];
+                fileReader.onload = function(ev){
+                    var result = ev.target.result;
+                    var image = new Image();
+                    image.className = 'watermarkImg';
+                    image.src = result;
+                    if($('.width').val())
+                        image.width = $('.width').val();
+                    if($('.height').val())
+                        image.height = $('.height').val();
+                    image.onload = function(){
+                        if(naturalWidth > 400){
+                            image.width = image.width * (400 / naturalWidth);
+                        }else if(naturalHeight > 225){
+                            image.height = image.height * (225 / naturalHeight);
+                        }
                     }
+
                     $('.container').append(image);
-                }
+                    $('.watermarkImg').draggable({ containment: ".container", scroll: false });
 
-                $('.watermarkImg').draggable({ containment: ".container", scroll: false });
-
-                $('.watermark').unbind().click(function(){
-                    var x = function(){
-                        var x = $(image).css('left');
-                        x = x.substr(0, x.indexOf('px'));
-                        x = parseInt(x) * (naturalWidth / 400);
-                        return x;
-                    }
-                    var y = function(){
-                        var y = $(image).css('top');
-                        y = y.substr(0, y.indexOf('px'));
-                        y = parseInt(y) * (naturalHeight / 225);
-                        return y;
-                    }
-                    watermark([originImg, result]).dataUrl(watermark.image.atPos(x, y, 0.5)).then(function(img){
-                        $('.watermarkImg').remove();
-                        $('.originImg').prop('src', img);
+                    $('.watermark').unbind().click(function(){
+                        var x = function(){
+                            var x = $(image).css('left');
+                            x = x.substr(0, x.indexOf('px'));
+                            x = parseInt(x) * (naturalWidth / 400);
+                            return x;
+                        }
+                        var y = function(){
+                            var y = $(image).css('top');
+                            y = y.substr(0, y.indexOf('px'));
+                            y = parseInt(y) * (naturalHeight / 225);
+                            return y;
+                        }
+                        watermark([originImg, result]).dataUrl(watermark.image.atPos(x, y, 0.5)).then(function(img){
+                            $('.watermarkImg').remove();
+                            $('.originImg').prop('src', img);
+                        });
                     });
-                });
-            }
-        });
+                }
+            });
+            });
     </script>
 </body>
 </html>

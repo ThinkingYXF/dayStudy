@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #myCanvas{
+            display: none;
+        }
+        .myInput{
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <input type="text" class="myInput">
+    <button class="btn">开始</button>
+    <div>
+        <img src="" alt="" class="img">
+    </div>
+    <script src="../../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        /**
+         * 文字转为图片
+         * 参数 textOptions 包括 text(必填),fontSize,fontWeight,fontFamily,color
+         */
+        function textToImg(textOptions){
+            var text = textOptions.text;
+            var len = text.length;
+            var canvas = document.createElement('canvas');
+            canvas.style.display = 'none';
+            var fontSize = textOptions.fontSize;
+            var fontWeight = textOptions.fontWeight || 'normal';
+            var color = textOptions.color || '#000000';
+            var fontFamily = textOptions.fontFamily || 'sans-serif';
+            
+            var span = $('<span />').text(text).hide().appendTo($('body'));
+            canvas.width = span.width();
+            canvas.height = span.height();
+            span.remove();
+
+            // canvas.width = fontSize * len;
+            // canvas.height = fontSize * (3/2) * (Math.ceil(text.length / len) + text.split('\n').length-1);
+            var context = canvas.getContext('2d');
+            context.clearRect(0,0,canvas.width, canvas.height);
+            context.fillStyle = color;
+            context.font = fontWeight + ' ' + fontSize + 'px ' + fontFamily;
+            context.textBaseline = 'top';
+
+
+            context.fillText(text, 0, 0, canvas.width);
+            var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            var url = canvas.toDataURL();
+            return url;
+        }
+        $('.btn').click(function(){
+            var text = $('.myInput').val();
+            var len = text.length;
+            var canvas = document.getElementById('myCanvas');
+            var fontSize = 14;
+            var fontWeight = 'normal';
+            var color = '#ff0000';
+            
+            var obj = {
+                text: text,
+                fontSize: fontSize,
+                fontWeight: fontWeight,
+                // fontFamily: '',
+                color: color
+            }
+            var url = textToImg(obj)
+            $('.img').prop('src', url);
+        })
+
+        var date = new Date();
+        var year = date.getFullYear() + 900;
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var result = year + '-' + month + '-' + day + ' 00:00:00';
+        var timestamp = +new Date(result);
+        console.log(timestamp);
+
+
+    </script>
+</body>
+</html>
