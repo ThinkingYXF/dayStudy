@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <video src="./mov_bbb.mp4" id="myVideo" controls></video>
+    <!-- <canvas id="myCanvas"></canvas> -->
+
+    <script src="../../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(function(){
+            var timer;
+            var video = document.getElementById('myVideo');
+            var canvas = document.createElement('canvas');
+            video.addEventListener('canplay', function(){
+                canvas.width = $(video).width();
+                canvas.height = $(video).height();
+                document.body.appendChild(canvas);
+            });
+            
+            var ctx = canvas.getContext('2d');
+            video.addEventListener('play', function(){
+                timer = setInterval(function(){
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                }, 20);
+            }, false);
+            video.addEventListener('ended', function(){
+                clearInterval(timer);
+            },false);
+        });
+    </script>
+</body>
+</html>

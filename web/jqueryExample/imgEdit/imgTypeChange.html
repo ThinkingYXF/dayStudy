@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>change image type</title>
+</head>
+<body>
+    <img src="../cropper/picture.jpg" alt="" class="image">
+    <button class="changeType">格式转换</button>
+    <select name="" id="mySelect">
+        <option value="">请选择</option>
+        <option value="png">png</option>
+        <option value="jpeg">jpeg</option>
+        <option value="webp">webp</option>
+    </select>
+
+
+    <script src="../../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(function(){
+            $('.changeType').click(function(){
+                var $image = $('.image');
+                var canvas = document.createElement('canvas');
+                canvas.width =  $image.width();
+                canvas.height =  $image.height();
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage($image[0], 0, 0);
+
+                var value = $('#mySelect').val();
+                var url = $image.prop('src');
+                if(value){
+                    url = canvas.toDataURL('image/' + value);
+                    $image.prop('src', url);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
