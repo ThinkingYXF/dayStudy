@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" class="myDate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+    <a href="http://47.93.232.133/resources/banner1.jpeg" target="_blank" download="image.jpeg">
+        <img src="http://47.93.232.133/resources/banner1.jpeg" alt="">
+    </a>
+
+    <script src="../../js/lib/jquery-1.11.1.js"></script>
+    <script src="./My97DatePicker/WdatePicker.js"></script>
+    <script>
+        Date.prototype.pattern=function(fmt) {
+            var o = {
+            "M+" : this.getMonth()+1, //月份
+            "d+" : this.getDate(), //日
+            "h+" : this.getHours()%12 == 0 ? 12 : this.getHours()%12, //小时
+            "H+" : this.getHours(), //小时
+            "m+" : this.getMinutes(), //分
+            "s+" : this.getSeconds(), //秒
+            "q+" : Math.floor((this.getMonth()+3)/3), //季度
+            "S" : this.getMilliseconds() //毫秒
+            };
+            var week = {
+            "0" : "\u65e5",
+            "1" : "\u4e00",
+            "2" : "\u4e8c",
+            "3" : "\u4e09",
+            "4" : "\u56db",
+            "5" : "\u4e94",
+            "6" : "\u516d"
+            };     
+            if(/(y+)/.test(fmt)){
+                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+            }
+            if(/(E+)/.test(fmt)){
+                fmt=fmt.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "\u661f\u671f" : "\u5468") : "")+week[this.getDay()+""]);
+            }
+            for(var k in o){
+                if(new RegExp("("+ k +")").test(fmt)){
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+                }
+            }
+            console.log(fmt);
+            return fmt;
+        }
+
+        var date = new Date();
+        date.setDate(date.getDate() + 10);
+        // $('.myDate').val(date.pattern("yyyy-MM-dd hh:mm:ss"));
+        $('.myDate').val("2018-10-29");
+    </script>
+</body>
+</html>
