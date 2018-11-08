@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style>
-body{
+body,ul,p,h1,h2,h3,h4{
   margin: 0;
   padding: 0;
 }
@@ -23,5 +23,8 @@ body{
   /* text-align: center; */
   color: #2c3e50;
   /* margin-top: 60px; */
+}
+ul, li{
+  list-style: none;
 }
 </style>

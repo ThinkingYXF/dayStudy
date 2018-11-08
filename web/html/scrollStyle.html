@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>滚动条样式</title>
+    <style>
+        .box{
+            overflow-y: auto;
+            width: 200px;
+            height: 200px;
+        }
+        /* 滚动条整体部分 */
+        .box::-webkit-scrollbar{
+            width: 10px;
+            background-color: #eee;
+        }
+        /* 滚动条的轨道（里面装有Thumb） */
+        .box::-webkit-scrollbar-track{
+            background-color: antiquewhite;
+        }
+        /* 滚动条里面的小方块，能向上向下移动（或向左向右移动） */
+        .box::-webkit-scrollbar-thumb{
+            background: #3DB6A4;
+        }
+        /* ::-webkit-scrollbar-button         滚动条的轨道的两端按钮，由于通过点击微调小方块的位置 */
+        /* ::-webkit-scrollbar-track-piece    内层轨道，滚动条中间部分 */
+        /* ::-webkit-scrollbar-corner         边角，即垂直滚动条和水平滚动条相交的地方 */
+        /* ::-webkit-resizer                  两个滚动条的交汇处上用于拖动调整元素大小的小控件 */
+    </style>
+</head>
+<body>
+    
+    <div class="box">
+        阿拉斯加爱可登就爱看了大家看得见爱空间扩大进口大健康是第几集啊大家圣诞节啊回到家
+        阿萨很大很大国际化的嘎还是孤独撒个大神固定高度噶施工队哈工大哈市的哈根爱上当阿达
+        阿拉斯加爱可登就爱看了大家看得见爱空间扩大进口大健康是第几集啊大家圣诞节啊回到家
+        阿萨很大很大国际化的嘎还是孤独撒个大神固定高度噶施工队哈工大哈市的哈根爱上当阿达
+        阿拉斯加爱可登就爱看了大家看得见爱空间扩大进口大健康是第几集啊大家圣诞节啊回到家
+        阿萨很大很大国际化的嘎还是孤独撒个大神固定高度噶施工队哈工大哈市的哈根爱上当阿达
+    </div>
+</body>
+</html>

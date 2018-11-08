@@ -46,6 +46,7 @@
 </template>
 <script>
 	import axios from 'axios';
+	import { ajaxRequest } from '../../request.js';
 	export default {
 		data() {
 			var checkAge = (rule, value, callback) => {
@@ -123,7 +124,7 @@
 					loginPhone: [{validator: validatePhone, trigger: 'blur'}],
 					loginPass: [{ validator: validatePass, trigger: 'blur' }],
 				},
-				isAccount: true
+				isAccount: false
 			};
 		},
 		methods: {
@@ -147,12 +148,22 @@
 			},
 			login(formName) {
 				this.$refs[formName].validate((valid) => {
-					axios.post('http://localhost:8099/login', {name: 123, phone: 111, pass: 'asdad'}).then(function(){});
+					var loginData = {
+						name: this.loginForm.loginName,
+						pass: this.loginForm.loginPass,
+						phone: this.loginForm.loginPhone
+					}
+					ajaxRequest.login.save(loginData, function(){
+
+					});
 					if (valid) {
 						this.$message({
 							message: '登录成功',
 							type: 'success'
 						});
+						// setTimeout(function(){
+						// 	window.location.hash = '/modules';
+						// },1000);
 					} else {
 						this.$message({
 							message: '信息填写错误,请确认',

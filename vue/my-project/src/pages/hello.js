@@ -1,6 +1,5 @@
 import Vue from 'vue'
-import HelloWorld from '@/components/HelloWorld'
-import {ajaxRequest} from '../../src/request.js'
+import {ajaxRequest} from '../request.js'
 
 import { mapState } from 'vuex'
 
@@ -46,10 +45,7 @@ var obj = {
 	interval: null,
 	updateInterval: 500
 }
-var ajax = new ajaxRequest();
-// ajax.getDate('server/data.json',function(json){
-//   console.log(json);
-// });
+
 export default({
 	name: 'HelloWorld',
 	methods: {
@@ -69,10 +65,9 @@ export default({
 			}
 			this.answer = 'Thinking...';
 			var vm = this;
-			ajax.getDate('https://yesno.wtf/api',function(json){
-				json = JSON.parse(json);
-				vm.judgeUrl = json.image;
-				vm.answer = json.answer;
+			ajaxRequest.getDate.save(null, function(json){
+				vm.judgeUrl = json.data.image;
+				vm.answer = json.data.answer;
 			});
 		},
 		randomIndex: function(){
