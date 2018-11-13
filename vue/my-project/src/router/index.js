@@ -2,34 +2,35 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import HelloWorld from '@/pages/HelloWorld'
+import Modules from '@/pages/modules/Modules'
 import Home from '@/pages/home/Home'
 import Login from '@/pages/login/Login'
-import First from '@/pages/first/First'
+import ElementUI from '@/pages/elementUI/ElementUI'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [{
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: Login
   },{
     path: '/modules',
     name: 'modules',
-    component: Home,
+    component: Modules,
     children: [{
-      path: 'first',
-      component: First
+      path: '/',
+      component: Home
+    },{
+      path: 'elementUI',
+      component: ElementUI
     },{
       path: 'test',
       component: HelloWorld
-    },{
-      path: '/',
-      component: First
     }]
   },{
     path: '/',
-    name: 'Login',
+    name: 'login',
     component: Login
   }]
 })
