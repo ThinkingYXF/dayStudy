@@ -1,0 +1,67 @@
+.listBox dl {
+	display: inline-block;
+	width: 100px;
+	height: 150px;
+	border: 1px solid #d3d3d3;
+	margin: 0 15px 15px 0;
+}
+
+.listBox dl dt {
+	text-align: center;
+	line-height: 100px;
+}
+
+.listBox dl dt img {
+	width: 50px;
+	height: 50px;
+}
+
+.listBox dl dd {
+	line-height: 50px;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+/*css代码*/
+
+#customMenu {
+	width: 0;
+	/*设置为0 隐藏自定义菜单*/
+	height: 125px;
+	overflow: hidden;
+	/*隐藏溢出的元素*/
+	box-shadow: 0 1px 1px #888, 1px 0 1px #ccc;
+	position: absolute;
+	/*自定义菜单相对与body元素进行定位*/
+	background: #fff;
+}
+
+.customMenu {
+	width: 130px;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 10px;
+}
+
+.backBtn {
+	margin-bottom: 10px;
+	float: right;
+	text-align: center;
+	display: inline-block;
+	border-width: 0;
+	padding: 0 20px;
+	line-height: 30px;
+	font-size: 14px;
+	outline: none;
+	filter: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	text-shadow: none;
+	cursor: pointer;
+	border-radius: 5px;
+	vertical-align: middle;
+}
