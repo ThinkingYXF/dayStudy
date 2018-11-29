@@ -12,7 +12,7 @@ var judgeFn = function(){
 
 var fn = new judgeFn();
 console.log(typeof fn.abc_1);
-if(fn.abc_1 && typeof fn.abc_1 == 'Function'){
+if(fn.abc_1 && typeof fn.abc_1 == 'function'){
     fn.abc_1();
 }
 else{
