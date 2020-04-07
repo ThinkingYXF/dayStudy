@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>获取数组中最大值及其出现次数</title>
+</head>
+<body>
+    
+    <script>
+        //获取数组最大值和其出现的次数
+        function getMaxAndCount(arr){
+            var temp = 0;
+            var resultObj = {};
+            for(let i = 0; i < arr.length; i++){
+                //找最大值
+                if(arr[i] > temp){
+                    temp = arr[i];
+                }
+                //计算数组每个值出现的次数
+                if(resultObj[arr[i]]){
+                    resultObj[arr[i]]++;
+                }else{
+                    resultObj[arr[i]] = 1;
+                }
+            }
+
+            return {
+                max: temp,
+                count: resultObj[max]
+            }
+        }
+    </script>
+</body>
+</html>
