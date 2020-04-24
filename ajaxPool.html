@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax连接池</title>
+</head>
+<body>
+    
+    <script>
+        //AJAX连接池写法
+        var AJAXPool = {
+            maxPoolLength: 1,
+            ajaxPoolArr: [],
+            taskPoolArr: [],
+            createAjax: function(url, type, callback){
+                var xmlHttp = new XMLHttpRequest();
+                return xmlHttp;
+            },
+            init: function(url, type, callback){
+                var that = this;
+                if(this.ajaxPoolArr <= this.maxPoolLength){
+                    var xmlHttpAjax = this.createAjax();
+                    xmlHttpAjax.open(type, url);
+                    xmlHttpAjax.send();
+                    xmlHttpAjax.onreadystatechange = function(){
+                        if(xmlHttpAjax.readyState == 4){
+                            if(xmlHttpAjax.status == 200){
+                                if(callback) {
+                                    callback(xmlHttpAjax.responseText);
+                                }
+                                that.ajaxPoolArr.shift();
+                                if(that.taskPoolArr.length > 0){
+                                    var task = that.taskPoolArr.shift();
+                                    that.init(task.url, task.type, task.callback);
+                                }
+                                console.log(xmlHttpAjax.responseText);
+                            }
+                        }
+                    }
+                    this.ajaxPoolArr.push(xmlHttpAjax);
+                }else{
+                    this.taskPoolArr.push({
+                        url: url,
+                        type: type,
+                        callback: callback
+                    });
+                }
+            },
+        }
+
+        for(let i = 0; i < 1000; i++){
+            //连接池方式调用
+
+            AJAXPool.init('./data.json', 'get', function(res){
+                console.log(res);
+            });
+
+
+            //非连接池调用
+            // dealAjax('./a.json', 'get', function(res){
+            //     console.log(res);
+            // })
+        }
+
+        function dealAjax(url, type, callback){
+            var xmlHttpAjax = new XMLHttpRequest();
+            xmlHttpAjax.open(type, url);
+            xmlHttpAjax.send();
+            xmlHttpAjax.onreadystatechange = function(){
+                if(xmlHttpAjax.readyState == 4){
+                    if(xmlHttpAjax.status == 200){
+                        if(callback) {
+                            callback(xmlHttpAjax.responseText);
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

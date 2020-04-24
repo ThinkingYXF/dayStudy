@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>防抖与节流demo</title>
+</head>
+<body>
+    <script>
+        /*
+            防抖：短时间内大量触发的事件 控制在某个时间内只触发一次     一般用于resize scroll监听
+
+            节流：短时间内大量触发的事件 控制在某个时间频率内执行       节流会稀释函数的执行频率
+        */
+
+        //防抖
+        function antiShake(fn, timeStamp){
+            let timer = null;
+            return function(){
+                if(timer){
+                    clearTimeout(timer);
+                }
+                setTimeout(fn, timeStamp);
+            }        
+        }
+
+
+        //test event
+        function con(){
+            console.log('窗口更改');
+        }
+        
+
+        //节流
+        function throttling(fn, timeStamp){
+            let timer = null;
+            var isContinue = true;
+            return function(){
+                if(!isContinue){
+                    return false;  
+                }
+                isContinue = false;
+                setTimeout(function(){
+                    fn();
+                    isContinue = true;
+                }, timeStamp);
+            }
+        }
+        window.onresize = throttling(con, 1000);
+    </script>
+</body>
+</html>
