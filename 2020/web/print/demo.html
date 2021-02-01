@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    // window.onload = function () {
+    //   var oldHtml = document.body.innerHTML;
+    //   var newHtml = '<html><head><title></title></head><body>';
+    //   newHtml += '<h2>你好呀，这是要打印的内容</h2></body></html>';
+    //   document.body.innerHTML = newHtml;
+    //   console.log(newHtml);
+    //   window.print();
+    //   document.body.innerHTML = oldHtml;
+    // }
+  </script>
+  <style>
+    @media print {
+
+      /* .title,
+      .hello {
+        display: none;
+      } */
+
+      .table {
+        display: block;
+        page-break-after: always;
+      }
+
+      nav,
+      aside {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 class="title">标题1</h1>
+  <p class="hello">你好呀</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>年龄</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>yxf</td>
+        <td>26</td>
+      </tr>
+      <tr>
+        <td>lxx</td>
+        <td>28</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>年龄</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>yxf1</td>
+        <td>21</td>
+      </tr>
+      <tr>
+        <td>lxx1</td>
+        <td>22</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>

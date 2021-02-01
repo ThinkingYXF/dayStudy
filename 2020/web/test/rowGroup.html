@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>rowGroup</title>
+        <link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.css">
+        <link rel="shortcut icon" href="../images/wlogo.png">
+    </head>
+    <body>
+        <table class="myTable"></table>
+        <button class="addRow">添加两行</button>
+        <script src="../js/lib/jquery-3.1.1.js"></script>
+        <script src="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../js/resources/vendor/AdminLTE-2.3.11/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                var data = [{
+                    name: 'yang',
+                    age: 20,
+                    sex: 'man',
+                    country: 'China'
+                },{
+                    name: 'Link Park',
+                    age: 30,
+                    sex: 'man',
+                    country: 'US'
+                },{
+                    name: 'zhang',
+                    age: 18,
+                    sex: 'woman',
+                    country: 'China'
+                },{
+                    name: 'Marry',
+                    age: 23,
+                    sex: 'woman',
+                    country: 'Canada'
+                }];
+                var table = $('.myTable').dataTable({
+                    info: false,
+                    searching: false,
+                    // ordering: false,
+                    paging: false,
+                    language:{
+                        emptyTable: "无数据"
+                    },
+                    // data: data,
+                    // ajax: {
+                    //     url: '../json/table.json'
+                    // },
+                    columnDefs: [{
+                        targets: [ 3 ],
+                        sortable: true
+                    },{
+                        targets: '_all',
+                        title: '',
+                        defaultContent: '',
+                        sortable: false,
+                    }],
+                    columns: [{ 
+                        title: '姓名',
+                        data: 'name'
+                    },{
+                        title: '年龄',
+                        data: 'age'
+                    },{
+                        title: '性别',
+                        data: 'sex'
+                    },{
+                        title: '国家',
+                        data: 'country'
+                    },{
+                        title: '',
+                        visible: false,
+                        render: function(data, type, row, meta) {
+                            return '1';
+                        }
+                    }],
+                    order:[[3,'asc']],
+                    // drawCallback:function(){            //行分组   按第三列所属将行分组
+                    //     var api = this.api();
+                    //     var rows = api.rows({
+                    //         "page":"current"
+                    //     }).nodes();
+                    //     var last = null;
+                    //     api.column(3,{
+                    //         "page":"current"
+                    //     }).data().each(function(group,i){
+                    //         if(last!==group){
+                    //             $(rows).eq(i).before("<tr class='group'><td colspan='3'>"+group+"</td></tr>");
+                    //             last = group;
+                    //         }
+                    //     })
+                    // },
+                    rowGroup: {
+                        dataSrc: 'country',
+                        startRender: function(rows, group){
+                            if(rows.indexes().length){
+                                var row = rows.row(rows.indexes()[0]);
+                                var firstRow = row.nodes().to$();
+                                var tr = firstRow.clone();
+                                tr.addClass('myGroup');
+                                return tr;
+                            }
+                        }
+                    },
+                    initComplete: function(settings,json){
+                        // $(this).DataTable().row.add().draw();
+                    }
+                });
+
+                $('.addRow').click(function(){
+                    $.getJSON('../json/rowData.json',function(json){
+                        $(table).DataTable().rows.add(json).draw();
+                    });
+                    // $(table).DataTable().row.add({
+                    //     name: 'wu',
+                    //     age: 25,
+                    //     sex: 'man',
+                    //     country: 'UK'
+                    // }).draw();
+                });
+
+                $.getJSON('../json/table.json',function(json){
+                    if(json.data){
+                        $('.myTable').DataTable().rows.add(json.data).draw();
+                    }
+                });
+                $.get('../json/table.json',function(json){
+                    
+                });
+            }); 
+        </script>
+    </body>
+</html>

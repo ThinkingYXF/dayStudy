@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+
+
+
+
+<!-- 南航tab1 -->
+<script>
+  //下面三个json维护三个tab页 如需添加新数据可按下操作
+  /*
+    1、复制json的第一个对象，更改相应字段值
+    2、将更改后对象添加到json数组中
+  */
+
+  //中国国内服务点json
+  var chinaJson = [{
+    //行李查询
+    "baggage":"遗失／损坏行李<\/br >地址：新疆阿克苏红旗坡飞机场<\/br >电话：0997-2597558<\/br >传真：0997-2597558<\/br >email：<\/br >办公时间：当地航班起降时间<\/br >",
+    //国家/地区
+    "region":"中国",
+    //机场
+    "airport":"名称：新疆阿克苏机场<\/br >地址：阿克苏红旗坡飞机场<\/br >电话：0997-2541861<\/br >传真：0997-2597558<\/br >email：<\/br >办公时间：当地航班起降时间<\/br >",
+    //销售机构
+    "organization":"名称：新疆阿克苏市滨河路10号天缘国际酒店1楼大厅<\/br >电话： 0997-2152777；<\/br >传真:  0997-2152777<\/br >",
+    //标题内容
+    "title":"中国-阿克苏销售机构",
+    //管理区域
+    "area":"",
+    //城市
+    "city":"阿克苏"
+  },{
+    "baggage":"",
+    "region":"中国",
+    "airport":"名称：广州白云国际机场",
+    "organization":"地址1：广州白云国际机场<\/br >电话： 020-95539  <\/br >地址2：广州市环市西路181号2楼<\/br >电话： 020-95539",
+    "title":"中国-广州销售机构",
+    "area":"",
+    "city":"广州"
+  }];
+
+  //全球各地服务点json
+  var globalJson = [{
+    "baggage":"遗失／损坏行李<\/br >地址：<\/br >电话：<\/br >传真：<\/br >email：<\/br >",
+    "region":"阿拉伯联合酋长国",
+    "airport":"名称：迪拜机场<\/br >地址：<\/br >电话：<\/br >传真：<\/br >Email:<\/br >办公时间：<\/br >",
+    "organization":"地址：迪拜巴迪拜区阿勒马克呼街阿勒瑞斯中心（大楼）M层<\/br >电话： 0097-142218888; <\/br >传真：0097-142283553<\/br >邮箱: czsales@csair.ae",
+    "title":"阿拉伯联合酋长国-迪拜销售机构",
+    "area":"Middle East Area and Africa (Iran, Israel, Afghanistan, Cyprus, Morocco, Algeria, Tunisia, Southern Africa and Jeddah Office's administrative area excluded)",
+    "city":"迪拜"
+  },{
+    "baggage":"遗失／损坏行李<\/br >地址：arrival hall, Level&nbsp;0, terminal 1,Heydar Aliyev International Airport <\/br >电话:00994-12-4972600-7880/4362<\/br >传真：<\/br >email:lostfoundghc@gmail.com,wt@azal.az",
+    "region":"阿塞拜疆共和国",
+    "airport":"名称：Heydar Aliyev International Airport  <\/br >地址：Room,level&nbsp;01,terminal 1,Heydar Aliyev International Airport <\/br >电话：00994-12-4972727<\/br >传真：<\/br >Email:baku@csair.com<\/br >办公时间：<\/br >网站：http://airport.az/en/about-us/contacts/",
+    "organization":"地址:10th Floor, babek plaza, babek avenue,khatai district,A.guliyev street1131,baku,azerbaijan<\/br >电话:00994-12-4880666; <\/br >Fax:00994-12-4880668;<\/br >email: baku@csair.com",
+    "title":"阿塞拜疆共和国-巴库销售机构",
+    "area":"",
+    "city":"巴库"
+  }];
+
+  //vip服务点json
+  var vipJson = [{
+    "baggage":"",
+    "region":"中国",
+    "airport":"",
+    "organization":"名称：鞍钢集团接待服务公司<\/br>地址：鞍山市铁东区东风街108号<\/br>电话：5592155 / 5592156 / 5592506<\/br>营业时间： <\/br>",
+    "title":"中国 - 鞍山",
+    "area":"",
+    "city":"鞍山"
+  },{
+    "baggage":"",
+    "region":"中国",
+    "airport":"",
+    "organization":"名称：包头翔达航空商务有限公司<\/br>地址：包头市昆区民族东路67-6号<\/br>电话：0472-6969696 / 0472-6969696 / 0472-6988988<\/br>营业时间： <\/br>名称：包头市新中华航空服务有限责任公司<\/br>地址：包头市青山区振华小区底店7号<\/br>电话：15848252888 / 15848252888 / 2850888<\/br>营业时间： <\/br>",
+    "title":"中国 - 包头",
+    "area":"",
+    "city":"包头"
+  }];
+</script>
+<style type="text/css">.nav.nav-tabs li.active a{color:#fff;background:#0093d0}
+.nav.nav-tabs li a{color: #555}
+.chinaTable td {padding: 5px;line-height:1.5}
+</style>
+<div class="tabbable specialTab1" id="tabs-917556"><!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a contenteditable="true" data-toggle="tab" href="#panel-china">中国国内(含港澳台地区)各地服务点</a></li>
+    <li><a contenteditable="true" data-toggle="tab" href="#panel-global">全国各地服务点</a></li>
+    <li><a contenteditable="true" data-toggle="tab" href="#panel-vip">VIP服务点</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div aria-describedby="cke_719" aria-label="所见即所得编辑器, tab1" class="tab-pane specialTab1-pane active" contenteditable="true" id="panel-china" role="textbox" spellcheck="false" style="position: relative;" tabindex="0" title="所见即所得编辑器, tab1">
+      <div class="form-con show oldHtmlpage" style="width:95%;">
+        <div class="search_div">
+          <b>找一个接近你的南航办事处</b>
+
+          <form action="" id="global_sales" method="get" style=" margin-top: 10px; ">
+            <label style="float:left;line-height:  30px;margin-right:  10px;">国家/地区</label> 
+            <select disabled="disabled" id="country" style="width: 180px;float:left; ">
+              <option selected="selected" value="中国">中国</option>
+            </select> 
+            <label style="padding: 0 10px 0 30px;float:left;line-height:  30px;">城市</label> 
+            <select id="cname_city1" style="width: 180px;float:left;">
+              <option value="阿克苏">阿克苏</option>
+              <option selected="selected" value="广州">广州</option>
+            </select> 
+            <input id="sumbitthis" jquery161048637921606724193="2" style="
+              line-height: 16px;padding: 5px;
+              margin-left: 10px;" type="button" value="搜索" />&nbsp;
+          </form>
+        </div>
+
+        <div id="errinfo">&nbsp;</div>
+
+        <div id="result">
+          <h2 style="font-size: 20px;">
+            <span id="countrycity" style=" font: inherit;">中国-广州</span>
+            销售机构
+          </h2>
+
+          <table border="0" cellpadding="0" cellspacing="0" class="nt chinaTable" width="100%">
+            <tbody>
+              <tr>
+                <td width="19%"><strong>国家/地区</strong></td>
+                <td id="country_td" width="81%">中国</td>
+              </tr>
+              <tr>
+                <td><strong>城市</strong></td>
+                <td id="city_td">广州</td>
+              </tr>
+              <tr id="area_tr" style="display: none">
+                <td><strong>管理区域</strong></td>
+                <td id="area_td">&nbsp;</td>
+              </tr>
+              <tr>
+                <td><strong>销售机构</strong></td>
+                <td id="orderdept_td">地址1：广州白云国际机场<br />
+                电话： 020-95539<br />
+                地址2：广州市环市西路181号2楼<br />
+                电话： 020-95539</td>
+              </tr>
+              <tr>
+                <td><strong>机场</strong></td>
+                <td id="airport_td">名称：广州白云国际机场</td>
+              </tr>
+              <tr>
+                <td><strong>行李查询</strong></td>
+                <td id="luggage_td">&nbsp;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div aria-describedby="cke_783" aria-label="所见即所得编辑器, tab2" class="tab-pane specialTab1-pane" contenteditable="true" id="panel-global" role="textbox" spellcheck="false" style="position: relative;" tabindex="0" title="所见即所得编辑器, tab2">
+      <div class="form-con show oldHtmlpage" style="width:95%;">
+        <div class="search_div">
+          <b>找一个接近你的南航办事处</b>
+
+          <form action="" id="global_sales" method="get" style=" margin-top: 10px; ">
+            <label style="float:left;line-height:  30px;margin-right:  10px;">国家/地区</label> 
+            <select id="country" style="width: 180px;float:left; ">
+              
+            </select> 
+            <label style="padding: 0 10px 0 30px;float:left;line-height:  30px;">城市</label> 
+            <select id="cname_city1" style="width: 180px;float:left;">
+              
+            </select> 
+            <input id="sumbitthis" jquery161048637921606724193="2" style="
+              line-height: 16px;padding: 5px;
+              margin-left: 10px;" type="button" value="搜索" />&nbsp;
+          </form>
+        </div>
+
+        <div id="errinfo">&nbsp;</div>
+
+        <div id="result">
+          <h2 style="font-size: 20px;">
+            <span id="countrycity" style=" font: inherit;">中国-广州</span>
+            销售机构
+          </h2>
+
+          <table border="0" cellpadding="0" cellspacing="0" class="nt chinaTable" width="100%">
+              <tbody>
+                  <tr>
+                    <td width="19%">
+                      <strong>国家/地区</strong></td>
+                    <td id="country_td" width="81%">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>城市</strong></td>
+                    <td id="city_td">
+                    </td>
+                  </tr>
+                  <tr id="area_tr">
+                    <td>
+                      <strong>管理区域</strong></td>
+                    <td id="area_td">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>销售机构</strong></td>
+                    <td id="orderdept_td">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>机场</strong></td>
+                    <td id="airport_td">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>行李查询</strong></td>
+                    <td id="luggage_td">
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div aria-describedby="cke_784" aria-label="所见即所得编辑器, tab3" class="tab-pane specialTab1-pane" contenteditable="true" id="panel-vip" role="textbox" spellcheck="false" style="position: relative;" tabindex="0" title="所见即所得编辑器, tab3">
+      <div class="form-con show oldHtmlpage" style="width:95%;">
+        <div class="search_div">
+          <b>找一个接近你的南航办事处</b>
+
+          <form action="" id="global_sales" method="get" style=" margin-top: 10px; ">
+            <label style="float:left;line-height:  30px;margin-right:  10px;">国家/地区</label> 
+            <select id="country" style="width: 180px;float:left; ">
+            </select> 
+            <label style="padding: 0 10px 0 30px;float:left;line-height:  30px;">城市</label> 
+            <select id="cname_city1" style="width: 180px;float:left;">
+            </select> 
+            <input id="sumbitthis" jquery161048637921606724193="2" style="
+              line-height: 16px;padding: 5px;
+              margin-left: 10px;" type="button" value="搜索" />&nbsp;
+          </form>
+        </div>
+
+        <div id="errinfo">&nbsp;</div>
+
+        <div id="result">
+          <h2 style="font-size: 20px;">
+            <span id="countrycity" style=" font: inherit;"></span>
+            销售机构
+          </h2>
+
+          <table border="0" cellpadding="0" cellspacing="0" class="nt chinaTable" width="100%">
+              <tbody>
+                  <tr>
+                    <td width="19%"><strong>国家/地区</strong></td>
+                    <td id="country_td" width="81%"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>城市</strong></td>
+                    <td id="city_td"></td>
+                  </tr>
+                  <tr>
+                    <td id="salespower" style="font-weight:bold">
+                      销售代理点</td>
+                    <td id="orderdept_td">
+                    </td>
+                  </tr>
+                  <tr style="display:none;" id="salestr">
+                    <td id="salespower2" style="font-weight:bold">
+                    </td>
+                    <td id="orderdept_td2">
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  servicePlugin();
+  function servicePlugin(){    
+    /*初始化*/
+    var country = "";
+    var city = "";	
+    country = "中国";
+    if(country =="中国"){city="广州"};
+    var middleJson = chinaJson;
+    
+    init();
+    function init(json){
+      if(json){
+        if(json.length){
+          country = json[0].region;
+          city = json[0].city;
+        }
+        countrylist(country, json);
+        citylist(city,country, json);
+        requercity(city,country, json);
+      }else{
+        countrylist(country, chinaJson);
+        citylist(city,country, chinaJson);
+        requercity(city,country, chinaJson);
+      }
+      /*国家城市联动*/
+      $(".tab-pane.active #country").unbind().change(function(){
+          var szm = "";
+          var country = $(this).val();
+          if(country =="中国"){szm="广州"}
+          citylist(szm,country,middleJson);
+      });
+      
+      //点击搜索
+      $(".tab-pane.active #sumbitthis").unbind().click(function(){
+          var city = $(".tab-pane.active #cname_city1").val();
+          var country =$(".tab-pane.active #country").val();
+          requercity(city,country,middleJson);
+      });
+    }
+    
+    //切换选项卡回调
+    $('.specialTab1 .nav.nav-tabs li').click(function(){
+      setTimeout(function(){
+        if($('.specialTab1-pane.active').prop('id') == 'panel-global'){
+          middleJson = globalJson;
+        }else if($('.specialTab1-pane.active').prop('id') == 'panel-vip'){
+          middleJson = vipJson;
+        }else{
+          middleJson = chinaJson;
+        }
+        init(middleJson);
+      },200);
+    });
+
+    function requercity(city,country, json){
+        var tempvar_a = false;
+        var tempvar_b = false;
+        var thisrow = null;
+        var object=null;
+        country?"":country=json[0].region.split(' ')[0];
+        city?"":city=json[0].city.split(' ')[0];
+        for(var i=0;i<json.length;i++){
+            object=json[i];
+            if(object.region.indexOf(country)!==-1){
+                tempvar_a = true;
+            }
+            if(object.city.indexOf(city)!==-1){
+                tempvar_b = true;
+                //香港的话，只需匹配城市名
+                if(city=="香港"){
+                    tempvar_a = true;
+                }
+            }
+            if(tempvar_a&&tempvar_b){
+                thisrow = object;
+                break;
+            }
+        }
+        if(tempvar_a&&tempvar_b){
+            $(".tab-pane.active #countrycity").html(country+"-"+city);
+            if(thisrow){
+                $('.tab-pane.active #country_td').html(thisrow.region);
+                $('.tab-pane.active #city_td').html(thisrow.city);
+                $('.tab-pane.active #area_td').html(thisrow.area);
+                $('.tab-pane.active #orderdept_td').html(thisrow.organization);
+                $('.tab-pane.active #airport_td').html(thisrow.airport);
+                $('.tab-pane.active #luggage_td').html(thisrow.baggage);
+            }
+        }else{
+            $(".tab-pane.active #errinfo").html("抱歉！"+country+"-"+city+"没有南航办事处。").fadeIn("slow").fadeOut(2000);;
+        }
+        if(country=="中国"){$(".tab-pane.active #area_tr").css("display","none");}else{$(".tab-pane.active #area_tr").css("display","");}
+
+    }
+    function countrylist(countrystr, json){
+        $('.tab-pane.active #country').html('');
+        var optionArray=[];
+        var flag=true;
+        json.map(function (object1) {
+            flag=true;
+            if(optionArray.length===0){
+                optionArray.push(object1.region.split(' ')[0]);
+            }else{
+                optionArray.map(function (object2) {
+                    if(object2==object1.region.split(' ')[0]){
+                        flag=false;
+                        return false;
+                    }
+                })
+                if(flag){
+                    optionArray.push(object1.region.split(' ')[0]);
+                    //console.log("+:"+object1.region.split(' ')[0]);
+                }
+            }
+        });
+        optionArray.map(function (object3,n) {
+            var option;
+            if(object3==countrystr||(!countrystr && n===0)){
+                option=$("<option></option>").val(object3).text(object3).attr({selected: "selected" });
+            }else{
+                option=$("<option></option>").val(object3).text(object3);
+            }
+            $('.tab-pane.active #country').append(option);
+        });
+        var cityD=''
+        if(countrystr=="中国"){
+            cityD="广州";
+        }
+        citylist(cityD,$('.tab-pane.active #country option[selected=selected]').text(), json);
+    }
+    function citylist(defaultcity,countrystr, json){
+      $(".tab-pane.active #cname_city1").html('');
+      countrystr?"":json[0].region.split(' ')[0];
+      var cityArray=[];
+      json.map(function (object1) {
+          if(object1.region.split(' ')[0]===countrystr){
+              cityArray.push(object1);
+          }
+      });
+      var optionArray=[];
+      var flag=true;
+      cityArray.map(function (object1) {
+          flag=true;
+          if(optionArray.length===0){
+              optionArray.push(object1.city.split(' ')[0]);
+          }else{
+              optionArray.map(function (object2) {
+                  if(object2==object1.city.split(' ')[0]){
+                      flag=false;
+                      return false;
+                  }
+              })
+              if(flag){
+                  optionArray.push(object1.city.split(' ')[0]);
+                  //console.log("+:"+object1.region.split(' ')[0]);
+              }
+          }
+      });
+      optionArray.map(function (object3,n) {
+            var option;
+            if(object3==defaultcity||(!defaultcity && n===0)){
+                option=$("<option></option>").val(object3).text(object3).attr({selected: "selected" });
+            }else{
+                option=$("<option></option>").val(object3).text(object3);
+            }
+            $(".tab-pane.active #cname_city1").append(option);
+        })
+    }
+  }
+</script>
+
+
+
+
+
+<!-- 南航tab2 -->
+<script>
+  /*要添加网点数据
+  1、将下面对象修改相应字段值
+    {
+      "region":"北京首都国际机场",  //机场
+      "time":"06:00-23:00",        //服务时间
+      "title":"北京",              //城市
+      "city":"F岛岛头"             //电子商务柜台
+    }，
+  2、将修改后的对象加入到下面json数组中即可实现添加新数据
+  */
+  var json = [{
+      "region":"北京首都国际机场",  //机场
+      "time":"06:00-23:00",        //服务时间
+      "title":"北京",              //城市
+      "city":"F岛岛头"             //电子商务柜台
+    },{
+      "region":"长春龙嘉国际机场",
+      "time":"6:00-最后出发的航班结束",
+      "title":"长春",
+      "city":"E-1柜台打印行程单"
+    },{"region":"长沙黄花国际机场","time":"6:00-22:00","title":"长沙","city":"出发厅1号门门旁边"},{"region":"成都双流国际机场","time":"7:00-22:00","title":"成都","city":"售票区77号"},{"region":"重庆江北国际机场","time":"出港航班楼开班时间-出港航班结束时间","title":"重庆","city":"T3A航站楼3F岛销售柜台"},{"region":"大连周水子国际机场","time":"6:00-20:00","title":"大连","city":"二楼四号门旁边"},{"region":"福州长乐国际机场","time":"8:00-21:00","title":"福州","city":"30号柜台"},{"region":"广州白云国际机场T2航站楼","time":"6:00-22:00 ","title":"广州","city":"G02柜台"},{"region":"贵阳龙洞堡国际机场 ","time":"最早的出发航班前90分钟-最后出发的航班结束","title":"贵阳","city":"机场大厅"},{"region":"桂林两江机场","time":"每日06:50至当日最后一个出港航班起飞后","title":"桂林","city":"T2航站楼C岛4号票务柜台"},{"region":"哈尔滨太平国际机场","time":"按照出发航班时间","title":"哈尔滨","city":"A岛岛头"},{"region":"海口美兰国际机场","time":"按照出发航班时间","title":"海口","city":"C号门右手边"},{"region":"杭州萧山国际机场 ","time":"06:30-最后出发的航班结束","title":"杭州","city":"T3航站楼出发厅13号门右侧"},{"region":"揭阳潮汕机场 ","time":"6:00-最后出发的航班结束","title":"揭阳","city":"3号门左边"},{"region":"昆明长水国际机场 ","time":"6:30-22:00 ","title":"昆明","city":"E320"},{"region":"南昌昌北国际机场 ","time":"按照出发航班时间","title":"南昌","city":"出发大厅出发厅B区S02/S03号柜台"},{"region":"南京禄口国际机场 ","time":"06:45至最后出发的航班结束","title":"南京","city":"出发厅2号门与3号门之间"},{"region":"南宁吴圩国际机场 ","time":"6:30-最后出发的航班结束","title":"南宁","city":"机场大厅"},{"region":"南阳姜营机场","time":"7:00-20:00","title":"南阳","city":"机场大厅5号柜台"},{"region":"宁波栎社机场 ","time":"09:15-最后出发的航班起飞","title":"宁波","city":"2楼出发厅5号门左边"},{"region":"青岛流亭国际机场 ","time":"8:30-21:00","title":"青岛","city":"二楼2号门B岛"},{"region":"三亚凤凰国际机场 ","time":"按照出发航班时间","title":"三亚","city":"出发厅4号门旁边"},{"region":"上海虹桥机场 ","time":"6:30-20:30","title":"上海虹桥","city":"4号门内"},{"region":"上海浦东机场 ","time":"9:00-最后出发的航班结束","title":"上海浦东","city":"L岛29号对面"},{"region":"沈阳桃仙国际机场 ","time":"06:30-20:00","title":"沈阳","city":"A岛3号门对面"},{"region":"深圳宝安国际机场 ","time":"7:30-最后出发的航班结束","title":"深圳","city":"T3航站楼四楼出发厅1.2号门A岛岛头7-9号柜台"},{"region":"太原武宿国际机场 ","time":"南航第一班航班起飞前2小时(09:00)至最后的航班结束","title":"太原","city":"T2航站楼机场大厅9号售票柜台"},{"region":"天津滨海国际机场 ","time":"按照出发航班时间","title":"天津","city":"T2航站楼8号门对面"},{"region":"温州龙湾国际机场 ","time":"按照出发航班时间 ","title":"温州","city":"温州龙湾国际机场T2航站楼出发大厅FW9-L6<br>（值机A岛对面）"},{"region":"武汉天河国际机场","time":"6:30-21:30","title":"武汉","city":"T3航站楼 J岛前台"},{"region":"乌鲁木齐地窝堡国际机场 ","time":"6:00-23:00","title":"乌鲁木齐","city":"3号门对面值班主任柜台"},{"region":"西安咸阳国际机场 ","time":"按照出发航班时间","title":"西安","city":"T3航站楼325号和326号门之间"},{"region":"湛江机场","time":"按照出发航班时间","title":"湛江","city":"机场大厅3或5号值机柜台咨询即可"},{"region":"郑州新郑国际机场","time":"6:20-最后出发的航班结束","title":"郑州","city":"四楼南航售票柜台处"},{"region":"珠海金湾机场 ","time":"7:00-19:00","title":"珠海","city":"南航补票柜台（G01号值机柜台旁）"}]; 
+</script>
+<style type="text/css">
+  #current_city{font-size: 14px;line-height: 50px;color:  #088fd2;font-weight: bold;}
+  #city_list{width:530px;margin:10px 0;}
+  #city_list td{padding:5px 0; text-align:center;}
+</style>
+  <div class="special_tab2">
+    <div>请选择一个城市&nbsp;&nbsp;&nbsp;&nbsp; <select id="city_options"></select></div>
+    <div id="current_city">&gt;<span>北京-电子商务柜台</span>></div>
+    <table cellpadding="0" cellspacing="0" id="city_list">
+      <tbody>
+        <tr>
+          <td width="10%">城市</td>
+          <td width="25%">机场</td>
+          <td width="40%">电子商务柜台</td>
+          <td width="25%">服务时间</td>
+        </tr>
+        <tr>
+          <td class="city">北京</td>
+          <td class="airport">北京首都国际机场</td>
+          <td class="address">F岛岛头</td>
+          <td class="time">06:00-23:00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<script>
+  var city = '北京';
+  $('.special_tab2 #city_options').html('');
+  json.forEach(element=>{
+    var option = $('<option />').val(element.title).text(element.title);
+    $('.special_tab2 #city_options').append(option);
+  });
+  $('.special_tab2 #city_options').val(city);
+  $('.special_tab2 #city_options').change(function(){
+    init($(this).val());
+  });
+  init(city);
+  function init(city){
+    $('.special_tab2 #current_city span').html(city + '-电子商务柜台');
+    json.forEach(element=>{
+      if(element.title == city){
+        $('.special_tab2 .city').html(element.title);
+        $('.special_tab2 .airport').html(element.region);
+        $('.special_tab2 .address').html(element.city);
+        $('.special_tab2 .time').html(element.time);
+      }
+    });
+  }
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

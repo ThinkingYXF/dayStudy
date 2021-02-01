@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>form action</title>
+  <link rel="shortcut icon" href="../images/360-icon.png">
+  <style>
+    .div1 p {
+      float: left;
+    }
+
+    .div1::after {
+      content: '';
+      display: block;
+      height: 0;
+      visibility: hidden;
+      clear: both;
+    }
+  </style>
+</head>
+
+<body>
+  <h2></h2>
+  <form action="/work/study/html/a.js" method="post" class="myForm">
+    <input type="text" class="name">
+    <input type="number" class="age" min="1" step="1">
+    <input type="password" class="password">
+    <button class="btn">提交</button>
+  </form>
+  <div class="div1">
+    <p>这是第一行</p>
+    <p>这是第二行</p>
+  </div>
+  <button class="jump">按钮</button>
+  <script src="../js/lib/jquery-1.7.2.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.myForm').submit(function () {
+        var name = $('.name').val();
+        var age = $('.age').val();
+        var password = $('.password').val();
+        if (!name || !age || !password) {
+          console.log('失败');
+          return false;
+        }
+      });
+      var button = $('.btn');
+      $.ajax({
+        url: '../json/data.json',
+        method: 'GET',
+        context: button               //传入某个dom元素
+      }).success(function () {
+        var that = this;              //this指向传入的dom元素
+        setTimeout(function () {
+          $(that).text('按钮');
+        }, 1000);
+      }).done(function () {
+        console.log('1');              //先执行 success 在执行 done  （写在前面的回调函数先执行）
+      });
+
+
+      $('.jump').click(function () {
+        // window.onbeforeunload = function(event){
+        //     console.log('11');
+        // }   
+        window.location.href = 'https://www.baidu.com';
+      })
+
+
+
+      window.onbeforeunload = function (event) {
+        event = event || window.event;
+        if (event) {
+          event.returnValue = '确认离开？';
+        }
+        return '确认离开？';
+      }
+    });
+
+
+
+
+    let dataJson = [{
+      name: '中国',
+      city: [{
+        name: '广州',
+        //管理区域(全球服务点数据)
+        manageArea: '佛上',
+        //销售机构
+        saleOrg: {
+          address: '广州白云国际机场',
+          phone: '020-95539',
+          fax: '',
+          email: '',
+          //其他信息
+          otherInfo: '地址2：广州市环市西路181号2楼\r电话： 020-95539'
+        },
+        //机场
+        airport: {
+          name: '广州白云国际机场',
+          address: '',
+          phone: '',
+          fax: '',
+          email: '',
+          workTime: ''
+        },
+        //行李查询
+        bagInquiry: {
+          address: '',
+          phone: '',
+          fax: '',
+          email: ''
+        }
+      }]
+    }]
+    var selectedCountry = '中国';
+    var selectedCity = '广州';
+    dataJson.forEach(element => {
+      var option = $('<option />').text(element.name).val(element.name);
+      if (element.name == selectedCountry) {
+        option.attr('selected', true);
+        element.city.forEach(el => {
+          var optionCity = $('<option />').text(el.name).val(el.name);
+          $('.nav.nav-tabs .city').append(optionCity);
+          if (el.name == selectedCity) {
+            optionCity.attr('selected', true);
+            var data = {
+              country: element.name,
+              city: el.name,
+              saleOrg: {
+                address: el.address,
+                phone: el.phone,
+                fax: el.fax,
+                email: el.email,
+                //其他信息
+                otherInfo: el.otherInfo
+              },
+              manageArea: el.manageArea
+            }
+            showInfo(data);
+          }
+        })
+      }
+      $('.nav.nav-tabs .country').append(option);
+    });
+    function showInfo(info) {
+      $('.tab-pane.active #result h2').prepend('<span>' + info.country + '-' + info.city + '</span>')
+      //表格显示
+      $('.tab-pane.active #country_td').text(info.country);
+      $('.tab-pane.active #city_td').text(info.city);
+      //显示销售机构
+      let saleOrg = '地址：' + info.saleOrg.address + '\r电话：' + info.saleOrg.phone;
+      if (info.saleOrg.otherInfo) {
+        saleOrg += info.saleOrg.otherInfo;
+      }
+      $('.tab-pane.active #orderdept_td').html(saleOrg);
+      //显示管理区域
+      $('.tab-pane.active #area_td').html(info.manageArea);
+      //机场
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function servicePlugin() {
+      var chinaJson = [{
+        "baggage": "遗失／损坏行李<\/br >地址：新疆阿克苏红旗坡飞机场<\/br >电话：0997-2597558<\/br >传真：0997-2597558<\/br >email：<\/br >办公时间：当地航班起降时间<\/br >",
+        "region": "中国", "airport": "名称：新疆阿克苏机场<\/br >地址：阿克苏红旗坡飞机场<\/br >电话：0997-2541861<\/br >传真：0997-2597558<\/br >email：<\/br >办公时间：当地航班起降时间<\/br >",
+        "organization": "名称：新疆阿克苏市滨河路10号天缘国际酒店1楼大厅<\/br >电话： 0997-2152777；<\/br >传真:  0997-2152777<\/br >", "title": "中国-阿克苏销售机构", "area": "", "city": "阿克苏"
+      },
+      {
+        "baggage": "", "region": "中国", "airport": "名称：广州白云国际机场", "organization": "地址1：广州白云国际机场<\/br >电话： 020-95539  <\/br >地址2：广州市环市西路181号2楼<\/br >电话： 020-95539",
+        "title": "中国-广州销售机构", "area": "", "city": "广州"
+      }];
+
+      var globalJson = [{
+        "baggage": "遗失／损坏行李<\/br >地址：<\/br >电话：<\/br >传真：<\/br >email：<\/br >", "region": "阿拉伯联合酋长国",
+        "airport": "名称：迪拜机场<\/br >地址：<\/br >电话：<\/br >传真：<\/br >Email:<\/br >办公时间：<\/br >", "organization": "地址：迪拜巴迪拜区阿勒马克呼街阿勒瑞斯中心（大楼）M层<\/br >电话： 0097-142218888; <\/br >传真：0097-142283553<\/br >邮箱: czsales@csair.ae",
+        "title": "阿拉伯联合酋长国-迪拜销售机构", "area": "Middle East Area and Africa (Iran, Israel, Afghanistan, Cyprus, Morocco, Algeria, Tunisia, Southern Africa and Jeddah Office's administrative area excluded)", "city": "迪拜"
+      },
+      {
+        "baggage": "遗失／损坏行李<\/br >地址：arrival hall, Level&nbsp;0, terminal 1,Heydar Aliyev International Airport <\/br >电话:00994-12-4972600-7880/4362<\/br >传真：<\/br >email:lostfoundghc@gmail.com,wt@azal.az", "region": "阿塞拜疆共和国",
+        "airport": "名称：Heydar Aliyev International Airport  <\/br >地址：Room,level&nbsp;01,terminal 1,Heydar Aliyev International Airport <\/br >电话：00994-12-4972727<\/br >传真：<\/br >Email:baku@csair.com<\/br >办公时间：<\/br >网站：http://airport.az/en/about-us/contacts/",
+        "organization": "地址:10th Floor, babek plaza, babek avenue,khatai district,A.guliyev street1131,baku,azerbaijan<\/br >电话:00994-12-4880666; <\/br >Fax:00994-12-4880668;<\/br >email: baku@csair.com", "title": "阿塞拜疆共和国-巴库销售机构", "area": "", "city": "巴库"
+      }];
+
+      var vipJson = [{ "baggage": "", "region": "中国", "airport": "", "organization": "名称：鞍钢集团接待服务公司<\/br>地址：鞍山市铁东区东风街108号<\/br>电话：5592155 / 5592156 / 5592506<\/br>营业时间： <\/br>", "title": "中国 - 鞍山", "area": "", "city": "鞍山" },
+      { "baggage": "", "region": "中国", "airport": "", "organization": "名称：包头翔达航空商务有限公司<\/br>地址：包头市昆区民族东路67-6号<\/br>电话：0472-6969696 / 0472-6969696 / 0472-6988988<\/br>营业时间： <\/br>名称：包头市新中华航空服务有限责任公司<\/br>地址：包头市青山区振华小区底店7号<\/br>电话：15848252888 / 15848252888 / 2850888<\/br>营业时间： <\/br>", "title": "中国 - 包头", "area": "", "city": "包头" }];
+
+
+      /*初始化*/
+      var country = "";
+      var city = "";
+      country = "中国";
+      if (country == "中国") { city = "广州" };
+
+
+      countrylist(country, chinaJson);
+      citylist(city, country, chinaJson);
+      requercity(city, country, chinaJson);
+
+      /*国家城市联动*/
+      $("#country").change(function () {
+        var szm = "";
+        var country = $(this).val();
+        if (country == "中国") { szm = "广州" }
+        citylist(szm, country, chinaJson);
+      });
+
+      $("#sumbitthis").click(function () {
+        var city = $("#cname_city1").val();
+        var country = $("#country").val();
+        requercity(city, country, chinaJson);
+      });
+
+
+
+      function requercity(city, country, json) {
+        var tempvar_a = false;
+        var tempvar_b = false;
+        var thisrow = null;
+        var object = null;
+        country ? "" : country = json[0].region.split(' ')[0];
+        city ? "" : city = json[0].city.split(' ')[0];
+        for (var i = 0; i < json.length; i++) {
+          object = json[i];
+          if (object.region.indexOf(country) !== -1) {
+            tempvar_a = true;
+          }
+          if (object.city.indexOf(city) !== -1) {
+            tempvar_b = true;
+            //香港的话，只需匹配城市名
+            if (city == "香港") {
+              tempvar_a = true;
+            }
+          }
+          if (tempvar_a && tempvar_b) {
+            thisrow = object;
+            break;
+          }
+        }
+        if (tempvar_a && tempvar_b) {
+          $("#countrycity").html(country + "-" + city);
+          if (thisrow) {
+            $('#country_td').html(thisrow.region);
+            $('#city_td').html(thisrow.city);
+            $('#area_td').html(thisrow.area);
+            $('#orderdept_td').html(thisrow.organization);
+            $('#airport_td').html(thisrow.airport);
+            $('#luggage_td').html(thisrow.baggage);
+          }
+        } else {
+          $("#errinfo").html("抱歉！" + country + "-" + city + "没有南航办事处。").fadeIn("slow").fadeOut(3000);;
+        }
+        if (country == "中国") { $("#area_tr").css("display", "none"); } else { $("#area_tr").css("display", ""); }
+
+      }
+      function countrylist(countrystr, json) {
+        $('#country').html('');
+        var optionArray = [];
+        var flag = true;
+        json.map(function (object1) {
+          flag = true;
+          if (optionArray.length === 0) {
+            optionArray.push(object1.region.split(' ')[0]);
+          } else {
+            optionArray.map(function (object2) {
+              if (object2 == object1.region.split(' ')[0]) {
+                flag = false;
+                return false;
+              }
+            })
+            if (flag) {
+              optionArray.push(object1.region.split(' ')[0]);
+              //console.log("+:"+object1.region.split(' ')[0]);
+            }
+          }
+        });
+        optionArray.map(function (object3, n) {
+          var option;
+          if (object3 == countrystr || (!countrystr && n === 0)) {
+            option = $("<option></option>").val(object3).text(object3).attr({ selected: "selected" });
+          } else {
+            option = $("<option></option>").val(object3).text(object3);
+          }
+          $('#country').append(option);
+        });
+        var cityD = ''
+        if (countrystr == "中国") {
+          cityD = "广州";
+        }
+        citylist(cityD, $('#country option[selected=selected]').text(), json);
+      }
+      function citylist(defaultcity, countrystr, json) {
+        $("#cname_city1").html('');
+        countrystr ? "" : json[0].region.split(' ')[0];
+        var cityArray = [];
+        json.map(function (object1) {
+          if (object1.region.split(' ')[0] === countrystr) {
+            cityArray.push(object1);
+          }
+        });
+        var optionArray = [];
+        var flag = true;
+        cityArray.map(function (object1) {
+          flag = true;
+          if (optionArray.length === 0) {
+            optionArray.push(object1.city.split(' ')[0]);
+          } else {
+            optionArray.map(function (object2) {
+              if (object2 == object1.city.split(' ')[0]) {
+                flag = false;
+                return false;
+              }
+            })
+            if (flag) {
+              optionArray.push(object1.city.split(' ')[0]);
+              //console.log("+:"+object1.region.split(' ')[0]);
+            }
+          }
+        });
+        optionArray.map(function (object3, n) {
+          var option;
+          if (object3 == defaultcity || (!defaultcity && n === 0)) {
+            option = $("<option></option>").val(object3).text(object3).attr({ selected: "selected" });
+          } else {
+            option = $("<option></option>").val(object3).text(object3);
+          }
+          $("#cname_city1").append(option);
+        })
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>

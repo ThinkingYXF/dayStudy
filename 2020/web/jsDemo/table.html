@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .tableContainer{
+            position: relative;
+            width: inherit;
+            overflow: hidden;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+        .table-left{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 70px;
+            background: #fff;
+        }
+        .table-right{
+            position: absolute;
+            left: auto;
+            top: 0;
+            right: 0;
+            width: 90px;
+            background: #fff;
+        }
+        .table{
+            overflow-x: auto;
+        }
+        .table-hidden{
+            visibility: hidden;
+        }
+        th, td{
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="tableContainer">
+        <div class="table-left">
+            <table border="1">
+                <thead>
+                    <th>名称</th>
+                    <th class="table-hidden">年龄</th>
+                    <th class="table-hidden">爱好</th>
+                    <th class="table-hidden">家乡</th>
+                    <th class="table-hidden">身高</th>
+                    <th class="table-hidden">体重</th>
+                    <th class="table-hidden">性别</th>
+                    <th class="table-hidden">学校</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>阿萨德了</td>
+                        <td class="table-hidden">阿萨德了1</td>
+                        <td class="table-hidden">阿萨德了2</td>
+                        <td class="table-hidden">阿萨德了3</td>
+                        <td class="table-hidden">阿萨德了4</td>
+                        <td class="table-hidden">阿萨德了5</td>
+                        <td class="table-hidden">阿萨德了6</td>
+                        <td class="table-hidden">阿萨德了7</td>
+                    </tr>
+                    <tr>
+                        <td>请问</td>
+                        <td class="table-hidden">阿萨德了1</td>
+                        <td class="table-hidden">阿萨德了2</td>
+                        <td class="table-hidden">阿萨德了3</td>
+                        <td class="table-hidden">阿萨德了4</td>
+                        <td class="table-hidden">阿萨德了5</td>
+                        <td class="table-hidden">阿萨德了6</td>
+                        <td class="table-hidden">阿萨德了7</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table">
+            <table border="1">
+                <thead>
+                    <th class="table-hidden">名称</th>
+                    <th>年龄</th>
+                    <th>爱好</th>
+                    <th>家乡</th>
+                    <th>身高</th>
+                    <th>体重</th>
+                    <th>性别</th>
+                    <th>学校</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table-hidden">阿萨德了</td>
+                        <td>阿萨德了11</td>
+                        <td>阿萨德了22</td>
+                        <td>阿萨德了33</td>
+                        <td>阿萨德了44</td>
+                        <td>阿萨德了55</td>
+                        <td>阿萨德了66</td>
+                        <td>阿萨德了77</td>
+                    </tr>
+                    <tr>
+                        <td class="table-hidden">请问</td>
+                        <td>阿萨德了11</td>
+                        <td>阿萨德了22</td>
+                        <td>阿萨德了33</td>
+                        <td>阿萨德了44</td>
+                        <td>阿萨德了55</td>
+                        <td>阿萨德了66</td>
+                        <td>阿萨德了77</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-right">
+            <table border="1">
+                <thead>
+                    <th>学校</th>
+                    <th class="table-hidden">年龄</th>
+                    <th class="table-hidden">爱好</th>
+                    <th class="table-hidden">家乡</th>
+                    <th class="table-hidden">身高</th>
+                    <th class="table-hidden">体重</th>
+                    <th class="table-hidden">性别</th>
+                    <th class="table-hidden">学校</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>阿萨德了7</td>
+                        <td class="table-hidden">阿萨德了1</td>
+                        <td class="table-hidden">阿萨德了2</td>
+                        <td class="table-hidden">阿萨德了3</td>
+                        <td class="table-hidden">阿萨德了4</td>
+                        <td class="table-hidden">阿萨德了5</td>
+                        <td class="table-hidden">阿萨德了6</td>
+                        <td class="table-hidden">阿萨德了7</td>
+                    </tr>
+                    <tr>
+                        <td>阿萨德了7</td>
+                        <td class="table-hidden">阿萨德了1</td>
+                        <td class="table-hidden">阿萨德了2</td>
+                        <td class="table-hidden">阿萨德了3</td>
+                        <td class="table-hidden">阿萨德了4</td>
+                        <td class="table-hidden">阿萨德了5</td>
+                        <td class="table-hidden">阿萨德了6</td>
+                        <td class="table-hidden">阿萨德了7</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

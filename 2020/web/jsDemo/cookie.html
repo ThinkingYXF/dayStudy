@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function cookieSettings(cookieKey){
+            //定义过期时间（毫秒数）
+            const expireTime = 3 * 60 * 1000;
+            //获取cookie
+            function getCookie(sKey) {
+                var aCookie = document.cookie.split("; ");
+                var result = "";
+                for(var i = 0; i < aCookie.length; i++) {
+                    var aCook = aCookie[i].split("=");
+                    if(aCook[0] === sKey) {
+                        result = aCook[1];
+                    }
+                }
+                return result;
+            }
+            //设置cookie
+            function setCookie(sKey, value){
+                var date = new Date();
+                //存储当前设置cookie时的时间戳
+                localStorage.setItem('cookieEndTime', date.getTime());
+                var time = date.getTime() + expireTime;
+                date.setTime(time);
+                document.cookie = sKey + "=" + value + "; expires="+date.toString();
+            }
+            function guid() {
+                function S4() {
+                    return(((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+                }
+                return(S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4());
+            }
+
+            var skey = cookieKey;
+            var val = getCookie(skey);
+            if(val){
+                var nowTime = new Date().getTime();
+                var lastTime = localStorage.getItem('cookieEndTime');
+                //表示有cookie 并且过期了
+                if(lastTime && (nowTime - parseInt(lastTime)) > expireTime){
+                    setCookie(skey, guid());
+                }else{
+                    setCookie(skey, val);
+                }
+            }else{
+                setCookie(skey, guid());
+            }
+        }
+        
+        cookieSettings('abc', 1122);
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+	<script src="../js/lib/jquery-1.11.1.js"></script>
+	<script>
+		function extend(){
+			var args = arguments;
+			if(args.length < 1)
+				return;
+			else if(args.length == 1)
+				return args[0];
+			else{
+				var resultObj = copyObj(args[0]);
+				for(var i = 1; i < args.length; i++){
+					for(var k in args[i]){
+						resultObj[k] = args[i][k];
+					}
+				}
+				return resultObj;
+			}
+		}
+		function copyObj(obj){
+			if(typeof obj != 'object')
+				return obj;
+			var newObj = {};
+			for(var k in obj){
+				newObj[k] = copyObj(obj[k]);
+			}
+			return newObj;
+		}
+		var a = {
+			name: 'zhao',
+			age: 22,
+			friends: {
+				name: 'zhao1'
+			}
+		}
+		var b = {
+			name: 'qian',
+			age: 30
+		}
+		var c = {
+			name: 'sun',
+			age: 40,
+			friends: {
+				age: 50,
+				height: '178cm',
+				weight: '60kg'
+			}
+		}
+		console.log(extend(a,b,c));
+
+
+		//axio封装测试
+		function Demo(){
+			this.name = 'abc';
+		}
+		Demo.prototype.request = function(){
+			return Promise.resolve();
+		}
+		var test = function(){
+			var a = new Demo();
+			let interface = bind(Demo.prototype.request, a);
+			$.extend(interface, Demo.prototype, a);
+			$.extend(interface, a);
+			return interface;
+		};
+		function bind(fn, thisArg) {
+			return function wrap() {
+				var args = new Array(arguments.length);
+				for (var i = 0; i < args.length; i++) {
+					args[i] = arguments[i];
+				}
+				return fn.apply(thisArg, args);
+			};
+		}
+		var axios = test();
+		axios.post = function(){
+			console.log(11);
+		}
+		console.log(axios.prototype, typeof axios.prototype);
+	</script>
+</body>
+</html>

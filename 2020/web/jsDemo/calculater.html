@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>calculator</title>
+  <style>
+    *,body{
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+    }
+    .wrapper{
+      width: 197px;
+      height: 400px;
+      margin: 30px auto;
+    }
+    .wrapper .input .showInput{
+      width: 195px;
+      border: none;
+      line-height: 30px;
+      outline: none;
+      text-align: right;
+    }
+    .wrapper .input .result{
+      width: 195px;
+      text-align: right;
+      line-height: 30px;
+      height: 30px;
+      color: #ccc;
+      font-size: 14px;
+    }
+    .wrapper .main{
+      height: 300px;
+      overflow: auto;
+      border-top: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    .wrapper .main > div{
+      float: left;
+      width: 48px;
+      border: 1px solid #ccc;
+      margin-top: -1px;
+      margin-right: -1px;
+      text-align: center;
+      line-height: 50px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  
+  <div class="wrapper">
+    <div class="input">
+      <input type="text" class="showInput" readonly>
+      <div class="result"></div>
+    </div>
+    <div class="main">
+        <div class="clear">c</div>
+        <div class="operator except">÷</div>
+        <div class="operator multiply">×</div>
+        <div class="delete">←</div>
+        <div class="seven">7</div>
+        <div class="eight">8</div>
+        <div class="nine">9</div>
+        <div class="operator minus">-</div>
+        <div class="four">4</div>
+        <div class="five">5</div>
+        <div class="six">6</div>
+        <div class="operator add">+</div>
+        <div class="one">1</div>
+        <div class="two">2</div>
+        <div class="three">3</div>
+        <div class="equal">=</div>
+        <div class="">&nbsp;</div>
+        <div class="zero">0</div>
+        <div class="">&nbsp;</div>
+        <div class="">&nbsp;</div>
+    </div>
+  </div>
+  <script>
+    //制作一个简易计算器
+    var Calculator = function(){
+      this.leftfVal = '';
+      this.rightVal = '';
+      this.resultVal = '';//结果
+      this.showVal = '';//展示值
+
+      this.operator = '';//运算符
+      this.isClickOperator = false;//是否点击运算符
+    }
+    Calculator.prototype.init = function(isClear){
+      this.leftfVal = this.resultVal;
+      this.rightVal = '';
+      this.resultVal = '';
+
+      this.operator = '';
+      this.isClickOperator = false;
+      if(isClear){
+        this.leftfVal = '';
+        this.showVal = '';
+        this.show();
+      }
+    }
+    Calculator.prototype.add = function(){
+      return parseInt(this.leftfVal) + parseInt(this.rightVal);
+    }
+    Calculator.prototype.minus = function(){
+      return parseInt(this.leftfVal) - parseInt(this.rightVal);
+    }
+    Calculator.prototype.multiply = function(){
+      return parseInt(this.leftfVal) * parseInt(this.rightVal);
+    }
+    Calculator.prototype.except = function(){
+      return parseInt(this.leftfVal) / parseInt(this.rightVal);
+    }
+    Calculator.prototype.getClickVal = function(val, className){
+      if(className == 'clear'){
+        calculator.init(true);
+        return;
+      }else if(className == 'delete'){
+        let last = this.showVal.substr(0, this.showVal.length-1);
+        let removed = this.showVal.substr(this.showVal.length-1);
+        this.showVal = last;
+        if(removed == ''){
+
+        }
+        this.show();
+      }
+      else if(className == 'equal'){
+        this.resultVal = calculator[this.operator](this.leftfVal, this.rightVal);
+        this.showVal = this.resultVal;
+        this.show();
+        this.init();
+      }else{
+        this.showVal += val;
+        this.show();
+      }
+      //判断输入的为数字
+      if(!isNaN(parseInt(val))){
+        if(!this.isClickOperator)
+          this.leftfVal += val;
+        else
+          this.rightVal += val;
+        return val;
+      }
+      //判断输入的运算符+-*/
+      else if(className.indexOf('operator') != -1){
+        this.isClickOperator = true;
+        className = className.slice(9);
+        this.operator = className;
+      }
+      return className;
+    }
+    Calculator.prototype.show = function(){
+      document.querySelector('.showInput').value = this.showVal;
+    }
+    let calculator = new Calculator();
+    let main = document.querySelector('.main');
+    let divs = main.getElementsByTagName('div');
+    divs = Array.prototype.slice.call(divs);
+    divs.forEach(element => {
+      element.onclick = function(){
+        let val = this.innerText;
+        let className = this.className;
+        calculator.getClickVal(val, className);
+      }
+    });
+  </script>
+</body>
+</html>

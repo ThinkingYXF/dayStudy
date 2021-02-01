@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button class="btn">按钮</button>
+
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        myName = '';
+        $(document).ready(function(){
+            var a = 0;
+            $('.btn').click(function(){
+                // $('audio').remove();
+                a++;
+                var audio = $('<audio />').prop('src','../images/messaging.wav').appendTo($('body'));
+                document.getElementsByTagName('audio')[0].play();
+                
+                // var audio = new Audio('../images/messaging.wav',function(){
+                //     console.log('aa');
+                // });
+                // audio.play();
+                if(audio.ended)
+                    $('audio').remove();
+                else{
+                    var timer = setInterval(function(){
+                        myName = audio;
+                        if(audio.ended){
+                            clearInterval(timer);
+                            $('audio').remove();
+                        }
+                    },500);
+                }
+
+                if(a == 2){
+                    a = 0;
+                    return false;
+                }
+                $('.btn').trigger('click');
+            });
+        });
+    </script>
+</body>
+</html>

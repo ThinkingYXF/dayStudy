@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/dist/css/AdminLTE.min.css">    
+    <link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/dist/css/skins/_all-skins.min.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">    
+    <link rel="stylesheet" href="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/css/bootstrap.min.css">
+    <style>
+        .wrapper{
+            width: 80%;
+            margin: 20px auto;
+        }
+        .rowInfo{
+            padding-top: 20px;
+        }
+        .progress-bar-red{
+            background-color: #dd4b39;
+        }
+        .progress-bar-aqua{
+            background-color: #00c0ef;
+        }
+        .progress-bar-green{
+            background-color: #00a65a;
+        }
+        .progress-bar-yellow{
+            background-color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>150</h3>
+
+                    <p>New Orders</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                    <p>Bounce Rate</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>44</h3>
+
+                    <p>User Registrations</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>65</h3>
+
+                    <p>Unique Visitors</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+
+
+        <!-- Info boxes -->
+        <div class="row rowInfo">
+            <div class="col-md-3 col-sm-6 col-xs-12 dashboard">
+                <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">CPU Traffic</span>
+                    <span class="info-box-number">90<small>%</small></span>
+                </div>
+                <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12 dashboard">
+                <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Likes</span>
+                    <span class="info-box-number">41,410</span>
+                </div>
+                <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix visible-sm-block"></div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12 dashboard">
+                <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Sales</span>
+                    <span class="info-box-number">760</span>
+                </div>
+                <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12 dashboard">
+                <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">New Members</span>
+                    <span class="info-box-number">2,000</span>
+                </div>
+                <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+        <div class="row">   
+            <div class="col-md-4">
+                <p class="text-center">
+                    <strong>Goal Completion</strong>
+                </p>
+
+                <div class="progress-group">
+                    <span class="progress-text">Add Products to Cart</span>
+                    <span class="progress-number"><b>160</b>/200</span>
+
+                    <div class="progress sm">
+                    <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+                    </div>
+                </div>
+                <!-- /.progress-group -->
+                <div class="progress-group">
+                    <span class="progress-text">Complete Purchase</span>
+                    <span class="progress-number"><b>310</b>/400</span>
+
+                    <div class="progress sm">
+                    <div class="progress-bar progress-bar-red" style="width: 77.5%"></div>
+                    </div>
+                </div>
+                <!-- /.progress-group -->
+                <div class="progress-group">
+                    <span class="progress-text">Visit Premium Page</span>
+                    <span class="progress-number"><b>480</b>/800</span>
+
+                    <div class="progress sm">
+                    <div class="progress-bar progress-bar-green" style="width: 60%"></div>
+                    </div>
+                </div>
+                <!-- /.progress-group -->
+                <div class="progress-group">
+                    <span class="progress-text">Send Inquiries</span>
+                    <span class="progress-number"><b>250</b>/500</span>
+
+                    <div class="progress sm">
+                    <div class="progress-bar progress-bar-yellow" style="width: 50%"></div>
+                    </div>
+                </div>
+                <!-- /.progress-group -->
+            </div>
+
+            <div class="col-md-4">
+                <!-- Info Boxes Style 2 -->
+                <div class="info-box bg-yellow">
+                    <span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
+        
+                    <div class="info-box-content">
+                    <span class="info-box-text">Inventory</span>
+                    <span class="info-box-number">5,200</span>
+        
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 50%"></div>
+                    </div>
+                        <span class="progress-description">
+                            50% Increase in 30 Days
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="ion ion-ios-heart-outline"></i></span>
+        
+                    <div class="info-box-content">
+                    <span class="info-box-text">Mentions</span>
+                    <span class="info-box-number">92,050</span>
+        
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 20%"></div>
+                    </div>
+                        <span class="progress-description">
+                            20% Increase in 30 Days
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box bg-red">
+                    <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
+        
+                    <div class="info-box-content">
+                    <span class="info-box-text">Downloads</span>
+                    <span class="info-box-number">114,381</span>
+        
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 70%"></div>
+                    </div>
+                        <span class="progress-description">
+                            70% Increase in 30 Days
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box bg-aqua">
+                    <span class="info-box-icon"><i class="ion-ios-chatbubble-outline"></i></span>
+        
+                    <div class="info-box-content">
+                    <span class="info-box-text">Direct Messages</span>
+                    <span class="info-box-number">163,921</span>
+        
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 40%"></div>
+                    </div>
+                        <span class="progress-description">
+                            40% Increase in 30 Days
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script src="../js/resources/vendor/AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../js/resources/vendor/AdminLTE-2.3.11/dist/js/app.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var dashboard = $('.dashboard');
+            $.getJSON('../json/dashboard.json',function(json){
+                dashboard.each(function(i,v){
+                    $(this).find('.info-box-text').text(json[i]['key']);
+                    $(this).find('.info-box-number').text(json[i]['value']);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

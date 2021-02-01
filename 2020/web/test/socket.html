@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>     
+
+        <button class="btn">打印</button>
+    <script src="../js/socket.io.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>-->
+    <script src="../js/resources/vendor/AdminLTE-2.3.11/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!--<script src="jquery-3.1.1.js"></script>-->
+    
+    <script>
+        $(function(){
+            // 创建一个Socket实例
+            // var socket = new WebSocket('ws://localhost'); 
+            
+            // // 打开Socket 
+            // socket.onopen = function(event) { 
+            
+            //     // 发送一个初始化消息
+            //     socket.send('I am the client and I\'m listening!'); 
+                
+            //     // 监听消息
+            //     socket.onmessage = function(event) { 
+            //         console.log('Client received a message',event); 
+            //     }; 
+                
+            //     // 监听Socket的关闭
+            //     socket.onclose = function(event) { 
+            //         console.log('Client notified socket has closed',event); 
+            //     }; 
+            
+            // // 关闭Socket.... 
+            // //socket.close() 
+            // };
+            // console.log();
+            var hostpath = window.location.host;
+            var socket = io.connect(hostpath+'/socket.io');
+
+            socket.on('connect',function(datas){
+                console.log("ArrowIM-------链接成功", datas);
+
+            });
+            
+            socket.on('news', function (data) {
+                console.log(data);
+                // 发送事件到服务端
+                socket.emit('my other event', { my: 'data' });
+            });
+
+            $('.btn').click(function(){
+                window.print();
+            })
+        })
+    </script>
+    </body>
+</html>

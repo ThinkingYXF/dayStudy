@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/" id="myForm">
+        账号<input type="text" name="name">
+        密码<input type="password" name="password">
+    </form>
+    <button class="btn">按钮</button>
+
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.btn').click(function(){
+                var params = $('#myForm').serialize();
+                console.log(params);
+                // $('#myForm').submit();
+            })
+        });
+    </script>
+</body>
+</html>

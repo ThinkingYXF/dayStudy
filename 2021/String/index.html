@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>String prototype</title>
+  <style>
+    h1,
+    h2,
+    h3,
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    .item {
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="item">
+      <div class="title">1. String.prototype.padStart：</div>
+      <div class="code">
+        <code>
+          "123".padStart(5, "a")
+        </code>
+        <code>{{"123".padStart(5, "a")}}</code>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="title">2. String.prototype.padEnd：</div>
+      <div class="code">
+        <code>
+          "123".padEnd(5, "a")
+        </code>
+        <code>{{"123".padEnd(5, "a")}}</code>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+    }
+  })
+</script>
+
+</html>

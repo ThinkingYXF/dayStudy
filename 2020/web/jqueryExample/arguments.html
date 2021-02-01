@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>arguments</title>
+</head>
+
+<body>
+  <button type="button" onclick="me()">按钮</button>
+  <script src="../js/lib/jquery-1.7.2.js"></script>
+  <script>
+    'use strict';
+    $(document).ready(function () {
+      var argumentFn = function () {
+        var arg = arguments;
+        var arr = Array.prototype.slice.call(arg);
+        console.log(arg, arr);
+      }
+      argumentFn(1, 'asd', [3, 2], { key: 'ad', age: 21, arr: { a: 1 } });
+    });
+    function me() {
+      console.log(1);
+    }
+  </script>
+</body>
+
+</html>

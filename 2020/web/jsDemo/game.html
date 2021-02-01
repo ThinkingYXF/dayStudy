@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    //投一枚硬币 正反概率一半， 赢得 1.95  输 1
+    
+    //假如一直输 则下一次需要投入的 xn = (x1+x2+x3+...+xn-1)/0.95
+    const n = 10;
+    var number = n;             //玩的次数
+    var firstBet = 1000;        //第一次投入的成本
+    var allLost = 0;            //第n次输 一共输的
+    var betN = 0;               //第n次需要投入的数 若赢了 才能回本
+    function gameStart(bet){
+      if(number < 2){
+        console.log('连输'+(n-1)+'次,第'+n+'次需要投入的数为：' + betN);
+        return false;
+      }
+      allLost = parseFloat(bet)/0.95 + bet;
+      number -= 1;
+      betN = allLost/1.95;
+      gameStart(allLost);
+    }
+    gameStart(firstBet);
+  </script>
+</body>
+</html>

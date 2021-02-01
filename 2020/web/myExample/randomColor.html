@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		#div{
+			background: red;
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div id="div"></div>
+	<button id="btn">停止</button>
+	<script>
+		window.onload = function(){
+			function randomNumber(number){
+				return parseInt(Math.random()*number);
+			}
+			var div = document.getElementById('div');
+			var timer;
+			function startTimer(){
+				timer = setInterval(function(){
+					div.style.backgroundColor = 'rgb('+randomNumber(255)+','+randomNumber(255)+','+randomNumber(255)+')';
+				},200);
+			}
+			startTimer();
+			div.onclick = function(e){
+				startTimer();
+			}
+			document.getElementById('btn').onclick = function(){
+				clearInterval(timer);
+			}
+		}
+	</script>
+</body>
+</html>

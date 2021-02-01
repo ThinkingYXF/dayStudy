@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ball move</title>
+    <style>
+        .list{
+            list-style: none;
+            overflow: hidden;
+        }
+        .list li{
+            border: 1px solid #000;
+            margin: 0 -1px -1px 0;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    行: <input type="number" class="row">
+    列: <input type="number" class="col">
+    <button class="btn">生成</button>
+    <ul class="list"></ul>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.btn').click(deal);
+
+            function deal(){
+                var row = $('.row').val();
+                var col = $('.col').val();
+                if(row && col){
+                    var cellWidth = 50;
+                    var width = (cellWidth + 1) * row + 1;
+                    var height = (cellWidth + 1) * col + 1;
+                    $('.list').css({'width':width,'height': height});
+                    for(var i = 0; i < row * col; i++){
+                        var oLi = $('<li />').css({'width':cellWidth,'height':cellWidth});
+                        $('.list').append(oLi);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

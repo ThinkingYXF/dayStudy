@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>draggable</title>
+        <meta charset="utf-8">
+        <!-- <link rel="stylesheet" href="../js/resources/vendor/jquery-ui.css"> -->
+        <style>
+            .div1{
+                width: 200px;
+                height: 200px;
+                border: 1px solid #000;
+                overflow: auto;
+            }
+            .div2{
+                width: 150px;
+                height: 100px;
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="div1">
+            <h1>title</h1>
+            <div class="div2">
+                哈哈哈设计开发接口的环境卡刷道具卡回家看大家开始啊就开始大家看啥叫快递哈健康和
+                阿三大帝国哈师大感觉噶阿三倒萨的哈公司计划jgadasdasdj啊是单卡国行傻瓜达到
+                阿萨大大规划大纲和德国
+                哈哈哈设计开发接口的环境卡刷道具卡回家看大家开始啊就开始大家看啥叫快递哈健康和
+                阿三大帝国哈师大感觉噶阿三倒萨的哈公司计划jgadasdasdj啊是单卡国行傻瓜达到
+                阿萨大大规划大纲和德国哈哈哈设计开发接口的环境卡刷道具卡回家看大家开始啊就开始大家看
+            </div>
+            <h2>啥叫快递哈健康和
+            阿三大帝国哈师大感觉噶阿三倒萨的哈公司计划jgadasdasdj啊是单卡国行傻瓜达到
+            阿萨大大规划大纲和德国</h2>
+            
+        </div>
+        <script src="../js/lib/jquery-1.7.2.js"></script>
+        <script src="../js/resources/vendor/jquery-ui.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.div1').draggable({
+                    scroll: false,          //超过无滚动条
+                    containment: "document",//约束滚动外界不超过XXX
+                    // axis: 'x',           //只能垂直拖拽
+                    // axis: 'y',           //只能水平拖拽
+                    cancel:'.div2',         //内部某个节点不能触发拖动
+                    cursor: 'move',         //move pointer  crosshair default
+                    // handle: 'h1'         //哪里可以进行拖拽
+                });
+                $('.div1').draggable('option','scroll',false);
+            });
+        </script>
+    </body>
+</html>

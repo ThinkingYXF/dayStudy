@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div.demo{
+      height: 10000px;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo"></div>
+
+  <script>
+    class ScrollBar{
+      constructor(){
+        this.dom = '';
+        this.width = 0;
+        this.className = 'scrollBar';
+        this.cssVal = {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          height: '3px',
+          background: '#0A74DA',
+        }
+      }
+      init(){
+        this.dom = document.createElement('div');
+        this.dom.className = this.className;
+        for(let attr in this.cssVal){
+          this.dom.style[attr] = this.cssVal[attr];
+        }
+        document.body.appendChild(this.dom);
+        //firefox 
+        if (document.addEventListener) {
+          this.setWidth();
+        }
+        window.onmousewheel = document.onmousewheel = ()=>{
+          this.setWidth();
+        }
+      }
+      setWidth(){
+        var top = window.scrollY;
+        var bodyHeight = document.body.scrollHeight - window.innerHeight;
+        if(!top){
+          this.dom.style.width = 0;
+        }else{
+          this.dom.style.width = (top/bodyHeight).toFixed(2) * 100 + '%';
+        }
+      }
+    }
+    var scrollBar = new ScrollBar();
+    scrollBar.init();
+  </script>
+</body>
+</html>

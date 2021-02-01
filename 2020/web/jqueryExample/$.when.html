@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>$.when</title>
+</head>
+<body>
+    <p>第一</p>
+    <p>第二</p>
+    <p>第三</p>
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.when($.ajax('../json/data.json')).done(function(){
+                console.log('finished');
+            });
+
+            //jquery 将类数组转为数组  $.makeArray
+            var arr = document.getElementsByTagName('p');
+            console.log(arr);
+            arr = $.makeArray(arr);
+            console.log(arr);
+        });
+
+
+
+        var obj = {
+            arr: [1,2,3],
+            arr1: [2,3,4],
+            arr3: [3,4,5]
+        }
+        $.each(obj,function(k){
+            $.each(obj[k],function(j){
+                if(this == 2)
+                    return false;
+                console.log(k,this);
+            })
+        })
+    </script>
+</body>
+</html>

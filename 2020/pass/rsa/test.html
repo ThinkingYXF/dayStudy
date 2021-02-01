@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./jsencrypt.js"></script>
+</head>
+
+<body>
+
+  <script>
+    function rasEncrypt(input) {
+      var publicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCDSsM7GPsZzpWg8mX3St6inIUg3dYk9xQCxXm3OrmT8oIZDDDFNqxOcQFHw+G2y9oXY77csOV9ZmjIPCtjGcr3ax0qyQfqltplYmmq4MgxejU4nS9cGeOHMV3Z9ubhmQnLxhIzcidWwFWMLAp1AwjUD72LYaG+YSkV/qwXl9uDIQIDAQAB';
+      var encrypt = new JSEncrypt();
+      encrypt.setPublicKey(publicKey);
+      var password = encrypt.encrypt(input);
+      console.log(password);
+      return 'LOGINPASSWORD' + encodeURIComponent(password);
+    }
+    rasEncrypt('qq123456');
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>my test datatables</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+        <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/be7019ee387/integration/jqueryui/dataTables.jqueryui.css"/>
+        <style>
+            .dataTables_wrapper {min-width: 400px;}
+            th, td { white-space: nowrap; }
+        </style>
+    </head>
+    <body>     
+    
+        <!-- 表格开始 -->
+        <table id="example" class="display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+            </thead>
+        
+            <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+            </tfoot>
+        
+            <tbody>
+            <tr>
+                <td>Cara Stevens</td>
+                <td>Sales Assistant</td>
+                <td>New York</td>
+                <td>46</td>
+                <td>2011/12/06</td>
+                <td>$145,600</td>
+            </tr>
+            <tr>
+                <td>Hermione Butler</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>47</td>
+                <td>2011/03/21</td>
+                <td>$356,250</td>
+            </tr>
+            <tr>
+                <td>Lael Greer</td>
+                <td>Systems Administrator</td>
+                <td>London</td>
+                <td>21</td>
+                <td>2009/02/27</td>
+                <td>$103,500</td>
+            </tr>
+            <tr>
+                <td>Jonas Alexander</td>
+                <td>Developer</td>
+                <td>San Francisco</td>
+                <td>30</td>
+                <td>2010/07/14</td>
+                <td>$86,500</td>
+            </tr>
+            <tr>
+                <td>Shad Decker</td>
+                <td>Regional Director</td>
+                <td>Edinburgh</td>
+                <td>51</td>
+                <td>2008/11/13</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Michael Bruce</td>
+                <td>Javascript Developer</td>
+                <td>Singapore</td>
+                <td>29</td>
+                <td>2011/06/27</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Donna Snider</td>
+                <td>Customer Support</td>
+                <td>New York</td>
+                <td>27</td>
+                <td>2011/01/25</td>
+                <td>$112,000</td>
+            </tr>
+            <tr>
+                <td>Cara Stevens</td>
+                <td>Sales Assistant</td>
+                <td>New York</td>
+                <td>46</td>
+                <td>2011/12/06</td>
+                <td>$145,600</td>
+            </tr>
+            <tr>
+                <td>Hermione Butler</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>47</td>
+                <td>2011/03/21</td>
+                <td>$356,250</td>
+            </tr>
+            <tr>
+                <td>Lael Greer</td>
+                <td>Systems Administrator</td>
+                <td>London</td>
+                <td>21</td>
+                <td>2009/02/27</td>
+                <td>$103,500</td>
+            </tr>
+            <tr>
+                <td>Jonas Alexander</td>
+                <td>Developer</td>
+                <td>San Francisco</td>
+                <td>30</td>
+                <td>2010/07/14</td>
+                <td>$86,500</td>
+            </tr>
+            <tr>
+                <td>Shad Decker</td>
+                <td>Regional Director</td>
+                <td>Edinburgh</td>
+                <td>51</td>
+                <td>2008/11/13</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Michael Bruce</td>
+                <td>Javascript Developer</td>
+                <td>Singapore</td>
+                <td>29</td>
+                <td>2011/06/27</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Aonna Snider</td>
+                <td>Customer Support</td>
+                <td>New York</td>
+                <td>57</td>
+                <td>2011/01/25</td>
+                <td>$112,000</td>
+            </tr>
+            <tr>
+                <td>Cara Stevens</td>
+                <td>Sales Assistant</td>
+                <td>New York</td>
+                <td>46</td>
+                <td>2011/12/06</td>
+                <td>$145,600</td>
+            </tr>
+            <tr>
+                <td>Hermione Butler</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>47</td>
+                <td>2011/03/21</td>
+                <td>$356,250</td>
+            </tr>
+            <tr>
+                <td>Lael Greer</td>
+                <td>Systems Administrator</td>
+                <td>London</td>
+                <td>21</td>
+                <td>2009/02/27</td>
+                <td>$103,500</td>
+            </tr>
+            <tr>
+                <td>Jonas Alexander</td>
+                <td>Developer</td>
+                <td>San Francisco</td>
+                <td>30</td>
+                <td>2010/07/14</td>
+                <td>$86,500</td>
+            </tr>
+            <tr>
+                <td>Shad Decker</td>
+                <td>Regional Director</td>
+                <td>Edinburgh</td>
+                <td>51</td>
+                <td>2008/11/13</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Michael Bruce</td>
+                <td>Javascript Developer</td>
+                <td>Singapore</td>
+                <td>29</td>
+                <td>2011/06/27</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Donna Snider</td>
+                <td>Customer Support</td>
+                <td>New York</td>
+                <td>27</td>
+                <td>2011/01/25</td>
+                <td>$112,000</td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- 表格结束 -->
+
+
+        
+        <div>
+            aksdjahdjh
+            <h1>asdadasd</h1>
+        </div>
+        <textarea name="" id="meme" cols="30" rows="10"></textarea>
+        <button class="btn">按钮</button>
+
+        <script src="../js/resources/vendor/AdminLTE-2.3.11/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <!--<script src="js/resources/vendor/AdminLTE-2.3.11/dist/js/app.min.js"></script>-->
+        <script src="../js/resources/js/base.js"></script>
+        <script src="../js/resources/js/message-plugin.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                var table = $("#example").DataTable({
+                        "dom": '<"top"fi>rt<"bottom"lp><"clear">',   //dom 定位
+                        "scrollY":300,                              //滚动轴 y方向
+                        "scrollCollapse":true,                      //数据较少时不产生空白 
+                        "scrollX":true,                            //开启横向滚动轴
+                        // "jQueryUI":true,
+                        "pagingType":"full_numbers",               //翻页的样式
+                        // "info":false,                               //隐藏表信息 
+                        // "paging":false,                            //取消翻页
+                        "columnDefs":[{                             
+                            "targets":[ 2 ],                        //排序  如果按第三行排序  若数据相同则按第四行排序
+                            "orderData":[ 2,3 ],
+                            "visible":false,                      //隐藏第三列
+                            "searchable":true                    //true表示可以按第三列关键字搜     false表示不可
+                        },{
+                            "targets":[ 0 ],
+                            "render":function(data,type,row){    //处理函数   列渲染
+                                return data +" ("+row.age+")";
+                            }
+                        }],
+                        "language":{                             
+                            "decimal":",",                      //格式化数字类型
+                            "thousands":".",
+                            "lengthMenu":"每页 _MENU_ 条记录",
+                            "zeroRecords":"没有找到记录",
+                            "info":"第 _PAGE_ 页（共 _PAGES_ 页）",
+                            "infoEmpty": "无记录",
+                            "infoFiltered": "(从 _MAX_ 条记录过滤)"
+                        },
+                        "order":[[2,"desc"]],             // 默认按第三行 降序排列
+                        "createdRow":function(row,data,index){           // 行回调函数
+                            if(data.salary.replace(/[\$,]/g,"")*1>100000){
+                                $("td",row).eq(5).css("color","red");
+                            }
+                        },
+                        "columns": [                //读html数据对象
+                            { "data": "name" },
+                            { "data": "position" },
+                            { "data": "office" },
+                            { "data": "age" },
+                            { "data": "start_date" },
+                            { "data": "salary" }
+                            ],
+                        "lengthMenu":[[4,8,12,-1],[4,8,12,"all"]],     //自定义长度菜单
+                        "displayLength":8,                    //默认加载 行数
+                        "drawCallback":function(){            //行分组   按第三列所属将行分组
+                            var api = this.api();
+                            var rows = api.rows({
+                                "page":"current"
+                            }).nodes();
+                            var last = null;
+                            api.column(2,{
+                                "page":"current"
+                            }).data().each(function(group,i){
+                                if(last!==group){
+                                    $(rows).eq(i).before("<tr class='group'><td colspan='5'>"+group+"</td></tr>");
+                                    last = group;
+                                }
+                            })
+                        }
+                    });
+
+                    $("#example").on("search.dt",function(){      //自定义事件
+                        console.log('搜索中。。。');
+                    }).on("order.dt",function(){
+                        console.log("排序ing");
+                    }).on("page.dt",function(){
+                        console.log("翻页ing");
+                    });
+
+                    $("#example tbody").on("click","tr",function(){  //点击一行时显示改行的数据   类型为伪数组格式
+                        var data = table.row(this).data();
+                        console.log(data);
+                    })
+            
+                    $('.btn').click(function(){
+                        console.log($("#meme").val());
+                    })
+        
+                    $('#meme').val('\n' +'你哈oh啊');
+
+
+
+
+            })
+        </script>
+    </body>
+</html>

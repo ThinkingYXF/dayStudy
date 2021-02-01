@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>jquery extend</title>
+        <style>
+            .div1{
+                width: 200px;
+                height: 200px;
+                background: linear-gradient(top,blue,#fff);
+                background: -webkit-linear-gradient(top,red,blue);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="div1">
+            hello world
+        </div>
+        <script src="../js/lib/jquery-1.7.2.js"></script>
+        <script>
+            $(document).ready(function(){
+                //$.extend       是给function jQuery添加静态属性或方法
+                //$.fn.extend    是给jquery对象添加属性或方法
+
+
+                //扩展jquery方法
+                $.extend({
+                    log:function(val){
+                        console.log(val);
+                    },
+                    myName:function(val){
+                        var h1 = $('<h1 />').text(val);
+                        $('body').append(h1);
+                    }
+                });
+                var name = 'zhao';
+                $.log(name);
+                $.myName(name);
+
+                //扩展jquery对象方法
+                $.fn.extend({
+                    change:function(val){
+                        $(this).html(val);
+                    },
+                    red:function(){
+                        $(this).css('color','red');
+                    }
+                });
+                var name1 = '你好';
+                $('.div1').change(name1);
+                $('.div1').red();
+            });
+        </script>
+    </body>
+</html>

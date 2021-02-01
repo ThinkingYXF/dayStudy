@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input">
+    <button id="btn">检查</button>
+    <script>
+        var reg = /(([-\da-zA-Z`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]*((\d+[a-zA-Z]+[-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+)|(\d+[-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+[a-zA-Z]+)|([a-zA-Z]+\d+[-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+)|([a-zA-Z]+[-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+\d+)|([-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+\d+[a-zA-Z]+)|([-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+[a-zA-Z]+\d+))[-\da-zA-Z`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]*)|([-\da-zA-Z]*((\d+[a-z]+[A-Z]+)|(\d+[a-z]+[a-zA-Z]+)|([A-Z]+\d+[a-z]+)|([A-Z]+[a-z]+\d+)|([a-z]+\d+[A-Z]+)|([a-z]+[A-Z]+\d+))[-\da-zA-Z]*)|([-a-zA-Z`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]*(([a-z]+[A-Z]+[-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+)|([a-z]+[-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+[A-Z]+)|([A-Z]+[a-z]+[-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+)|([A-Z]+[-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+[a-z]+)|([-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+[a-z]+[A-Z]+)|([-`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]+[A-Z]+[a-z]+))[-a-zA-Z`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]*))/;
+        document.getElementById('btn').onclick = function(){
+            var value = document.getElementById('input').value;
+            var result = testPass(value);
+            if(result === true){
+            // if(reg.test(value)){
+                console.log('true');
+            }else{
+                console.log('false', result);
+            }
+        }
+
+        function testPass(str){
+            var result = true;
+            var rC = {
+                lW:'[a-z]',
+                uW:'[A-Z]',
+                nW:'[0-9]',
+                sW:'[\\u0020-\\u002F\\u003A-\\u0040\\u005B-\\u0060\\u007B-\\u007E]'
+            };
+            function Reg(str, rStr){
+                var reg = new RegExp(rStr);
+                if(reg.test(str)) return true;
+                else return false;
+            }
+            if(str.length < 8){
+                result = '密码长度不少于8位';
+            }else{
+                var tR = {
+                    l:Reg(str, rC.lW),
+                    u:Reg(str, rC.uW),
+                    n:Reg(str, rC.nW),
+                    s:Reg(str, rC.sW)
+                };
+                if((tR.l && tR.u && tR.n) || (tR.l && tR.u && tR.s) || (tR.s && tR.u && tR.n) || (tR.s && tR.l && tR.n)){
+                    result = true;
+                }else{
+                    result = '您的密码必须含有“小写字母”、“大写字母”、“数字”、“特殊符号”中的任意三种';
+                }
+            }
+            return result;
+        }
+    </script>
+</body>
+</html>

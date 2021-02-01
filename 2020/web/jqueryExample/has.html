@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>has...selector</title>
+    <style>
+        ul{
+            list-style: none
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>first</li>
+        <li>second</li>
+        <li>third
+            <ul>
+                <li>third1</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <div class="not">
+        <p>dhajkshd</p>
+        <p id="not_p">1235412</p>
+    </div>
+    <input class="time" type="date" min="2017-09-01"/>
+    <script src="../js/lib/jquery-1.11.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('li').has('ul').css('backgroundColor','#ccc');
+
+            var notP = $('p').not($('#not_p'));             //不是 id=not_p 的p元素
+            console.log(notP.text());
+
+            var time = $('.time');
+            var data = new Date();
+            var nowYear = data.getFullYear();
+            var nowMonth = data.getMonth() + 1;
+            if(nowMonth < 10)
+                nowMonth = '0' + nowMonth;
+            var timeSet = nowYear + nowMonth;
+            time.prop('min',timeSet + '-01').prop('max',timeSet + '-30');
+        });
+    </script>
+</body>
+</html>

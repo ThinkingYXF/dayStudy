@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title>ajax连接池</title>
+    <body>
+
+        <script src="../js/lib/jquery-1.11.1.js"></script>
+        <script src="../js/ajaxContent.js"></script>
+        <script>
+            $(document).ready(function(){
+                function jsAjax(callback){
+                    var xmlHttp = new XMLHttpRequest();
+                    xmlHttp.open('GET','/json/data.json');
+                    xmlHttp.send();
+                    xmlHttp.onreadystatechange = function(){
+                        if(xmlHttp.readyState == 4){
+                            if(xmlHttp.status == 200){
+                                if($.isFunction(callback))
+                                    callback(xmlHttp.responseText);
+                            }else{
+                                console.log('error');
+                            }   
+                        }
+                    }
+                }
+                //将手机号 中中间四位 替换为 ****
+                var phone = '15720065516';
+                var reg= /(\d{3})(\d{4})(\d{4})/;
+                var result = phone.replace(reg,"$1****$3");    //$1 表示匹配第一个（）里的条件
+                console.log(result);                           //$2 表示匹配第二个（）里的条件
+                // jsAjax(function(json){
+                //     console.log(json);
+                // });
+            });
+        </script>
+    </body>
+</html>

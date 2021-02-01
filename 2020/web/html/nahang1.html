@@ -1,0 +1,73 @@
+<script>
+  /*要添加网点数据
+  1、将下面对象修改相应字段值
+    {
+      "city":"北京",                //城市
+      "airport":"北京首都国际机场",  //机场
+      "location":"F岛岛头"          //电子商务柜台
+      "time":"06:00-23:00",        //服务时间
+    }，
+  2、将修改后的对象加入到下面json数组中即可实现添加新数据
+  */
+  var json = [{
+      "city":"北京",                //城市
+      "airport":"北京首都国际机场",  //机场
+      "location":"F岛岛头",         //电子商务柜台
+      "time":"06:00-23:00"          //服务时间
+    },{
+      "city":"长春",
+      "airport":"长春龙嘉国际机场",
+      "location":"E-1柜台打印行程单",
+      "time":"6:00-最后出发的航班结束",
+    }]; 
+</script>
+<style type="text/css">
+  #current_city{font-size: 14px;line-height: 50px;color:  #088fd2;font-weight: bold;}
+  #city_list{width:530px;margin:10px 0;}
+  #city_list td{padding:5px 0; text-align:center;}
+</style>
+  <div class="special_tab2">
+    <div>请选择一个城市&nbsp;&nbsp;&nbsp;&nbsp; <select id="city_options"></select></div>
+    <div id="current_city">&gt;<span>北京-电子商务柜台</span>></div>
+    <table cellpadding="0" cellspacing="0" id="city_list">
+      <tbody>
+        <tr>
+          <td width="10%">城市</td>
+          <td width="25%">机场</td>
+          <td width="40%">电子商务柜台</td>
+          <td width="25%">服务时间</td>
+        </tr>
+        <tr>
+          <td class="city">北京</td>
+          <td class="airport">北京首都国际机场</td>
+          <td class="address">F岛岛头</td>
+          <td class="time">06:00-23:00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<script>
+  var city = '北京';
+  $('.special_tab2 #city_options').html('');
+  json.forEach(element=>{
+    var option = $('<option />').val(element.city).text(element.city);
+    $('.special_tab2 #city_options').append(option);
+  });
+  $('.special_tab2 #city_options').val(city);
+  $('.special_tab2 #city_options').change(function(){
+    init($(this).val());
+  });
+  init(city);
+  function init(city){
+    $('.special_tab2 #current_city span').html(city + '-电子商务柜台');
+    json.forEach(element=>{
+      if(element.city == city){
+        $('.special_tab2 .city').html(element.city);
+        $('.special_tab2 .airport').html(element.airport);
+        $('.special_tab2 .address').html(element.location);
+        $('.special_tab2 .time').html(element.time);
+      }
+    });
+  }
+</script>
